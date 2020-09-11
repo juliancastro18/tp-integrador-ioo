@@ -1,3 +1,4 @@
+package modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -47,7 +48,5 @@ public class Envio extends Entrega{
 	public void setUbicacion(Ubicacion ubicacion) {
 		this.ubicacion = ubicacion;
 	}
-	
-	
 	
 }
