@@ -1,4 +1,4 @@
-package tpIntegrador;
+package modelo;
 
 public class Articulo {
 	private int id;

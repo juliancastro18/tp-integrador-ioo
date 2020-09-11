@@ -1,4 +1,4 @@
-package tpIntegrador;
+package modelo;
 
 public class ItemCarrito{
 	private Articulo articulo;

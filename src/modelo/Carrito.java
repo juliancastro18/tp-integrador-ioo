@@ -1,4 +1,4 @@
-package tpIntegrador;
+package modelo;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,9 +10,9 @@ public class Carrito{
 	private LocalTime hora;
 	private boolean cerrado;
 	private double descuento;
-	//private Cliente cliente;
+	private Cliente cliente;
 	private ArrayList<ItemCarrito> lstItemCarrito;
-	//private Entrega entrega;
+	private Entrega entrega;
 	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento
 			,ArrayList<ItemCarrito> listaItems) {
 		super();
@@ -21,9 +21,9 @@ public class Carrito{
 		this.hora = hora;
 		this.cerrado = cerrado;
 		this.descuento = descuento;
-		//this.cliente = cliente;
+		this.cliente = cliente;
 		this.lstItemCarrito = listaItems;
-		//this.entrega = entrega;
+		this.entrega = entrega;
 	}
 	public Carrito() {
 		super();
