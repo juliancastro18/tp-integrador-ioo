@@ -42,7 +42,7 @@ public class Contacto {
 	//-------------------------METODOS-------------------------
 	@Override
 	public String toString() {
-		return "Contacto [email=" + email + ", celular=" + celular + ", ubicacion=" + ubicacion + "]";
+		return " - Email: " + email + " - Celular: " + celular + ubicacion;
 	}
 	
 	@Override
@@ -54,30 +54,13 @@ public class Contacto {
 		result = prime * result + ((ubicacion == null) ? 0 : ubicacion.hashCode());
 		return result;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contacto other = (Contacto) obj;
-		if (celular == null) {
-			if (other.celular != null)
-				return false;
-		} else if (!celular.equals(other.celular))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (ubicacion == null) {
-			if (other.ubicacion != null)
-				return false;
-		} else if (!ubicacion.equals(other.ubicacion))
-			return false;
-		return true;
+	
+	public boolean equals(Contacto a) {
+		boolean equals=false;
+		if( email.equals(a.email) && celular.equals(a.celular) && ubicacion.equals(a.ubicacion) ) {
+			equals=true;
+		}
+		return equals;
 	}
+	
 }

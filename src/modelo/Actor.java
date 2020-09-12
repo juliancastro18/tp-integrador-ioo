@@ -1,15 +1,15 @@
 package modelo;
 
-public class Actor {
+public abstract class Actor {
 
 	//-------------------------ATRIBUTOS-------------------------
 	private int id;
 	protected Contacto contacto;
 	
 	//-------------------------CONSTRUCTOR-------------------------
-	public Actor(int id, Contacto contacto) {
+	public Actor(Contacto contacto) {
 		super();
-		this.id = id;
+		id = this.hashCode();
 		this.contacto = contacto;
 	}
 	
@@ -33,27 +33,27 @@ public class Actor {
 	//-------------------------METODOS-------------------------
 	@Override
 	public String toString() {
-		return "Actor [id=" + id + ", contacto=" + contacto + "]";
+		return "idActor= " + id + contacto;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((contacto == null) ? 0 : contacto.hashCode());
 		result = prime * result + id;
 		return result;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Actor other = (Actor) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
 	
+	public boolean equals(Actor a) {
+		boolean equals=false;
+		if(id==a.id) {
+			equals=true;
+		}
+		return equals;
+	}
+
+	
+
+		
 }

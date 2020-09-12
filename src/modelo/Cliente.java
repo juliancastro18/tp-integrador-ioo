@@ -8,8 +8,8 @@ public class Cliente extends Actor {
 	private int dni;
 	
 	//-------------------------CONSTRUCTOR-------------------------
-	public Cliente(int id, Contacto contacto, String apellido, String nombre, int dni) {
-		super(id, contacto);
+	public Cliente(Contacto contacto, String apellido, String nombre, int dni) {
+		super(contacto);
 		this.apellido = apellido;
 		this.nombre = nombre;
 		this.dni = dni;
@@ -36,8 +36,6 @@ public class Cliente extends Actor {
 		return dni;
 	}
 
-
-
 	public void setDni(int dni) {
 		this.dni = dni;
 	}
@@ -45,7 +43,7 @@ public class Cliente extends Actor {
 	//-------------------------METODOS-------------------------
 	@Override
 	public String toString() {
-		return "Cliente [apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni + "]";
+		return "Cliente= Id: " + super.getId() + " - Apellido: " + apellido + " - Nombre: " + nombre + " - DNI: " + dni + contacto;
 	}
 
 	@Override
@@ -56,18 +54,12 @@ public class Cliente extends Actor {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (dni != other.dni)
-			return false;
-		return true;
+	public boolean equals(Cliente c) {
+		boolean equals=false;
+		if(dni == c.dni) {
+			equals=true;
+		}
+		return equals;
 	}
 
 }

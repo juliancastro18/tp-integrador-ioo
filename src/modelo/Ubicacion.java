@@ -28,6 +28,11 @@ public class Ubicacion {
 		this.longitud = longitud;
 	}
 	
+	@Override
+	public String toString() {
+		return " - Ubicacion: Latitud " + latitud + " / Longitud " + longitud;
+	}
+	
 	public double distanciaCoord(double lat, double lng) {
 		double radioTierra = 6371; // en kilómetros
 		double dLat = Math. toRadians ( lat - this.latitud );
