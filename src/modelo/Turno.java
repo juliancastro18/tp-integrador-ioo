@@ -35,5 +35,9 @@ public class Turno {
 	}
 	
 	
-	
+	//-----------To String------------
+	public String toString()
+	{
+		return "Dia: " + getDia() + "\nHora: " + getHora() + "\nOcupado: " + isOcupado();
+	}
 }

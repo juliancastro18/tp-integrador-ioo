@@ -8,14 +8,14 @@ public class Comercio extends Actor{
 	private double costoPorKm;
 	private int diaDescuento;
 	private int porcentajeDescuentoDia;
-	private int porcentajeDesccuentoEfecivo;
+	private int porcentajeDescuentoEfecivo;
 	private DiaRetiro listaDiaRetiro;
 	private Carrito listaCarrito;
 	
-	//-------------------CONSTRUCROR-------------------------
+	//-------------------CONSTRUCTOR-------------------------
 	//VALIDA LOS DATOS ANTES DE ASIGNARLOS
 	public Comercio(Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
-			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDesccuentoEfecivo, DiaRetiro listaDiaRetiro,
+			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfecivo, DiaRetiro listaDiaRetiro,
 			Carrito listaCarrito) {
 		super(contacto);
 		setNombreComercio(nombreComercio);
@@ -24,7 +24,7 @@ public class Comercio extends Actor{
 		setCostoPorKm(costoPorKm);
 		setDiaDescuento(diaDescuento);
 		setPorcentajeDescuentoDia(porcentajeDescuentoDia);
-		setPorcentajeDesccuentoEfecivo(porcentajeDesccuentoEfecivo);
+		setPorcentajeDescuentoEfecivo(porcentajeDescuentoEfecivo);
 		setListaDiaRetiro(listaDiaRetiro);
 		setListaCarrito(listaCarrito);
 	}
@@ -89,12 +89,12 @@ public class Comercio extends Actor{
 		this.porcentajeDescuentoDia = porcentajeDescuentoDia;
 	}
 
-	protected int getPorcentajeDesccuentoEfecivo() {
-		return porcentajeDesccuentoEfecivo;
+	protected int getPorcentajeDescuentoEfecivo() {
+		return porcentajeDescuentoEfecivo;
 	}
 
-	protected void setPorcentajeDesccuentoEfecivo(int porcentajeDesccuentoEfecivo) {
-		this.porcentajeDesccuentoEfecivo = porcentajeDesccuentoEfecivo;
+	protected void setPorcentajeDescuentoEfecivo(int porcentajeDesccuentoEfecivo) {
+		this.porcentajeDescuentoEfecivo = porcentajeDesccuentoEfecivo;
 	}
 
 	protected DiaRetiro getListaDiaRetiro() {
@@ -169,6 +169,16 @@ public class Comercio extends Actor{
 	}
 	
 	
+	
+	
+	
+	
+	//----------------------------------METODO TOSTRING------------------------------------------
+	@Override
+	public String toString() {
+		return super.toString() + "\nNombre: " + getNombreComercio() + 
+				"\nCUIT: " + getCUIT();
+	}
 }
 
 

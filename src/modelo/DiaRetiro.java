@@ -51,5 +51,22 @@ public class DiaRetiro {
 	
 	
 	
+	//--------------------------METODO TOSTRING--------------------------------------
 	
+	public String toString()
+	{
+		return "\nID: " + getId() + "\nDia semana: " + getDiaSemana() + 
+				"\nHora desde: " + getHoraDesde() + "\nHora hasta: " + getHoraHasta() +
+				"\nIntervalo: " + getIntervalo();
+	}
+
+
+
+
+
+
+
+
+
+
 }
