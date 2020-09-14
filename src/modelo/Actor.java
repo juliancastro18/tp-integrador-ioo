@@ -1,5 +1,6 @@
 package modelo;
 
+
 public abstract class Actor {
 
 	//-------------------------ATRIBUTOS-------------------------
@@ -13,7 +14,7 @@ public abstract class Actor {
 		this.contacto = contacto;
 	}
 	
-	//-------------------------GETTES Y SETTERS-------------------------
+	//-------------------------GETTERS Y SETTERS-------------------------
 	public int getId() {
 		return id;
 	}
@@ -53,7 +54,7 @@ public abstract class Actor {
 		return equals;
 	}
 
-	
+	protected abstract boolean validarIdentificadorUnico(long a);
 
 		
 }
