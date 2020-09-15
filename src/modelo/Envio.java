@@ -10,13 +10,46 @@ public class Envio extends Entrega{
 	private Ubicacion ubicacion;
 	
 	public Envio(int id, LocalDate fecha, boolean efectivo, LocalTime horaHasta, LocalTime horaDesde, Ubicacion origen, Ubicacion destino, double costoFijo, double costoPorKm) {
-		super(id, fecha, efectivo);
+		this.id = id;
+		this.fecha = fecha;
+		this.efectivo = efectivo;
 		this.horaHasta = horaHasta;
 		this.horaDesde = horaDesde;
 		this.ubicacion = destino;
 		setCosto(origen, costoFijo, costoPorKm);
 	}
 
+	
+	@Override
+	public int getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public LocalDate getFecha() {
+		return fecha;
+	}
+
+	@Override
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	@Override
+	public boolean isEfectivo() {
+		return efectivo;
+	}
+
+	@Override
+	public void setEfectivo(boolean efectivo) {
+		this.efectivo = efectivo;
+	}
+	
 	public LocalTime getHoraHasta() {
 		return horaHasta;
 	}
