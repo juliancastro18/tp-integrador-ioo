@@ -278,11 +278,11 @@ public class Comercio extends Actor{
 		int vueltas  = 0;
 		Articulo art = null;
 		
+		
 		//Si no se encontro y no se llego al fin de la lista ....
 		while(found==false && finLista==false) {
-			
-			Articulo p = this.getListaArticulos().get(vueltas);
-			if(p.getIdArticulo() ==idArticulo) {
+			Articulo p = listaArticulos.get(vueltas);
+			if(p.getIdArticulo() == idArticulo) {
 				art = p;
 				found = true;
 			}
