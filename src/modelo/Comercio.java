@@ -271,7 +271,7 @@ public class Comercio extends Actor{
 	
 	
 	
-	/*
+	
 	public Articulo traerProducto(int idArticulo){
 		boolean found = false;
 		boolean finLista=false;
@@ -280,7 +280,7 @@ public class Comercio extends Actor{
 		
 		//Si no se encontro y no se llego al fin de la lista ....
 		while(found==false && finLista==false) {
-			System.out.println("---!Q");
+			
 			Articulo p = this.getListaArticulos().get(vueltas);
 			if(p.getIdArticulo() ==idArticulo) {
 				art = p;
@@ -295,7 +295,7 @@ public class Comercio extends Actor{
 		}
 		return art;
 	}
-	*/
+	
 	 
 	 
 	
