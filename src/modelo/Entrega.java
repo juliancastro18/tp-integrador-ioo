@@ -7,6 +7,21 @@ public abstract class Entrega {
 	protected LocalDate fecha;
 	protected boolean efectivo;
 	
+	public Entrega(int id, LocalDate fecha, boolean efectivo)
+	{
+		setId(id);
+		setFecha(fecha);
+		setEfectivo(efectivo);
+	}
+	
+	//----------------constructor para pruebas--------------------
+	public Entrega(LocalDate fecha)
+	{
+		setFecha(fecha);
+	}
+	
+	
+	
 	public int getId() {
 		return id;
 	}

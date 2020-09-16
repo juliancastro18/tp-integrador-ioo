@@ -27,10 +27,19 @@ public class Carrito{
 		this.entrega = entrega;
 	}
 	
+	//------------------------constructor para pruebas----------------------
+	public Carrito(Entrega entrega)
+	{
+		setEntrega(entrega);
+	}
+	
+	
+	
 	public Carrito() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 	public int getIdCarrito() {

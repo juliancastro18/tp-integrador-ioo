@@ -1,5 +1,14 @@
 package modelo;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import modelo.Carrito;
+import modelo.DiaRetiro;
+
 public class Comercio extends Actor{
 	
 	private String nombreComercio;
@@ -9,31 +18,36 @@ public class Comercio extends Actor{
 	private int diaDescuento;
 	private int porcentajeDescuentoDia;
 	private int porcentajeDescuentoEfecivo;
-	private DiaRetiro listaDiaRetiro;
-	private Carrito listaCarrito;
+	private List<DiaRetiro> listaDiaRetiro;
+	private List<Carrito> listaCarrito;
+	private List<Articulo> listaArticulos;
 	
+
 	//-------------------CONSTRUCTOR-------------------------
 	//VALIDA LOS DATOS ANTES DE ASIGNARLOS
 	public Comercio(Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
-			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfecivo, DiaRetiro listaDiaRetiro,
-			Carrito listaCarrito) {
+			int diaDescuento) 
+	{
 		super(contacto);
 		setNombreComercio(nombreComercio);
 		setCUIT(cuit);
 		setCostoFijo(costoFijo);
 		setCostoPorKm(costoPorKm);
 		setDiaDescuento(diaDescuento);
-		setPorcentajeDescuentoDia(porcentajeDescuentoDia);
-		setPorcentajeDescuentoEfecivo(porcentajeDescuentoEfecivo);
-		setListaDiaRetiro(listaDiaRetiro);
-		setListaCarrito(listaCarrito);
 	}
 	
-	
-	public Comercio(Contacto contacto, long cuit)
+	//constructor para realizar test
+	public Comercio(Contacto contacto, List<Carrito> listaDeCarritos, List<DiaRetiro> diasRetiro)
 	{
 		super(contacto);
-		setCUIT(cuit);
+		setListaCarrito(listaDeCarritos);
+		setListaDiaRetiro(diasRetiro);
+	}
+	
+	public Comercio(Contacto contacto, List<DiaRetiro> diasRetiro)
+	{
+		super(contacto);
+		setListaDiaRetiro(diasRetiro);
 	}
 
 	//--------------------GETTERS Y SETTERS-----------------------------
@@ -97,25 +111,32 @@ public class Comercio extends Actor{
 		this.porcentajeDescuentoEfecivo = porcentajeDesccuentoEfecivo;
 	}
 
-	protected DiaRetiro getListaDiaRetiro() {
+	protected List<DiaRetiro> getListaDiaRetiro() {
 		return listaDiaRetiro;
 	}
 
-	protected void setListaDiaRetiro(DiaRetiro listaDiaRetiro) {
+	protected void setListaDiaRetiro(List<DiaRetiro> listaDiaRetiro) {
 		this.listaDiaRetiro = listaDiaRetiro;
 	}
 
-	protected Carrito getListaCarrito() {
+	protected List<Carrito> getListaCarrito() {
 		return listaCarrito;
 	}
 
-	protected void setListaCarrito(Carrito listaCarrito) {
+	protected void setListaCarrito(List<Carrito> listaCarrito) {
 		this.listaCarrito = listaCarrito;
 	}
 	
+	protected List<Articulo> getListaArticulos() {
+		return listaArticulos;
+	}
+	
+	protected void setListaArticulos(List<Articulo> listaArticulos) {
+		this.listaArticulos = listaArticulos;
+	}
 	
 	//----------------------------METODOS--------------------------------------
-	//valida el cuit
+	//valida el cuit, segun algoritmo para validar cuit y cuil
 	protected boolean validarIdentificadorUnico(long cuit)
 	{
 		String cuitCadena = String.valueOf(cuit); 						//convierte el cuit a cadena
@@ -126,7 +147,7 @@ public class Comercio extends Actor{
 		int resto = 0; 													//almacena el resto de la division del calculo
 		int suma = 0; 													//almacena a suma de las multiplicaciones del calculo
 		int j = 0;
-		int dv, dv1 = Integer.valueOf(String.valueOf(cuitDescompuesto[10])); 	//dv: almacena el digito verificador segun el caso,
+		int dv, dv1 = Integer.valueOf(String.valueOf(cuitDescompuesto[10])); 	//dv: almacena el digito verificador 0 o 9 segun el caso
 																				//dv1: almacena el digito verificador del cuit a validar
 		boolean validacion = false;												//valor a retornar segun sea verificado el cuit
 		
@@ -167,9 +188,84 @@ public class Comercio extends Actor{
 	
 		return validacion;													//devuelve el resultado
 	}
+
+	//obtiene una lista de carritos segun la fecha especificada
+	public List<Carrito> obtenerCarritosPorFecha(LocalDate fecha)
+	{
+		List<Carrito> listaCarritos = new ArrayList<Carrito>();
+		
+		for(Carrito carrito : getListaCarrito())
+		{
+			if(carrito.getEntrega().getFecha().equals(fecha))
+			{
+				listaCarritos.add(carrito);
+			}
+		}
+		
+		return listaCarritos;
+	}
+	
+	//metodo para obtener un diaRetiro segun la fecha indicada
+	public DiaRetiro obtenerDiaRetiro(LocalDate fecha)
+	{
+		DiaRetiro resultado = null;
+		int dia = fecha.getDayOfMonth();
+		for(DiaRetiro dato : getListaDiaRetiro())
+		{
+			if(dato.getDiaSemana() == dia)
+			{
+				resultado = dato;
+			}
+		}
+		
+		return resultado;
+	}
+	
+	//metodo generarTurnosLibres
 	
 	
-	
+	/*
+	 * public List<Turno> generarTurnosLibres(LocalDate fecha) {
+	 * 
+	 * List<Turno> listaTurnos = new ArrayList<Turno>(); LocalTime horadesde =
+	 * obtenerDiaRetiro(fecha).getHoraDesde(); LocalTime horahasta =
+	 * obtenerDiaRetiro(fecha).getHoraHasta(); int intervalo =
+	 * obtenerDiaRetiro(fecha).getIntervalo();
+	 * 
+	 * 
+	 * if(getListaCarrito().isEmpty()) {
+	 * 
+	 * while(horadesde.getHour() < horahasta.getHour()) { listaTurnos.add(new
+	 * Turno(fecha, horadesde, false)); horadesde = horadesde.plusHours(intervalo);
+	 * }
+	 * 
+	 * }
+	 * 
+	 * else { RetiroLocal carritoAux; boolean esIgual = false; int i =
+	 * horadesde.getHour();
+	 * 
+	 * 
+	 * while(horadesde.getHour() < horahasta.getHour()) { for(Carrito carrito :
+	 * obtenerCarritosPorFecha(fecha)) { if(carrito.getEntrega() instanceof
+	 * RetiroLocal) { carritoAux = (RetiroLocal) carrito.getEntrega();
+	 * 
+	 * if((horadesde.equals(carritoAux.getHoraEntrega() ))) { esIgual = true; } }
+	 * 
+	 * }
+	 * 
+	 * if( ! (esIgual)) { listaTurnos.add(new Turno(fecha, horadesde, false)); }
+	 * 
+	 * esIgual = false; horadesde = horadesde.plusHours(intervalo); }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * return listaTurnos;
+	 * 
+	 * }
+	 */
+	 
+	 
 	
 	
 	

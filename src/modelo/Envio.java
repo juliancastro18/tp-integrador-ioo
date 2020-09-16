@@ -10,9 +10,7 @@ public class Envio extends Entrega{
 	private Ubicacion ubicacion;
 	
 	public Envio(int id, LocalDate fecha, boolean efectivo, LocalTime horaHasta, LocalTime horaDesde, Ubicacion origen, Ubicacion destino, double costoFijo, double costoPorKm) {
-		this.id = id;
-		this.fecha = fecha;
-		this.efectivo = efectivo;
+		super(id, fecha, efectivo);
 		this.horaHasta = horaHasta;
 		this.horaDesde = horaDesde;
 		this.ubicacion = destino;
