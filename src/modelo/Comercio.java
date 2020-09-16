@@ -1,13 +1,8 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import modelo.Carrito;
-import modelo.DiaRetiro;
 
 public class Comercio extends Actor{
 	
@@ -275,6 +270,33 @@ public class Comercio extends Actor{
 		return super.toString() + "\nNombre: " + getNombreComercio() + 
 				"\nCUIT: " + getCUIT();
 	}
+	
+	public Articulo traerProducto(int idProducto){
+		boolean found = false;
+		boolean finLista=false;
+		int vueltas  = 0;
+		Articulo pr =null ;
+		//Si no se encontro y no se llego al fin de la lista ....
+		while(found==false && finLista==false) {
+			Articulo p = listaArticulos.get(vueltas);
+			if(p.getIdArticulo() ==idProducto) {
+				pr = p;
+				found = true;
+			}
+			vueltas++;
+			//comprobamos si se termino la lista
+			if(vueltas==listaArticulos.size()) {
+				finLista = true;
+			}
+
+		}
+		return pr;
+	}
+	
+	
+	
+	
+	
 }
 
 
