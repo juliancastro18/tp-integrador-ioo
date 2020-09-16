@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Carrito{
-	private int id;
+	private int idCarrito;
 	private LocalDate fecha;
 	private LocalTime hora;
 	private boolean cerrado;
@@ -17,7 +17,7 @@ public class Carrito{
 	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento
 			,ArrayList<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
 		super();
-		this.id = id;
+		this.idCarrito = id;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.cerrado = cerrado;
@@ -33,12 +33,12 @@ public class Carrito{
 	}
 	
 	
-	public int getId() {
-		return id;
+	public int getIdCarrito() {
+		return idCarrito;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public void setIdCarrito(int id) {
+		this.idCarrito = id;
 	}
 	
 	public LocalDate getFecha() {
@@ -99,13 +99,13 @@ public class Carrito{
 
 	@Override
 	public String toString() {
-		return "Carrito [id=" + id + ", fecha: " + fecha + ", hora: " + hora + ", cerrado: " + cerrado + ", descuento = "
+		return "Carrito [id=" + idCarrito + ", fecha: " + fecha + ", hora: " + hora + ", cerrado: " + cerrado + ", descuento = "
 				+ descuento + ", cliente = " + cliente + ", lstItemCarrito = " + lstItemCarrito + ", entrega = " + entrega
 				+ "]";
 	}
 
 	public boolean equals(Carrito carro) {
-			return this.id ==carro.getId();
+			return this.idCarrito ==carro.getIdCarrito();
 	}
 	
 	

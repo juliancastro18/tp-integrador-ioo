@@ -1,13 +1,13 @@
 package modelo;
 
 public class Articulo {
-	private int id;
+	private int idArticulo;
 	private String nombre;
 	private String codBarras;
 	private double precio;
 	public Articulo(int id, String nombre, String codBarras, double precio) {
 		super();
-		this.id = id;
+		this.idArticulo = id;
 		this.nombre = nombre;
 		this.codBarras = codBarras;
 		this.precio = precio;
@@ -16,11 +16,11 @@ public class Articulo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public int getId() {
-		return id;
+	public int getIdArticulo() {
+		return idArticulo;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setIdArticulo(int id) {
+		this.idArticulo = id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -41,11 +41,11 @@ public class Articulo {
 		this.precio = precio;
 	}
 	public boolean equals(Articulo art) {
-		return this.id==art.getId();
+		return this.idArticulo==art.getIdArticulo();
 	}
 	@Override
 	public String toString() {
-		return "Producto---> id="+ id + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio=" + precio+"\n";
+		return "Producto---> id="+ idArticulo + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio=" + precio+"\n";
 	}
 	
 	

@@ -26,7 +26,7 @@ public class ItemCarrito{
 	}
 
 	public boolean equals(ItemCarrito item) {
-		return this.getArticulo().getId() == item.getArticulo().getId();
+		return this.getArticulo().getIdArticulo() == item.getArticulo().getIdArticulo();
 	}
 	
 	@Override
