@@ -45,7 +45,7 @@ public class Articulo {
 	}
 	@Override
 	public String toString() {
-		return "Producto---> id="+ idArticulo + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio=" + precio+"\n";
+		return "Producto---> id="+ idArticulo + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio=" + precio;
 	}
 	
 	

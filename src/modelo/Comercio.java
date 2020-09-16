@@ -1,13 +1,8 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import modelo.Carrito;
-import modelo.DiaRetiro;
 
 public class Comercio extends Actor{
 	
@@ -49,6 +44,14 @@ public class Comercio extends Actor{
 		super(contacto);
 		setListaDiaRetiro(diasRetiro);
 		setListaCarrito(new ArrayList<Carrito>());
+	}
+	
+	//Constructor para test de carrito, y articulos 
+	public Comercio(Contacto contacto,String nombreComercio,List<Articulo> listaArticulos,List<Carrito>listaDeCarritos) {
+		super(contacto);
+		setListaArticulos(listaArticulos);
+		setListaCarrito(listaDeCarritos);
+		setNombreComercio(nombreComercio);
 	}
 
 	//--------------------GETTERS Y SETTERS-----------------------------
@@ -225,6 +228,7 @@ public class Comercio extends Actor{
 	//metodo generarTurnosLibres
 	
 	
+<<<<<<< HEAD
 	
 	  public List<Turno> generarTurnosLibres(LocalDate fecha) {
 	  
@@ -265,6 +269,77 @@ public class Comercio extends Actor{
 	  
 	  }
 	 
+=======
+	/*
+	 * public List<Turno> generarTurnosLibres(LocalDate fecha) {
+	 * 
+	 * List<Turno> listaTurnos = new ArrayList<Turno>(); LocalTime horadesde =
+	 * obtenerDiaRetiro(fecha).getHoraDesde(); LocalTime horahasta =
+	 * obtenerDiaRetiro(fecha).getHoraHasta(); int intervalo =
+	 * obtenerDiaRetiro(fecha).getIntervalo();
+	 * 
+	 * 
+	 * if(getListaCarrito().isEmpty()) {
+	 * 
+	 * while(horadesde.getHour() < horahasta.getHour()) { listaTurnos.add(new
+	 * Turno(fecha, horadesde, false)); horadesde = horadesde.plusHours(intervalo);
+	 * }
+	 * 
+	 * }
+	 * 
+	 * else { RetiroLocal carritoAux; boolean esIgual = false; int i =
+	 * horadesde.getHour();
+	 * 
+	 * 
+	 * while(horadesde.getHour() < horahasta.getHour()) { for(Carrito carrito :
+	 * obtenerCarritosPorFecha(fecha)) { if(carrito.getEntrega() instanceof
+	 * RetiroLocal) { carritoAux = (RetiroLocal) carrito.getEntrega();
+	 * 
+	 * if((horadesde.equals(carritoAux.getHoraEntrega() ))) { esIgual = true; } }
+	 * 
+	 * }
+	 * 
+	 * if( ! (esIgual)) { listaTurnos.add(new Turno(fecha, horadesde, false)); }
+	 * 
+	 * esIgual = false; horadesde = horadesde.plusHours(intervalo); }
+	 * 
+	 * 
+	 * }
+	 * 
+	 * return listaTurnos;
+	 * 
+	 * }
+	 */
+	
+	
+	
+	
+	
+	public Articulo traerProducto(int idArticulo){
+		boolean found = false;
+		boolean finLista=false;
+		int vueltas  = 0;
+		Articulo art = null;
+		
+		
+		//Si no se encontro y no se llego al fin de la lista ....
+		while(found==false && finLista==false) {
+			Articulo p = listaArticulos.get(vueltas);
+			if(p.getIdArticulo() == idArticulo) {
+				art = p;
+				found = true;
+			}
+			vueltas++;
+			//comprobamos si se termino la lista
+			if(vueltas==listaArticulos.size()) {
+				finLista = true;
+			}
+
+		}
+		return art;
+	}
+	
+>>>>>>> f8030d7e7d3f5aae434cdcdec27d13c276ac5778
 	 
 	 
 	
@@ -276,6 +351,11 @@ public class Comercio extends Actor{
 		return super.toString() + "\nNombre: " + getNombreComercio() + 
 				"\nCUIT: " + getCUIT();
 	}
+
+	
+	
+	
+	
 }
 
 

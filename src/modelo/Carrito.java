@@ -1,7 +1,7 @@
 package modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Carrito{
 	private int idCarrito;
@@ -10,12 +10,12 @@ public class Carrito{
 	private boolean cerrado;
 	private double descuento;
 	private Cliente cliente;
-	private ArrayList<ItemCarrito> lstItemCarrito;
+	private List<ItemCarrito>lstItemCarrito;
 	private Entrega entrega;
 	
 	
 	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento
-			,ArrayList<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
+			,List<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
 		super();
 		this.idCarrito = id;
 		this.fecha = fecha;
@@ -90,11 +90,11 @@ public class Carrito{
 		this.cliente = cliente;
 	}
 	
-	public ArrayList<ItemCarrito> getLstItemCarrito() {
+	public List<ItemCarrito> getLstItemCarrito() {
 		return lstItemCarrito;
 	}
 	
-	public void setLstItemCarrito(ArrayList<ItemCarrito>lstItemCarrito) {
+	public void setLstItemCarrito(List<ItemCarrito>lstItemCarrito) {
 		this.lstItemCarrito = lstItemCarrito;
 	}
 	
