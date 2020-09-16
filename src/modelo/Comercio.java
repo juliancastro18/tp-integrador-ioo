@@ -48,6 +48,7 @@ public class Comercio extends Actor{
 	{
 		super(contacto);
 		setListaDiaRetiro(diasRetiro);
+		setListaCarrito(new ArrayList<Carrito>());
 	}
 
 	//--------------------GETTERS Y SETTERS-----------------------------
@@ -224,46 +225,46 @@ public class Comercio extends Actor{
 	//metodo generarTurnosLibres
 	
 	
-	/*
-	 * public List<Turno> generarTurnosLibres(LocalDate fecha) {
-	 * 
-	 * List<Turno> listaTurnos = new ArrayList<Turno>(); LocalTime horadesde =
-	 * obtenerDiaRetiro(fecha).getHoraDesde(); LocalTime horahasta =
-	 * obtenerDiaRetiro(fecha).getHoraHasta(); int intervalo =
-	 * obtenerDiaRetiro(fecha).getIntervalo();
-	 * 
-	 * 
-	 * if(getListaCarrito().isEmpty()) {
-	 * 
-	 * while(horadesde.getHour() < horahasta.getHour()) { listaTurnos.add(new
-	 * Turno(fecha, horadesde, false)); horadesde = horadesde.plusHours(intervalo);
-	 * }
-	 * 
-	 * }
-	 * 
-	 * else { RetiroLocal carritoAux; boolean esIgual = false; int i =
-	 * horadesde.getHour();
-	 * 
-	 * 
-	 * while(horadesde.getHour() < horahasta.getHour()) { for(Carrito carrito :
-	 * obtenerCarritosPorFecha(fecha)) { if(carrito.getEntrega() instanceof
-	 * RetiroLocal) { carritoAux = (RetiroLocal) carrito.getEntrega();
-	 * 
-	 * if((horadesde.equals(carritoAux.getHoraEntrega() ))) { esIgual = true; } }
-	 * 
-	 * }
-	 * 
-	 * if( ! (esIgual)) { listaTurnos.add(new Turno(fecha, horadesde, false)); }
-	 * 
-	 * esIgual = false; horadesde = horadesde.plusHours(intervalo); }
-	 * 
-	 * 
-	 * }
-	 * 
-	 * return listaTurnos;
-	 * 
-	 * }
-	 */
+	
+	  public List<Turno> generarTurnosLibres(LocalDate fecha) {
+	  
+	  List<Turno> listaTurnos = new ArrayList<Turno>(); LocalTime horadesde =
+	  obtenerDiaRetiro(fecha).getHoraDesde(); LocalTime horahasta =
+	  obtenerDiaRetiro(fecha).getHoraHasta(); int intervalo =
+	  obtenerDiaRetiro(fecha).getIntervalo();
+	  
+	  
+	  if(getListaCarrito().isEmpty()) {
+	  
+	  while(horadesde.getHour() < horahasta.getHour()) { listaTurnos.add(new
+	  Turno(fecha, horadesde, false)); horadesde = horadesde.plusHours(intervalo);
+	  }
+	  
+	  }
+	  
+	  else { RetiroLocal carritoAux; boolean esIgual = false; int i =
+	  horadesde.getHour();
+	  
+	  
+	  while(horadesde.getHour() < horahasta.getHour()) { for(Carrito carrito :
+	  obtenerCarritosPorFecha(fecha)) { if(carrito.getEntrega() instanceof
+	  RetiroLocal) { carritoAux = (RetiroLocal) carrito.getEntrega();
+	  
+	  if((horadesde.equals(carritoAux.getHoraEntrega() ))) { esIgual = true; } }
+	  
+	  }
+	  
+	  if( ! (esIgual)) { listaTurnos.add(new Turno(fecha, horadesde, false)); }
+	  
+	  esIgual = false; horadesde = horadesde.plusHours(intervalo); }
+	  
+	  
+	  }
+	  
+	  return listaTurnos;
+	  
+	  }
+	 
 	 
 	 
 	

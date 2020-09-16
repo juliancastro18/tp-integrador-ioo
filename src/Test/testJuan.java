@@ -33,7 +33,7 @@ public class testJuan {
 		carritos.add(new Carrito(entrega));
 		carritos.add(new Carrito(entrega2));
 		
-		Comercio comercio = new Comercio(contacto1, listaDiasRetiro);
+		Comercio comercio = new Comercio(contacto1, carritos, listaDiasRetiro);
 		
 		for(Turno turno : comercio.generarTurnosLibres(fecha))
 		{
