@@ -44,6 +44,14 @@ public class Comercio extends Actor{
 		super(contacto);
 		setListaDiaRetiro(diasRetiro);
 	}
+	
+	//Constructor para test de carrito, y articulos 
+	public Comercio(Contacto contacto,String nombreComercio,List<Articulo> listaArticulos,List<Carrito>listaDeCarritos) {
+		super(contacto);
+		setListaArticulos(listaArticulos);
+		setListaCarrito(listaDeCarritos);
+		setNombreComercio(nombreComercio);
+	}
 
 	//--------------------GETTERS Y SETTERS-----------------------------
 	
@@ -259,6 +267,35 @@ public class Comercio extends Actor{
 	 * 
 	 * }
 	 */
+	
+	
+	
+	
+	/*
+	public Articulo traerProducto(int idArticulo){
+		boolean found = false;
+		boolean finLista=false;
+		int vueltas  = 0;
+		Articulo art = null;
+		
+		//Si no se encontro y no se llego al fin de la lista ....
+		while(found==false && finLista==false) {
+			System.out.println("---!Q");
+			Articulo p = this.getListaArticulos().get(vueltas);
+			if(p.getIdArticulo() ==idArticulo) {
+				art = p;
+				found = true;
+			}
+			vueltas++;
+			//comprobamos si se termino la lista
+			if(vueltas==listaArticulos.size()) {
+				finLista = true;
+			}
+
+		}
+		return art;
+	}
+	*/
 	 
 	 
 	
@@ -270,29 +307,7 @@ public class Comercio extends Actor{
 		return super.toString() + "\nNombre: " + getNombreComercio() + 
 				"\nCUIT: " + getCUIT();
 	}
-	
-	public Articulo traerProducto(int idProducto){
-		boolean found = false;
-		boolean finLista=false;
-		int vueltas  = 0;
-		Articulo pr =null ;
-		//Si no se encontro y no se llego al fin de la lista ....
-		while(found==false && finLista==false) {
-			Articulo p = listaArticulos.get(vueltas);
-			if(p.getIdArticulo() ==idProducto) {
-				pr = p;
-				found = true;
-			}
-			vueltas++;
-			//comprobamos si se termino la lista
-			if(vueltas==listaArticulos.size()) {
-				finLista = true;
-			}
 
-		}
-		return pr;
-	}
-	
 	
 	
 	
