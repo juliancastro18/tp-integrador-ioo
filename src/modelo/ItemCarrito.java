@@ -29,8 +29,11 @@ public class ItemCarrito{
 		return this.getArticulo().getId() == item.getArticulo().getId();
 	}
 	
+	@Override
 	public String toString() {
-		return "Cantidad: " +cantidad+" "+articulo.toString();
+		return "ItemCarrito" + articulo + ", cantidad = " + cantidad;
 	}
+	
+
 	
 }

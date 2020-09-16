@@ -96,9 +96,12 @@ public class Carrito{
 		this.entrega = entrega;
 	}
 	
+
 	@Override
 	public String toString() {
-		return "Carrito----> id=" + id + ", cerrado=" + cerrado + ", descuento: " + descuento +" Hora: "+hora+" Fecha: "+fecha+ "\n"+ lstItemCarrito.toString();
+		return "Carrito [id=" + id + ", fecha: " + fecha + ", hora: " + hora + ", cerrado: " + cerrado + ", descuento = "
+				+ descuento + ", cliente = " + cliente + ", lstItemCarrito = " + lstItemCarrito + ", entrega = " + entrega
+				+ "]";
 	}
 
 	public boolean equals(Carrito carro) {
