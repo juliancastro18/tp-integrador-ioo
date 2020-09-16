@@ -7,16 +7,25 @@ public abstract class Entrega {
 	protected LocalDate fecha;
 	protected boolean efectivo;
 	
-	public abstract int getId();
-
-	public abstract void setId(int id);
-
-	public abstract LocalDate getFecha();
-
-	public abstract void setFecha(LocalDate fecha);
-
-	public abstract boolean isEfectivo();
-
-	public abstract void setEfectivo(boolean efectivo);
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public LocalDate getFecha() {
+		return fecha;
+	}
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+	public boolean isEfectivo() {
+		return efectivo;
+	}
+	public void setEfectivo(boolean efectivo) {
+		this.efectivo = efectivo;
+	}
+	
+	
 	
 }
