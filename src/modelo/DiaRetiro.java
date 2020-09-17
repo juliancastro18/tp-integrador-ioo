@@ -18,34 +18,34 @@ public class DiaRetiro {
 	}
 	
 	
-	protected int getId() {
+	public int getId() {
 		return id;
 	}
-	protected void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	protected int getDiaSemana() {
+	public int getDiaSemana() {
 		return diaSemana;
 	}
-	protected void setDiaSemana(int diaSemana) {
+	public void setDiaSemana(int diaSemana) {
 		this.diaSemana = diaSemana;
 	}
-	protected LocalTime getHoraDesde() {
+	public LocalTime getHoraDesde() {
 		return horaDesde;
 	}
-	protected void setHoraDesde(LocalTime horaDesde) {
+	public void setHoraDesde(LocalTime horaDesde) {
 		this.horaDesde = horaDesde;
 	}
-	protected LocalTime getHoraHasta() {
+	public LocalTime getHoraHasta() {
 		return horaHasta;
 	}
-	protected void setHoraHasta(LocalTime horaHasta) {
+	public void setHoraHasta(LocalTime horaHasta) {
 		this.horaHasta = horaHasta;
 	}
-	protected int getIntervalo() {
+	public int getIntervalo() {
 		return intervalo;
 	}
-	protected void setIntervalo(int intervalo) {
+	public void setIntervalo(int intervalo) {
 		this.intervalo = intervalo;
 	}
 	

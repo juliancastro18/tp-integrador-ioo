@@ -15,22 +15,22 @@ public class Turno {
 	}
 	
 	
-	protected LocalDate getDia() {
+	public LocalDate getDia() {
 		return dia;
 	}
-	protected void setDia(LocalDate dia) {
+	public void setDia(LocalDate dia) {
 		this.dia = dia;
 	}
-	protected LocalTime getHora() {
+	public LocalTime getHora() {
 		return hora;
 	}
-	protected void setHora(LocalTime hora) {
+	public void setHora(LocalTime hora) {
 		this.hora = hora;
 	}
-	protected boolean isOcupado() {
+	public boolean isOcupado() {
 		return ocupado;
 	}
-	protected void setOcupado(boolean ocupado) {
+	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
 	

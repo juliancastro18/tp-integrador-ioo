@@ -54,11 +54,11 @@ public class Comercio extends Actor {
 
 	// --------------------GETTERS Y SETTERS-----------------------------
 
-	protected String getNombreComercio() {
+	public String getNombreComercio() {
 		return nombreComercio;
 	}
 
-	protected void setNombreComercio(String nombreComercio) {
+	public void setNombreComercio(String nombreComercio) {
 		this.nombreComercio = nombreComercio;
 	}
 
@@ -66,74 +66,74 @@ public class Comercio extends Actor {
 		return CUIT;
 	}
 
-	protected void setCUIT(long cuit) {
+	public void setCUIT(long cuit) {
 		if (validarIdentificadorUnico(cuit)) // valida el cuit y si es verdadero se asigna
 			CUIT = cuit;
 		else
 			CUIT = 0;
 	}
 
-	protected double getCostoFijo() {
+	public double getCostoFijo() {
 		return costoFijo;
 	}
 
-	protected void setCostoFijo(double costoFijo) {
+	public void setCostoFijo(double costoFijo) {
 		this.costoFijo = costoFijo;
 	}
 
-	protected double getCostoPorKm() {
+	public double getCostoPorKm() {
 		return costoPorKm;
 	}
 
-	protected void setCostoPorKm(double costoPorKm) {
+	public void setCostoPorKm(double costoPorKm) {
 		this.costoPorKm = costoPorKm;
 	}
 
-	protected int getDiaDescuento() {
+	public int getDiaDescuento() {
 		return diaDescuento;
 	}
 
-	protected void setDiaDescuento(int diaDescuento) {
+	public void setDiaDescuento(int diaDescuento) {
 		this.diaDescuento = diaDescuento;
 	}
 
-	protected int getPorcentajeDescuentoDia() {
+	public int getPorcentajeDescuentoDia() {
 		return porcentajeDescuentoDia;
 	}
 
-	protected void setPorcentajeDescuentoDia(int porcentajeDescuentoDia) {
+	public void setPorcentajeDescuentoDia(int porcentajeDescuentoDia) {
 		this.porcentajeDescuentoDia = porcentajeDescuentoDia;
 	}
 
-	protected int getPorcentajeDescuentoEfecivo() {
+	public int getPorcentajeDescuentoEfecivo() {
 		return porcentajeDescuentoEfecivo;
 	}
 
-	protected void setPorcentajeDescuentoEfecivo(int porcentajeDesccuentoEfecivo) {
+	public void setPorcentajeDescuentoEfecivo(int porcentajeDesccuentoEfecivo) {
 		this.porcentajeDescuentoEfecivo = porcentajeDesccuentoEfecivo;
 	}
 
-	protected List<DiaRetiro> getListaDiaRetiro() {
+	public List<DiaRetiro> getListaDiaRetiro() {
 		return listaDiaRetiro;
 	}
 
-	protected void setListaDiaRetiro(List<DiaRetiro> listaDiaRetiro) {
+	public void setListaDiaRetiro(List<DiaRetiro> listaDiaRetiro) {
 		this.listaDiaRetiro = listaDiaRetiro;
 	}
 
-	protected List<Carrito> getListaCarrito() {
+	public List<Carrito> getListaCarrito() {
 		return listaCarrito;
 	}
 
-	protected void setListaCarrito(List<Carrito> listaCarrito) {
+	public void setListaCarrito(List<Carrito> listaCarrito) {
 		this.listaCarrito = listaCarrito;
 	}
 
-	protected List<Articulo> getListaArticulos() {
+	public List<Articulo> getListaArticulos() {
 		return listaArticulos;
 	}
 
-	protected void setListaArticulos(List<Articulo> listaArticulos) {
+	public void setListaArticulos(List<Articulo> listaArticulos) {
 		this.listaArticulos = listaArticulos;
 	}
 
@@ -237,7 +237,6 @@ public class Comercio extends Actor {
 		else {
 			RetiroLocal carritoAux;
 			boolean esIgual = false;
-			int i = horadesde.getHour();
 
 			while (horadesde.getHour() < horahasta.getHour()) {
 				for (Carrito carrito : obtenerCarritosPorFecha(fecha)) {
@@ -265,46 +264,7 @@ public class Comercio extends Actor {
 
 	}
 
-	/*
-	 * public List<Turno> generarTurnosLibres(LocalDate fecha) {
-	 * 
-	 * List<Turno> listaTurnos = new ArrayList<Turno>(); LocalTime horadesde =
-	 * obtenerDiaRetiro(fecha).getHoraDesde(); LocalTime horahasta =
-	 * obtenerDiaRetiro(fecha).getHoraHasta(); int intervalo =
-	 * obtenerDiaRetiro(fecha).getIntervalo();
-	 * 
-	 * 
-	 * if(getListaCarrito().isEmpty()) {
-	 * 
-	 * while(horadesde.getHour() < horahasta.getHour()) { listaTurnos.add(new
-	 * Turno(fecha, horadesde, false)); horadesde = horadesde.plusHours(intervalo);
-	 * }
-	 * 
-	 * }
-	 * 
-	 * else { RetiroLocal carritoAux; boolean esIgual = false; int i =
-	 * horadesde.getHour();
-	 * 
-	 * 
-	 * while(horadesde.getHour() < horahasta.getHour()) { for(Carrito carrito :
-	 * obtenerCarritosPorFecha(fecha)) { if(carrito.getEntrega() instanceof
-	 * RetiroLocal) { carritoAux = (RetiroLocal) carrito.getEntrega();
-	 * 
-	 * if((horadesde.equals(carritoAux.getHoraEntrega() ))) { esIgual = true; } }
-	 * 
-	 * }
-	 * 
-	 * if( ! (esIgual)) { listaTurnos.add(new Turno(fecha, horadesde, false)); }
-	 * 
-	 * esIgual = false; horadesde = horadesde.plusHours(intervalo); }
-	 * 
-	 * 
-	 * }
-	 * 
-	 * return listaTurnos;
-	 * 
-	 * }
-	 */
+	
 
 	public Articulo traerProducto(int idArticulo) {
 		boolean found = false;
