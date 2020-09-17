@@ -1,6 +1,7 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -228,8 +229,6 @@ public class Comercio extends Actor{
 	//metodo generarTurnosLibres
 	
 	
-<<<<<<< HEAD
-	
 	  public List<Turno> generarTurnosLibres(LocalDate fecha) {
 	  
 	  List<Turno> listaTurnos = new ArrayList<Turno>(); LocalTime horadesde =
@@ -269,7 +268,7 @@ public class Comercio extends Actor{
 	  
 	  }
 	 
-=======
+
 	/*
 	 * public List<Turno> generarTurnosLibres(LocalDate fecha) {
 	 * 
@@ -339,8 +338,7 @@ public class Comercio extends Actor{
 		return art;
 	}
 	
->>>>>>> f8030d7e7d3f5aae434cdcdec27d13c276ac5778
-	 
+
 	 
 	
 	
