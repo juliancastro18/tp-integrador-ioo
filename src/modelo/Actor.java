@@ -4,13 +4,12 @@ package modelo;
 public abstract class Actor {
 
 	//-------------------------ATRIBUTOS-------------------------
-	private int id;
+	protected int id;
 	protected Contacto contacto;
 	
 	//-------------------------CONSTRUCTOR-------------------------
 	public Actor(Contacto contacto) {
 		super();
-		id = this.hashCode();
 		this.contacto = contacto;
 	}
 	
@@ -54,7 +53,7 @@ public abstract class Actor {
 		return equals;
 	}
 
-	protected abstract boolean validarIdentificadorUnico(long a);
+	protected abstract boolean validarIdentificadorUnico();
 
 		
 }
