@@ -10,8 +10,9 @@ public class Articulo {
 		super();
 		this.idArticulo = id;
 		this.nombre = nombre;
-		this.codBarras = codBarras;
+		setCodBarras(codBarras);
 		this.precio = precio;
+
 	}
 
 	public Articulo() {
@@ -39,11 +40,12 @@ public class Articulo {
 		return codBarras;
 	}
 
-	public void setCodBarras(String codBarras) throws Exception{
-		if(validarCodBarras(codBarras)) {
+	public void setCodBarras(String codBarras) {
+		if (validarCodBarras(codBarras)) {
 			this.codBarras = codBarras;
+		} else {
+			this.codBarras = null;
 		}
-		throw new Exception("El codigo de barras no es valido");
 	}
 
 	public double getPrecio() {
@@ -69,36 +71,44 @@ public class Articulo {
 		int[] cadenaOriginal = new int[13];
 		int[] numPosicionesPares = new int[6];
 		int[] numPosicionesImpares = new int[6];
-		int sumaPar = 0,sumaImpar=0;
-		for (int i = 0; i < cadenaOriginal.length-1; i++) {
-			//asignamos a la cadena El string del codigo de barras
-			cadenaOriginal[i] = Integer.parseInt(codBarras.substring(i, i + 1));
-			
-			if ((i % 2) == 0) {
-				numPosicionesPares[i] = cadenaOriginal[i];
-				//paso 1
-				sumaPar+=numPosicionesPares[i];
+		int sumaPar = 0, sumaImpar = 0;
+		int j = 0;
+		int k = 0;
+		int numero = 0;
+		
+		char[] codBarrasDescompuesto = codBarras.toCharArray();
+
+		for (int i = 0; i < codBarrasDescompuesto.length; i++) {
+
+			if ((i % 2 )== 0 && j<6) {
+					numero = Integer.valueOf(String.valueOf(codBarrasDescompuesto[i]));
+					numPosicionesPares[j] = numero;
+					//System.out.println(numPosicionesPares[j]);
+					
+					sumaPar += numPosicionesPares[j];								//PASO 1
+					j++;
+
 			} else {
-				numPosicionesImpares[i] = cadenaOriginal[i];
-				//paso2
-				sumaImpar+=numPosicionesImpares[i];
+				numero = Integer.valueOf(String.valueOf(codBarrasDescompuesto[i]));
+				numPosicionesImpares[k] = codBarrasDescompuesto[i];
+				System.out.println("POSICIONES IMPARES:-->"+codBarrasDescompuesto[i]);
+			
+				sumaImpar += numPosicionesImpares[k];								//PASO 2
+				k++;
 			}
 		}
-		//paso 3
-		int multiSumaImpar= sumaImpar * 3;
-		//paso 4
+		System.out.println("----------");
+		// paso 3
+		int multiSumaImpar = sumaImpar * 3;
+		// paso 4
 		int sumaParMasMulti = (sumaPar + multiSumaImpar);
-		//paso 5
-		int sumaParMasMultiRedondeado = (int) Math.ceil(sumaParMasMulti);	
-		int digitoDeControl = sumaParMasMultiRedondeado-sumaParMasMulti;
-		if(cadenaOriginal[13] == digitoDeControl) {
+		// paso 5
+		int sumaParMasMultiRedondeado = (int) Math.ceil(sumaParMasMulti);
+		int digitoDeControl = sumaParMasMultiRedondeado - sumaParMasMulti;
+		if (codBarrasDescompuesto[12] == digitoDeControl) {
 			codigoValidado = true;
 		}
 		return codigoValidado;
-		
-		
-		
 
 	}
-
 }
