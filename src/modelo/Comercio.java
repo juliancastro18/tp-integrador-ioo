@@ -136,9 +136,40 @@ public class Comercio extends Actor {
 	public void setListaArticulos(List<Articulo> listaArticulos) {
 		this.listaArticulos = listaArticulos;
 	}
+	
+	// --- GET IDs PARA LISTAS
+	
+	protected int getNuevoIdDiaRetiro() {
+		int idSiguiente = 0;
+		if(listaDiaRetiro.isEmpty() == false) {
+			idSiguiente = listaDiaRetiro.get(listaDiaRetiro.size()-1).getId() + 1;
+		}
+		return idSiguiente;
+	}
+	
+	protected int getNuevoIdArticulo() {
+		int idSiguiente = 0;
+		if(listaArticulos.isEmpty() == false) {
+			idSiguiente = listaArticulos.get(listaArticulos.size()-1).getIdArticulo() + 1;
+		}
+		return idSiguiente;
+	}
+	
+	protected int getNuevoIdCarrito() {
+		int idSiguiente = 0;
+		if(listaCarrito.isEmpty() == false) {
+			idSiguiente = listaCarrito.get(listaCarrito.size()-1).getIdCarrito() + 1;
+		}
+		return idSiguiente;
+	}
 
 	// ----------------------------METODOS--------------------------------------
 	// valida el cuit, segun algoritmo para validar cuit y cuil
+	protected boolean validarIdentificadorUnico() {
+		return validarIdentificadorUnico(this.CUIT);
+		
+	}
+	
 	protected boolean validarIdentificadorUnico(long cuit) {
 		String cuitCadena = String.valueOf(cuit); // convierte el cuit a cadena
 		String valores = "5432765432"; // valores para hacer el calculo
@@ -288,6 +319,38 @@ public class Comercio extends Actor {
 		}
 		return art;
 	}
+	
+	// ------------- ADMINISTRAR CARRITOS -------------
+	
+	public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
+		Entrega entrega = null;
+		
+		if(clienteTieneCarritoAbierto(cliente)) {
+			throw new Exception ("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
+		}
+		
+		//TODO: crear entrega correspondiente
+		
+		//TODO: corregir el parametro de descuento
+		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234, cliente, entrega);
+		listaCarrito.add(nuevoCarrito);
+	}
+	
+	
+	public boolean clienteTieneCarritoAbierto(Cliente cliente) {
+		boolean carritoAbierto = false;
+		int contador = 0;
+		while(contador < listaCarrito.size() && carritoAbierto == false) {
+			//si el carrito pertenece al cliente y el carrito está abierto...
+			if(listaCarrito.get(contador).getCliente().equals(cliente) && listaCarrito.get(contador).isCerrado() == false) {
+				carritoAbierto = true;
+			}
+			contador++;
+		}
+		
+		return carritoAbierto;
+	}
+	
 
 	// ----------------------------------METODO
 	// TOSTRING------------------------------------------

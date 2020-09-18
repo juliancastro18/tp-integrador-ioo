@@ -1,6 +1,7 @@
 package modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Carrito{
@@ -14,8 +15,8 @@ public class Carrito{
 	private Entrega entrega;
 	
 	
-	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento
-			,List<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
+	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,
+			List<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
 		super();
 		this.idCarrito = id;
 		this.fecha = fecha;
@@ -25,6 +26,11 @@ public class Carrito{
 		this.cliente = cliente;
 		this.lstItemCarrito = listaItems;
 		this.entrega = entrega;
+	}
+	
+	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,
+			Cliente cliente, Entrega entrega) {
+		this(id, fecha, hora, cerrado, descuento, new ArrayList<ItemCarrito>(), cliente, entrega);
 	}
 	
 	//------------------------constructor para pruebas----------------------

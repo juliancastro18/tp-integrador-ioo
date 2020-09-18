@@ -31,6 +31,10 @@ public class Cliente extends Actor {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public String getNombreCompleto() {
+		return getNombre() + " " + getApellido();
+	}
 
 	public int getDni() {
 		return dni;
