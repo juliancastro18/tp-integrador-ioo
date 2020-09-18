@@ -110,12 +110,29 @@ public class Carrito{
 		this.entrega = entrega;
 	}
 	
-
+	/*
 	@Override
 	public String toString() {
 		return "Carrito [id=" + idCarrito + ", fecha: " + fecha + ", hora: " + hora + ", cerrado: " + cerrado + ", descuento = "
 				+ descuento + ", cliente = " + cliente + ", lstItemCarrito = " + lstItemCarrito + ", entrega = " + entrega
 				+ "]";
+	}*/
+	
+	public String toString() {
+		String str = "";
+		str += "#" + idCarrito + " " + fecha + " - " + hora + "\n";
+		str += "Cliente: " + cliente.getNombreCompleto() + "\nCerrado: " + cerrado + "\n";
+		str += "Detalle: \n";
+		for(ItemCarrito item : lstItemCarrito) {
+			str += item.toString();
+		}
+		if(lstItemCarrito.isEmpty()) str+= "<no hay items en el carrito>\n";
+		if(cerrado) {
+			str += entrega.toString();
+		}else {
+			str += "<entrega sin definir>\n";
+		}
+		return str;
 	}
 
 	public boolean equals(Carrito carro) {

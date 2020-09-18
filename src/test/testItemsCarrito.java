@@ -1,7 +1,13 @@
-package modelo;
+package test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import modelo.Articulo;
+import modelo.Carrito;
+import modelo.Cliente;
+import modelo.Contacto;
+import modelo.Ubicacion;
 
 public class testItemsCarrito {
 
@@ -20,7 +26,7 @@ public class testItemsCarrito {
 		Carrito c = new Carrito(0, LocalDate.now(), LocalTime.now(), false, cliente1, null);
 		
 		//Imprimo contenido
-		System.out.println(c.getLstItemCarrito());
+		System.out.println(c.toString());
 
 		//Agrego items
 		c.agregarItem(art1, 1);
@@ -28,7 +34,7 @@ public class testItemsCarrito {
 		c.agregarItem(art3, 5);
 		
 		//Imprimo contenido, deberian aparecer: 3 de art1 y 5 de art3
-		System.out.println(c.getLstItemCarrito());
+		System.out.println(c.toString());
 		
 		//Elimino items
 		try {
@@ -39,7 +45,7 @@ public class testItemsCarrito {
 		}
 		
 		//Imprimo contenido
-		System.out.println(c.getLstItemCarrito());
+		System.out.println(c.toString());
 		
 		//Elimino mas
 		try {

@@ -263,7 +263,7 @@ public class Comercio extends Actor {
 
 	
 	// GENERAR AGENDA
-
+	/*
 	public List<Turno> generarAgenda(LocalDate fecha) {
 		List<Turno> agenda = new ArrayList<Turno>();
 		
@@ -278,7 +278,7 @@ public class Comercio extends Actor {
 		}
 
 		return agenda;
-	}
+	}*/
 
 	// metodo generarTurnosLibres
 
@@ -362,16 +362,6 @@ public class Comercio extends Actor {
 		if (clienteTieneCarritoAbierto(cliente)) {
 			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
-<<<<<<< HEAD
-		
-		//TODO: crear entrega correspondiente
-		
-		//TODO: corregir el parametro de descuento
-		//Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234, cliente, entrega);
-		//listaCarrito.add(nuevoCarrito);
-	}
-	
-=======
 
 		// TODO: crear entrega correspondiente
 
@@ -380,7 +370,6 @@ public class Comercio extends Actor {
 				cliente, entrega);
 		listaCarrito.add(nuevoCarrito);
 	}*/
->>>>>>> branch 'master' of https://github.com/juliancastro18/tp-integrador-ioo.git
 	
 	public boolean clienteTieneCarritoAbierto(Cliente cliente) {
 		boolean carritoAbierto = false;
