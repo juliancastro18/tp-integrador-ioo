@@ -11,26 +11,25 @@ public class Carrito{
 	private boolean cerrado;
 	private double descuento;
 	private Cliente cliente;
-	private List<ItemCarrito>lstItemCarrito;
+	private List<ItemCarrito> lstItemCarrito;
 	private Entrega entrega;
 	
 	
-	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,
+	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado,
 			List<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
 		super();
 		this.idCarrito = id;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.cerrado = cerrado;
-		this.descuento = descuento;
 		this.cliente = cliente;
 		this.lstItemCarrito = listaItems;
 		this.entrega = entrega;
 	}
 	
-	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,
+	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado,
 			Cliente cliente, Entrega entrega) {
-		this(id, fecha, hora, cerrado, descuento, new ArrayList<ItemCarrito>(), cliente, entrega);
+		this(id, fecha, hora, cerrado, new ArrayList<ItemCarrito>(), cliente, entrega);
 	}
 	
 	//------------------------constructor para pruebas----------------------
@@ -123,5 +122,12 @@ public class Carrito{
 			return this.idCarrito ==carro.getIdCarrito();
 	}
 	
+	public double calcularTotalCarrito() {
+		double total = 0;
+		for (ItemCarrito item : this.lstItemCarrito) {
+			total += (item.getArticulo().getPrecio() * item.getCantidad());
+		}
+		return total;
+	}
 	
 }

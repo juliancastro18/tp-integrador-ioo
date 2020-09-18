@@ -1,11 +1,14 @@
 package modelo;
 
 public class Articulo {
+	
+	//-------------------------ATRIBUTOS-------------------------
 	private int idArticulo;
 	private String nombre;
 	private String codBarras;
 	private double precio;
 
+	//-------------------------CONSTRUCTOR-------------------------
 	public Articulo(int id, String nombre, String codBarras, double precio) {
 		super();
 		this.idArticulo = id;
@@ -17,9 +20,9 @@ public class Articulo {
 
 	public Articulo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	//-------------------------GETTERS Y SETTERS-------------------------
 	public int getIdArticulo() {
 		return idArticulo;
 	}
@@ -56,6 +59,7 @@ public class Articulo {
 		this.precio = precio;
 	}
 
+	//-------------------------METODOS-------------------------
 	public boolean equals(Articulo art) {
 		return this.idArticulo == art.getIdArticulo();
 	}
