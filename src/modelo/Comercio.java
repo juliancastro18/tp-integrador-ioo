@@ -332,8 +332,8 @@ public class Comercio extends Actor {
 		//TODO: crear entrega correspondiente
 		
 		//TODO: corregir el parametro de descuento
-		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234, cliente, entrega);
-		listaCarrito.add(nuevoCarrito);
+		//Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234, cliente, entrega);
+		//listaCarrito.add(nuevoCarrito);
 	}
 	
 	

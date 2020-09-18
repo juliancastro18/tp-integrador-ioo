@@ -122,6 +122,56 @@ public class Carrito{
 			return this.idCarrito ==carro.getIdCarrito();
 	}
 	
+	
+	public void agregarItem(Articulo art, int cantidad) {
+		
+		ItemCarrito auxIC = getItemCarrito(art);
+		
+		if(auxIC != null) { //si existe el item, agrego la cantidad
+			auxIC.setCantidad(auxIC.getCantidad() + cantidad);
+		}else { //si no existe, creo un ItemCarrito nuevo
+			lstItemCarrito.add(new ItemCarrito(art, cantidad));
+		}
+	}
+	
+	
+	public void eliminarItem(Articulo art, int cantidad) throws Exception {
+		
+		ItemCarrito auxIC = getItemCarrito(art);
+		
+		if(auxIC != null) {
+			
+			int cantActual = auxIC.getCantidad();
+			
+			if( (cantActual<cantidad) || (cantidad<=0)) {
+				throw new Exception ("Cantidad a eliminar invalida");
+			}else if( cantActual == cantidad) {
+				lstItemCarrito.remove(auxIC);
+			}else if( cantActual > cantidad) {
+				auxIC.setCantidad(auxIC.getCantidad() - cantidad);
+			}
+			
+		}else {
+			throw new Exception ("No existe el producto en el carrito");
+		}
+	}
+	
+	//devuelve el ItemCarrito correspondiente a un articulo
+	public ItemCarrito getItemCarrito(Articulo art) {
+		int contador = 0;
+		boolean encontrado = true;
+		ItemCarrito auxIC = null;
+		
+		while( (auxIC == null) && (contador<lstItemCarrito.size()) ) {
+			encontrado = lstItemCarrito.get(contador).getArticulo().equals(art);
+			if(encontrado) auxIC = lstItemCarrito.get(contador);
+			contador++;
+		}
+		
+		return auxIC;
+	}
+	
+	
 	public double calcularTotalCarrito() {
 		double total = 0;
 		for (ItemCarrito item : this.lstItemCarrito) {
