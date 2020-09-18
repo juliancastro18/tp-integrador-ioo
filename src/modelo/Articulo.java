@@ -68,7 +68,6 @@ public class Articulo {
 
 	public boolean validarCodBarras(String codBarras) {
 		boolean codigoValidado = false;
-		int[] cadenaOriginal = new int[13];
 		int[] numPosicionesPares = new int[6];
 		int[] numPosicionesImpares = new int[6];
 		int sumaPar = 0, sumaImpar = 0;
@@ -77,8 +76,7 @@ public class Articulo {
 		int numero = 0;
 		
 		char[] codBarrasDescompuesto = codBarras.toCharArray();
-
-		for (int i = 0; i < codBarrasDescompuesto.length; i++) {
+		for (int i = 0; i < codBarrasDescompuesto.length-1; i++) {
 
 			if ((i % 2 )== 0 && j<6) {
 					numero = Integer.valueOf(String.valueOf(codBarrasDescompuesto[i]));
@@ -86,28 +84,36 @@ public class Articulo {
 					//System.out.println(numPosicionesPares[j]);
 					
 					sumaPar += numPosicionesPares[j];								//PASO 1
-					j++;
+					j++; 
+					
 
 			} else {
 				numero = Integer.valueOf(String.valueOf(codBarrasDescompuesto[i]));
-				numPosicionesImpares[k] = codBarrasDescompuesto[i];
-				System.out.println("POSICIONES IMPARES:-->"+codBarrasDescompuesto[i]);
-			
+				numPosicionesImpares[k] = numero;
+				//System.out.println("POSICIONES IMPARES:-->"+codBarrasDescompuesto[i]);
 				sumaImpar += numPosicionesImpares[k];								//PASO 2
 				k++;
 			}
+			
 		}
-		System.out.println("----------");
-		// paso 3
-		int multiSumaImpar = sumaImpar * 3;
-		// paso 4
-		int sumaParMasMulti = (sumaPar + multiSumaImpar);
-		// paso 5
-		int sumaParMasMultiRedondeado = (int) Math.ceil(sumaParMasMulti);
+		//System.out.println("Suma numeros en posicion par:"+sumaPar);
+		//System.out.println("Suma numeros en posicion impar"+sumaImpar);
+		int multiSumaImpar = sumaImpar * 3;											//PASO 3
+		//System.out.println("A la suma impar la multiplicamos * 3 --->"+multiSumaImpar);
+		int sumaParMasMulti = (sumaPar + multiSumaImpar);							//PASO 4								
+		//System.out.println("Sumamos la suma par + la multiplicacion anterior----->"+sumaParMasMulti);
+		//int sumaParMasMultiRedondeado = (int) Math.ceil(sumaParMasMulti);			//PASO  5 ----->NO HACE EL REDONDEO HACIA ARRIBA
+		int sumaParMasMultiRedondeado = ((sumaParMasMulti/10)*10+10);
+		//System.out.println("Redondea de la de los numeros par y la multiplicacion"+sumaParMasMultiRedondeado);
 		int digitoDeControl = sumaParMasMultiRedondeado - sumaParMasMulti;
-		if (codBarrasDescompuesto[12] == digitoDeControl) {
+		
+		//System.out.println();
+		System.out.println(digitoDeControl);
+		if (Integer.valueOf(String.valueOf(codBarrasDescompuesto[12])) == digitoDeControl) {
 			codigoValidado = true;
 		}
+		
+		
 		return codigoValidado;
 
 	}

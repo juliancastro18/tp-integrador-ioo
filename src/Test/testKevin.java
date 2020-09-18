@@ -27,10 +27,15 @@ public class testKevin {
 		
 		
 		Articulo art1 = new Articulo(1,"Televisor LG 50 PULGADAS","8412584512541",45.000);
-		Articulo art2 = new Articulo(2,"Heladera LG","101112",85.000);
-		Articulo art3 = new Articulo(3,"Aire acondicionado LG","010203",40.000);
-		Articulo art4 = new Articulo(4,"Lavavajillas","202122",35.000);
 		
+		Articulo art2 = new Articulo(2,"Heladera LG","7791234567898",85.000);
+		Articulo art3 = new Articulo(3,"Aire acondicionado LG","8412345678905",40.000);
+		//Articulo art4 = new Articulo(4,"Lavavajillas","202122",35.000);*/
+		
+		System.out.println(art1);
+		System.out.println(art2);
+		System.out.println(art3);
+
 		
 	/*	List<ItemCarrito> lstItemCarrito = new ArrayList<ItemCarrito>();
 		
