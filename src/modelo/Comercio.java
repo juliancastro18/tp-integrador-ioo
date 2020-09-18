@@ -266,14 +266,17 @@ public class Comercio extends Actor {
 
 	public List<Turno> generarAgenda(LocalDate fecha) {
 		List<Turno> agenda = new ArrayList<Turno>();
-		
+		List<Turno> turnosLibres = new ArrayList<Turno>();
+		List<Turno> turnosOcupados = new ArrayList<Turno>();
+		turnosLibres = generarTurnosLibres(fecha);
+		turnosOcupados = generarTurnosOcupados(fecha);
 		//VAMOS A RECORRER LOS TURNOS LIBRES QUE HAY EN ESA FECHA
-		for (int i = 0; i < generarTurnosLibres(fecha).size(); i++) {
-			agenda.add(generarTurnosLibres(fecha).get(i));
+		for (int i = 0; i < turnosLibres.size(); i++) {
+			agenda.add(turnosLibres.get(i));
 		}
-		if(!generarTurnosOcupados(fecha).isEmpty()) {
-			for(int i = 0;i<generarTurnosOcupados(fecha).size();i++) {
-				agenda.add(generarTurnosOcupados(fecha).getIndex(i));
+		if(!turnosOcupados.isEmpty()) {
+			for(int i = 0;i<turnosOcupados.size();i++) {
+				agenda.add(turnosOcupados.getIndex(i));
 			}
 		}
 
