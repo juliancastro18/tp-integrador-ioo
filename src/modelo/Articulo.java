@@ -112,7 +112,7 @@ public class Articulo {
 		int digitoDeControl = sumaParMasMultiRedondeado - sumaParMasMulti;
 		
 		//System.out.println();
-		System.out.println(digitoDeControl);
+		//System.out.println(digitoDeControl);
 		if (Integer.valueOf(String.valueOf(codBarrasDescompuesto[12])) == digitoDeControl) {
 			codigoValidado = true;
 		}
@@ -120,5 +120,5 @@ public class Articulo {
 		
 		return codigoValidado;
 
-	}
+	}	
 }

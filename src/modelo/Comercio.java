@@ -136,29 +136,29 @@ public class Comercio extends Actor {
 	public void setListaArticulos(List<Articulo> listaArticulos) {
 		this.listaArticulos = listaArticulos;
 	}
-	
+
 	// --- GET IDs PARA LISTAS
-	
+
 	protected int getNuevoIdDiaRetiro() {
 		int idSiguiente = 0;
-		if(listaDiaRetiro.isEmpty() == false) {
-			idSiguiente = listaDiaRetiro.get(listaDiaRetiro.size()-1).getId() + 1;
+		if (listaDiaRetiro.isEmpty() == false) {
+			idSiguiente = listaDiaRetiro.get(listaDiaRetiro.size() - 1).getId() + 1;
 		}
 		return idSiguiente;
 	}
-	
+
 	protected int getNuevoIdArticulo() {
 		int idSiguiente = 0;
-		if(listaArticulos.isEmpty() == false) {
-			idSiguiente = listaArticulos.get(listaArticulos.size()-1).getIdArticulo() + 1;
+		if (listaArticulos.isEmpty() == false) {
+			idSiguiente = listaArticulos.get(listaArticulos.size() - 1).getIdArticulo() + 1;
 		}
 		return idSiguiente;
 	}
-	
+
 	protected int getNuevoIdCarrito() {
 		int idSiguiente = 0;
-		if(listaCarrito.isEmpty() == false) {
-			idSiguiente = listaCarrito.get(listaCarrito.size()-1).getIdCarrito() + 1;
+		if (listaCarrito.isEmpty() == false) {
+			idSiguiente = listaCarrito.get(listaCarrito.size() - 1).getIdCarrito() + 1;
 		}
 		return idSiguiente;
 	}
@@ -167,9 +167,9 @@ public class Comercio extends Actor {
 	// valida el cuit, segun algoritmo para validar cuit y cuil
 	protected boolean validarIdentificadorUnico() {
 		return validarIdentificadorUnico(this.CUIT);
-		
+
 	}
-	
+
 	protected boolean validarIdentificadorUnico(long cuit) {
 		String cuitCadena = String.valueOf(cuit); // convierte el cuit a cadena
 		String valores = "5432765432"; // valores para hacer el calculo
@@ -247,6 +247,7 @@ public class Comercio extends Actor {
 		return resultado;
 	}
 
+
 	// METODO GENERARTURNOSLIBRES
 	/*
 	 * este metodo devuelve una lista de turnos en base a la fecha especificada por
@@ -259,6 +260,28 @@ public class Comercio extends Actor {
 	 * la hora segun el intervalo especificado en DiaRetiro para preguntar si el
 	 * siguiente turno esta ocupado.
 	 */
+
+	
+	// GENERAR AGENDA
+
+	public List<Turno> generarAgenda(LocalDate fecha) {
+		List<Turno> agenda = new ArrayList<Turno>();
+		
+		//VAMOS A RECORRER LOS TURNOS LIBRES QUE HAY EN ESA FECHA
+		for (int i = 0; i < generarTurnosLibres(fecha).size(); i++) {
+			agenda.add(generarTurnosLibres(fecha).get(i));
+		}
+		if(!generarTurnosOcupados(fecha).isEmpty()) {
+			for(int i = 0;i<generarTurnosOcupados(fecha).size();i++) {
+				agenda.add(generarTurnosOcupados(fecha).getIndex(i));
+			}
+		}
+
+		return agenda;
+	}
+
+	// metodo generarTurnosLibres
+
 
 	public List<Turno> generarTurnosLibres(LocalDate fecha) {
 
@@ -308,8 +331,6 @@ public class Comercio extends Actor {
 
 	}
 
-	
-
 	public Articulo traerProducto(int idArticulo) {
 		boolean found = false;
 		boolean finLista = false;
@@ -332,40 +353,41 @@ public class Comercio extends Actor {
 		}
 		return art;
 	}
-	
+
 	// ------------- ADMINISTRAR CARRITOS -------------
-	
-	public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
+
+	/*public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
 		Entrega entrega = null;
-		
-		if(clienteTieneCarritoAbierto(cliente)) {
-			throw new Exception ("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
+
+		if (clienteTieneCarritoAbierto(cliente)) {
+			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
-		
-		//TODO: crear entrega correspondiente
-		
-		//TODO: corregir el parametro de descuento
-		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234, cliente, entrega);
+
+		// TODO: crear entrega correspondiente
+
+		// TODO: corregir el parametro de descuento
+		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234,
+				cliente, entrega);
 		listaCarrito.add(nuevoCarrito);
-	}
-	
+	}*/
 	
 	public boolean clienteTieneCarritoAbierto(Cliente cliente) {
 		boolean carritoAbierto = false;
 		int contador = 0;
-		while(contador < listaCarrito.size() && carritoAbierto == false) {
-			//si el carrito pertenece al cliente y el carrito está abierto...
-			if(listaCarrito.get(contador).getCliente().equals(cliente) && listaCarrito.get(contador).isCerrado() == false) {
+		while (contador < listaCarrito.size() && carritoAbierto == false) {
+			// si el carrito pertenece al cliente y el carrito está abierto...
+			if (listaCarrito.get(contador).getCliente().equals(cliente)
+					&& listaCarrito.get(contador).isCerrado() == false) {
 				carritoAbierto = true;
 			}
 			contador++;
 		}
-		
+
 		return carritoAbierto;
 	}
-	
 
-	// ----------------------------------METODO TOSTRING------------------------------------------
+	// ----------------------------------METODO
+	// TOSTRING------------------------------------------
 	@Override
 	public String toString() {
 		return super.toString() + "\nNombre: " + getNombreComercio() + "\nCUIT: " + getCUIT();
