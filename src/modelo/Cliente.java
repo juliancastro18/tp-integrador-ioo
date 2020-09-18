@@ -37,7 +37,9 @@ public class Cliente extends Actor {
 	}
 
 	public void setDni(int dni) {
-		this.dni = dni;
+		if(validarIdentificadorUnico(dni)) {
+			this.dni = dni;
+		}
 	}
 
 	//-------------------------METODOS-------------------------
@@ -60,6 +62,19 @@ public class Cliente extends Actor {
 			equals=true;
 		}
 		return equals;
+	}
+
+	@Override
+	protected boolean validarIdentificadorUnico() {
+		return validarIdentificadorUnico(this.dni);
+	}
+	
+	protected boolean validarIdentificadorUnico(int iUnico) {
+		boolean validador = false;
+		if(iUnico>0 && iUnico<99999999) {
+			validador = true;
+		}
+		return validador;
 	}
 
 }

@@ -289,8 +289,7 @@ public class Comercio extends Actor {
 		return art;
 	}
 
-	// ----------------------------------METODO
-	// TOSTRING------------------------------------------
+	// ----------------------------------METODO TOSTRING------------------------------------------
 	@Override
 	public String toString() {
 		return super.toString() + "\nNombre: " + getNombreComercio() + "\nCUIT: " + getCUIT();
