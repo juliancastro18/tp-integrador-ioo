@@ -263,7 +263,7 @@ public class Comercio extends Actor {
 
 	
 	// GENERAR AGENDA
-
+	/*
 	public List<Turno> generarAgenda(LocalDate fecha) {
 		List<Turno> agenda = new ArrayList<Turno>();
 		List<Turno> turnosLibres = new ArrayList<Turno>();
@@ -281,7 +281,7 @@ public class Comercio extends Actor {
 		}
 
 		return agenda;
-	}
+	}*/
 
 	// metodo generarTurnosLibres
 

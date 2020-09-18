@@ -41,7 +41,7 @@ public class ItemCarrito{
 	
 	@Override
 	public String toString() {
-		return "ItemCarrito" + articulo + ", cantidad = " + cantidad+"\n";
+		return "Articulo: " + articulo + ", Cantidad: " + cantidad + "\n";
 	}
 	
 	public double calcularSubTotalItem() {
