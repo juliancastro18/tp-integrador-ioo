@@ -197,4 +197,31 @@ public class Carrito{
 		return total;
 	}
 	
+	public double calcularDescuentoDia(int diaDescuento, double porcentajeDescuento) {
+		double descuento = 0;
+		if(this.cerrado==true) {
+			if(diaDescuento==LocalDate.now().getDayOfMonth()) {
+				for(ItemCarrito item : this.lstItemCarrito) {
+					descuento += ((item.getCantidad()/2) * item.getArticulo().getPrecio() * porcentajeDescuento / 100);
+				}
+			}
+		}
+		return descuento;
+	}
+	
+	public double calcularDescuentoEfectivo(double porcentajeDescuentoEfectivo) {
+		return calcularTotalCarrito() * porcentajeDescuentoEfectivo /100;
+	}
+	
+	public double calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento, double porcentajeDescuentoEfectivo) {
+		double descuento=0;
+		if(this.cerrado==true) {
+			if( calcularDescuentoDia(diaDescuento,porcentajeDescuento) >= calcularDescuentoEfectivo(porcentajeDescuentoEfectivo) ) {
+				descuento = calcularDescuentoDia(diaDescuento,porcentajeDescuento);
+			}else {
+				descuento = calcularDescuentoEfectivo(porcentajeDescuentoEfectivo);
+			}
+		}
+		return descuento;
+	}
 }
