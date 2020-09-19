@@ -370,7 +370,28 @@ public class Comercio extends Actor {
 		return listaTurnos;														//devuelve la lista
 
 	}
-
+	
+	
+	
+	///////////////////////////////ADMINISTRACION DE PRODUCTOS-ARTICULOS////////////////////////////////////////
+	
+	// AGREGA PRODUCTO AL COMERCIO
+	/*
+	public boolean agregarProducto(String producto,String codBarras,double precio) throws Exception{
+		boolean addProducto = false;
+		int id = 0;
+		for(Articulo art: listaArticulos) {
+			String nombreProducto = art.getNombre();
+			if(nombreProducto == producto)throw new Exception( "El producto ya existe");
+		}
+		id=this.getNuevoIdArticulo();
+		Articulo articulo = new Articulo(id,producto,codBarras,precio);
+		listaArticulos.add(articulo);
+		addProducto=true;
+		return addProducto;
+	}*/
+	
+	
 	public Articulo traerProducto(int idArticulo) {
 		boolean found = false;
 		boolean finLista = false;

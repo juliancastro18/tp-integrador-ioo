@@ -63,7 +63,7 @@ public class Articulo {
 	public boolean equals(Articulo art) {
 		return this.idArticulo == art.getIdArticulo();
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Producto---> id=" + idArticulo + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio="
