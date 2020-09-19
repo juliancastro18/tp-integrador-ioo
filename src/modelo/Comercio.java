@@ -248,19 +248,6 @@ public class Comercio extends Actor {
 	}
 
 
-	// METODO GENERARTURNOSLIBRES
-	/*
-	 * este metodo devuelve una lista de turnos en base a la fecha especificada por
-	 * parametro (clase DiaRetiro) y los horarios correspondientes a las Entregas
-	 * (clase Entregas) de carritos ya confirmados. Si no hay ningun carrito
-	 * confirmado el metodo genera turnos nuevos con todos los horarios del dia
-	 * especificado y devuelve la lista. En caso de que ya haya carritos confirmados
-	 * dentro de la lista (con la misma fecha que la solicitada), se recorren para
-	 * ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
-	 * la hora segun el intervalo especificado en DiaRetiro para preguntar si el
-	 * siguiente turno esta ocupado.
-	 */
-
 	
 	// GENERAR AGENDA
 	/*
@@ -283,6 +270,56 @@ public class Comercio extends Actor {
 		return agenda;
 	}*/
 
+	
+
+	 public List<Turno> generarTurnosOcupados(LocalDate fecha) {
+		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
+		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	
+		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();	
+		int intervalo = obtenerDiaRetiro(fecha).getIntervalo();
+		
+		RetiroLocal carritoAux;												
+		boolean esIgual = false;
+
+		if (!getListaCarrito().isEmpty()) { 							
+			while (horadesde.getHour() < horahasta.getHour()) {					
+				for (Carrito carrito : obtenerCarritosPorFecha(fecha)) {				
+					if (carrito.getEntrega() instanceof RetiroLocal) {			
+						carritoAux = (RetiroLocal) carrito.getEntrega();		
+
+						if ((horadesde.equals(carritoAux.getHoraEntrega()))) {	
+							esIgual = true;																							
+						}
+					}
+				}
+				if ((esIgual)) {												
+					listaTurnosOcupados.add(new Turno(fecha, horadesde, false));
+				}
+				esIgual = false;												
+				horadesde = horadesde.plusHours(intervalo);						
+			}
+		}
+		return listaTurnosOcupados;	
+	}
+
+
+	// METODO GENERARTURNOSLIBRES
+	/*
+	 * este metodo devuelve una lista de turnos en base a la fecha especificada por
+	 * parametro (clase DiaRetiro) y los horarios correspondientes a las Entregas
+	 * (clase Entregas) de carritos ya confirmados. Si no hay ningun carrito
+	 * confirmado el metodo genera turnos nuevos con todos los horarios del dia
+	 * especificado y devuelve la lista. En caso de que ya haya carritos confirmados
+	 * dentro de la lista (con la misma fecha que la solicitada), se recorren para
+	 * ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
+	 * la hora segun el intervalo especificado en DiaRetiro para preguntar si el
+	 * siguiente turno esta ocupado.
+	 */
+	
+	
+	
+	
+	
 	// metodo generarTurnosLibres
 
 
