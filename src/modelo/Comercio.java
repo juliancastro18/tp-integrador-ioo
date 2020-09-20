@@ -305,15 +305,15 @@ public class Comercio extends Actor {
 
 	// METODO GENERARTURNOSLIBRES
 	/*
-	 * este metodo devuelve una lista de turnos en base a la fecha especificada por
-	 * parametro (clase DiaRetiro) y los horarios correspondientes a las Entregas
-	 * (clase Entregas) de carritos ya confirmados. Si no hay ningun carrito
-	 * confirmado el metodo genera turnos nuevos con todos los horarios del dia
-	 * especificado y devuelve la lista. En caso de que ya haya carritos confirmados
-	 * dentro de la lista (con la misma fecha que la solicitada), se recorren para
-	 * ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
-	 * la hora segun el intervalo especificado en DiaRetiro para preguntar si el
-	 * siguiente turno esta ocupado.
+	 este metodo devuelve una lista de turnos en base a la fecha especificada por
+	 parametro (clase DiaRetiro) y los horarios correspondientes a las Entregas
+	 (clase Entregas) de carritos ya confirmados. Si no hay ningun carrito
+	 confirmado el metodo genera turnos nuevos con todos los horarios del dia
+	 especificado y devuelve la lista. En caso de que ya haya carritos confirmados
+	 dentro de la lista (con la misma fecha que la solicitada), se recorren para
+	 ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
+	 la hora segun el intervalo especificado en DiaRetiro para preguntar si el
+	 siguiente turno esta ocupado.
 	 */
 	
 	
