@@ -13,7 +13,7 @@ public class Comercio extends Actor {
 	private double costoPorKm;
 	private int diaDescuento;
 	private int porcentajeDescuentoDia;
-	private int porcentajeDescuentoEfecivo;
+	private int porcentajeDescuentoEfectivo;
 	private List<DiaRetiro> listaDiaRetiro;
 	private List<Carrito> listaCarrito;
 	private List<Articulo> listaArticulos;
@@ -106,11 +106,11 @@ public class Comercio extends Actor {
 	}
 
 	public int getPorcentajeDescuentoEfecivo() {
-		return porcentajeDescuentoEfecivo;
+		return porcentajeDescuentoEfectivo;
 	}
 
 	public void setPorcentajeDescuentoEfecivo(int porcentajeDesccuentoEfecivo) {
-		this.porcentajeDescuentoEfecivo = porcentajeDesccuentoEfecivo;
+		this.porcentajeDescuentoEfectivo = porcentajeDesccuentoEfecivo;
 	}
 
 	public List<DiaRetiro> getListaDiaRetiro() {
@@ -417,29 +417,99 @@ public class Comercio extends Actor {
 
 	// ------------- ADMINISTRAR CARRITOS -------------
 
-	/*public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
-		Entrega entrega = null;
+	public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
 
-		if (clienteTieneCarritoAbierto(cliente)) {
+		if (getCarritoAbierto(cliente) != null) {
 			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
 
-		// TODO: crear entrega correspondiente
-
-		// TODO: corregir el parametro de descuento
-		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234,
-				cliente, entrega);
+		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), cliente);
 		listaCarrito.add(nuevoCarrito);
-	}*/
+	}
 	
-	public boolean clienteTieneCarritoAbierto(Cliente cliente) {
-		boolean carritoAbierto = false;
+	public void eliminarCarrito(int idCarrito) throws Exception {
+		
+		Carrito carritoEliminar = getCarritoFromLista(idCarrito);
+		
+		if(carritoEliminar.isCerrado()) {
+			listaCarrito.remove(carritoEliminar);
+		}else {
+			throw new Exception("No se puede eliminar un carrito que ya fue cerrado");
+		}
+	}
+	
+	public void eliminarCarritoAbierto(Cliente cliente) throws Exception {
+		Carrito carritoEliminar = getCarritoAbierto(cliente);
+		if(carritoEliminar!=null) {
+			listaCarrito.remove(carritoEliminar);
+		}else {
+			throw new Exception("El cliente " + cliente.getNombreCompleto() + " no tiene carrito abierto");
+		}
+	}
+	
+	public void confirmarCarritoEnvio(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega, LocalTime horaDesde, LocalTime horaHasta) throws Exception {
+		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
+			Ubicacion origen = contacto.getUbicacion();
+			Ubicacion destino = carrito.getCliente().getContacto().getUbicacion();
+			Entrega entrega = new Envio(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaDesde, horaHasta, origen, destino, getCostoFijo(), getCostoPorKm());
+			
+			double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
+			carrito.setDescuento(descuento);
+			carrito.setEntrega(entrega);
+			carrito.setCerrado(true);
+			
+		}else {
+			throw new Exception("El carrito está vacío o ya fue cerrado");
+		}
+	}
+	
+	public void confirmarCarritoRetiroLocal(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega) throws Exception {
+		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
+			Ubicacion origen = contacto.getUbicacion();
+			Ubicacion destino = carrito.getCliente().getContacto().getUbicacion();
+			LocalTime horaEntrega = generarTurnosLibres(fechaEntrega).get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
+			Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
+			
+			double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
+			carrito.setDescuento(descuento);
+			carrito.setEntrega(entrega);
+			carrito.setCerrado(true);
+			
+		}else {
+			throw new Exception("El carrito está vacío o ya fue cerrado");
+		}
+	}
+	
+	public void mostrarCarrito(int idCarrito) throws Exception {
+		Carrito carritoMostrar = getCarritoFromLista(idCarrito);
+		System.out.println(carritoMostrar);
+	}
+	
+	public Carrito getCarritoFromLista(int idCarrito) throws Exception {
+		boolean encontrado = false;
 		int contador = 0;
-		while (contador < listaCarrito.size() && carritoAbierto == false) {
+		Carrito carrito = null;
+		
+		while( encontrado != true && contador < listaCarrito.size() ) {
+			if (idCarrito == listaCarrito.get(contador).getIdCarrito()) {
+				carrito = listaCarrito.get(contador);
+				encontrado = true;
+			}
+			contador++;
+		}
+		if(carrito==null) {
+			throw new Exception("No se encontró el carrito con id " + idCarrito);
+		}
+		return carrito;
+	}
+	
+	public Carrito getCarritoAbierto(Cliente cliente) {
+		Carrito carritoAbierto = null;
+		int contador = 0;
+		while (contador < listaCarrito.size() && carritoAbierto == null) {
 			// si el carrito pertenece al cliente y el carrito está abierto...
-			if (listaCarrito.get(contador).getCliente().equals(cliente)
-					&& listaCarrito.get(contador).isCerrado() == false) {
-				carritoAbierto = true;
+			if (listaCarrito.get(contador).getCliente().equals(cliente)	&& listaCarrito.get(contador).isCerrado() == false) {
+				carritoAbierto = listaCarrito.get(contador);
 			}
 			contador++;
 		}

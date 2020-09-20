@@ -9,7 +9,7 @@ public class Envio extends Entrega{
 	private double costo;
 	private Ubicacion ubicacion;
 	
-	public Envio(int id, LocalDate fecha, boolean efectivo, LocalTime horaHasta, LocalTime horaDesde, Ubicacion origen, Ubicacion destino, double costoFijo, double costoPorKm) {
+	public Envio(int id, LocalDate fecha, boolean efectivo, LocalTime horaDesde, LocalTime horaHasta, Ubicacion origen, Ubicacion destino, double costoFijo, double costoPorKm) {
 		super(id, fecha, efectivo);
 		this.horaHasta = horaHasta;
 		this.horaDesde = horaDesde;

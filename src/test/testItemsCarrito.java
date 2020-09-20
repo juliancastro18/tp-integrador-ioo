@@ -23,7 +23,7 @@ public class testItemsCarrito {
 		Articulo art3 = new Articulo(3,"Aire acondicionado LG","8412345678905",40.000);
 		
 		//Creo nuevo carrito
-		Carrito c = new Carrito(0, LocalDate.now(), LocalTime.now(), false, cliente1, null);
+		Carrito c = new Carrito(0, cliente1);
 		
 		//Imprimo contenido
 		System.out.println(c.toString());

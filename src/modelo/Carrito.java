@@ -15,21 +15,21 @@ public class Carrito{
 	private Entrega entrega;
 	
 	
-	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado,
+	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,
 			List<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
 		super();
 		this.idCarrito = id;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.cerrado = cerrado;
+		this.descuento = descuento;
 		this.cliente = cliente;
 		this.lstItemCarrito = listaItems;
 		this.entrega = entrega;
 	}
 	
-	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado,
-			Cliente cliente, Entrega entrega) {
-		this(id, fecha, hora, cerrado, new ArrayList<ItemCarrito>(), cliente, entrega);
+	public Carrito(int id, Cliente cliente) {
+		this(id, LocalDate.now(), LocalTime.now(), false, 0, new ArrayList<ItemCarrito>(), cliente, null);
 	}
 	
 	//------------------------constructor para pruebas----------------------
@@ -83,7 +83,7 @@ public class Carrito{
 		return descuento;
 	}
 	
-	public void setDescuento(int descuento) {
+	public void setDescuento(double descuento) {
 		this.descuento = descuento;
 	}
 	
