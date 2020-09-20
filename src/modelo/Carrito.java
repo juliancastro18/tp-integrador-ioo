@@ -214,18 +214,26 @@ public class Carrito{
 	}
 	
 	public double calcularDescuentoEfectivo(double porcentajeDescuentoEfectivo) {
-		return calcularTotalCarrito() * porcentajeDescuentoEfectivo /100;
+		return ( calcularTotalCarrito() * porcentajeDescuentoEfectivo /100 );
 	}
 	
 	public double calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento, double porcentajeDescuentoEfectivo) {
-		double descuento=0;
+		double descuento = 0;
 		if(this.cerrado==true) {
-			if( calcularDescuentoDia(diaDescuento,porcentajeDescuento) >= calcularDescuentoEfectivo(porcentajeDescuentoEfectivo) ) {
-				descuento = calcularDescuentoDia(diaDescuento,porcentajeDescuento);
+			double dEfectivo = calcularDescuentoEfectivo(porcentajeDescuentoEfectivo);
+			double dDia = calcularDescuentoDia(diaDescuento,porcentajeDescuento);
+			if( dDia >= dEfectivo ) {
+				descuento = dDia;
 			}else {
-				descuento = calcularDescuentoEfectivo(porcentajeDescuentoEfectivo);
+				descuento = dEfectivo;
 			}
 		}
 		return descuento;
 	}
+	
+	public double totalAPagarCarrito() {
+		return ( calcularTotalCarrito() - this.descuento );
+	}
+	
+
 }
