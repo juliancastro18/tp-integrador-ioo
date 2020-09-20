@@ -140,7 +140,9 @@ public class Carrito{
 	}
 	
 	
-	public void agregarItem(Articulo art, int cantidad) {
+	public void agregarItem(Articulo art, int cantidad) throws Exception {
+		
+		if(cerrado) throw new Exception("No se puede agregar items a un carrito cerrado");
 		
 		ItemCarrito auxIC = getItemCarrito(art);
 		
@@ -153,6 +155,8 @@ public class Carrito{
 	
 	
 	public void eliminarItem(Articulo art, int cantidad) throws Exception {
+		
+		if(cerrado) throw new Exception("No se puede eliminar items de un carrito cerrado");
 		
 		ItemCarrito auxIC = getItemCarrito(art);
 		
