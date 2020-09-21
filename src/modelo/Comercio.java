@@ -334,7 +334,7 @@ public class Comercio extends Actor {
 
 			while (horadesde.getHour() < horahasta.getHour()) {		//recorre desde la hora que abre el comercio hasta una hora antes que cierre (ultimo turno)
 				listaTurnos.add(new Turno(fecha, horadesde, false));//crea y agrega un nuevo turno disponible a la lista
-				horadesde = horadesde.plusHours(intervalo);			// aumenta la hora para el turno siguiente
+				horadesde = horadesde.plusMinutes(intervalo);			// aumenta la hora para el turno siguiente
 			}
 
 		}
@@ -362,7 +362,7 @@ public class Comercio extends Actor {
 				}
 
 				esIgual = false;												//resetea el flag
-				horadesde = horadesde.plusHours(intervalo);						//suma el intervalo a la hora para la siguiente iteracion
+				horadesde = horadesde.plusMinutes(intervalo);						//suma el intervalo a la hora para la siguiente iteracion
 			}
 
 		}
@@ -431,11 +431,17 @@ public class Comercio extends Actor {
 		
 		Carrito carritoEliminar = getCarritoFromLista(idCarrito);
 		
+
+		//TODO: corregir el parametro de descuento
+		//Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234, cliente, entrega);
+		//listaCarrito.add(nuevoCarrito);
+
 		if(carritoEliminar.isCerrado()) {
 			listaCarrito.remove(carritoEliminar);
 		}else {
 			throw new Exception("No se puede eliminar un carrito que ya fue cerrado");
 		}
+
 	}
 	
 	public void eliminarCarritoAbierto(Cliente cliente) throws Exception {

@@ -27,7 +27,7 @@ public class testJuan {
 		
 		/*LocalDate fecha = LocalDate.of(2020, 9, 1);
 		List<DiaRetiro> listaDiasRetiro = new ArrayList<DiaRetiro>();
-		listaDiasRetiro.add(new DiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 1));
+		listaDiasRetiro.add(new DiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 60));
 		List<Carrito> carritos = new ArrayList<Carrito>();
 		Entrega entrega = new RetiroLocal(fecha, LocalTime.of(12, 0));
 		Entrega entrega2 = new RetiroLocal(fecha, LocalTime.of(14, 0));
