@@ -25,7 +25,7 @@ public class testJuan {
 		Cliente cliente1 = new Cliente(contacto1, "Blanco", "Juan", 33457215);
 		
 		
-		/*LocalDate fecha = LocalDate.of(2020, 9, 1);
+		LocalDate fecha = LocalDate.of(2020, 9, 1);
 		List<DiaRetiro> listaDiasRetiro = new ArrayList<DiaRetiro>();
 		listaDiasRetiro.add(new DiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 60));
 		List<Carrito> carritos = new ArrayList<Carrito>();
@@ -36,10 +36,10 @@ public class testJuan {
 		
 		Comercio comercio = new Comercio(contacto1, carritos, listaDiasRetiro);
 		
-		for(Turno turno : comercio.generarTurnosLibres(fecha))
+		for(Turno turno : comercio.generarAgenda(fecha))
 		{
 			System.out.println(turno.toString());
-		}*/
+		}
 		
 	}
 
