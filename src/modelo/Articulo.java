@@ -63,7 +63,7 @@ public class Articulo {
 	public boolean equals(Articulo art) {
 		return this.idArticulo == art.getIdArticulo();
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Producto---> id=" + idArticulo + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio="
@@ -112,7 +112,7 @@ public class Articulo {
 		int digitoDeControl = sumaParMasMultiRedondeado - sumaParMasMulti;
 		
 		//System.out.println();
-		System.out.println(digitoDeControl);
+		//System.out.println(digitoDeControl);
 		if (Integer.valueOf(String.valueOf(codBarrasDescompuesto[12])) == digitoDeControl) {
 			codigoValidado = true;
 		}
@@ -120,5 +120,5 @@ public class Articulo {
 		
 		return codigoValidado;
 
-	}
+	}	
 }
