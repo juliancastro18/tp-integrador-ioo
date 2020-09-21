@@ -250,7 +250,7 @@ public class Comercio extends Actor {
 
 	
 	// GENERAR AGENDA
-	/*
+	
 	public List<Turno> generarAgenda(LocalDate fecha) {
 		List<Turno> agenda = new ArrayList<Turno>();
 		List<Turno> turnosLibres = new ArrayList<Turno>();
@@ -263,12 +263,12 @@ public class Comercio extends Actor {
 		}
 		if(!turnosOcupados.isEmpty()) {
 			for(int i = 0;i<turnosOcupados.size();i++) {
-				agenda.add(turnosOcupados.getIndex(i));
+				agenda.add(turnosOcupados.get(i));
 			}
 		}
 
 		return agenda;
-	}*/
+	}
 
 	
 
@@ -293,10 +293,10 @@ public class Comercio extends Actor {
 					}
 				}
 				if ((esIgual)) {												
-					listaTurnosOcupados.add(new Turno(fecha, horadesde, false));
+					listaTurnosOcupados.add(new Turno(fecha, horadesde, true));
 				}
 				esIgual = false;												
-				horadesde = horadesde.plusHours(intervalo);						
+				horadesde = horadesde.plusMinutes(intervalo);						
 			}
 		}
 		return listaTurnosOcupados;	
