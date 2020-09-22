@@ -31,21 +31,23 @@ public class Comercio extends Actor {
 	}
 
 	// constructor para realizar test
-	public Comercio(Contacto contacto, List<Carrito> listaDeCarritos, List<DiaRetiro> diasRetiro) {
+	public Comercio(Contacto contacto, long cuit, List<Carrito> listaDeCarritos, List<DiaRetiro> diasRetiro) throws Exception {
 		super(contacto);
+		setCUIT(cuit);
 		setListaCarrito(listaDeCarritos);
 		setListaDiaRetiro(diasRetiro);
 	}
 
-	public Comercio(Contacto contacto, List<DiaRetiro> diasRetiro) {
+	public Comercio(Contacto contacto, long cuit, List<DiaRetiro> diasRetiro) throws Exception {
 		super(contacto);
+		setCUIT(cuit); 
 		setListaDiaRetiro(diasRetiro);
 		setListaCarrito(new ArrayList<Carrito>());
 	}
 
 	// Constructor para test de carrito, y articulos
 	public Comercio(Contacto contacto, String nombreComercio, List<Articulo> listaArticulos,
-			List<Carrito> listaDeCarritos) {
+			List<Carrito> listaDeCarritos) throws Exception {
 		super(contacto);
 		setListaArticulos(listaArticulos);
 		setListaCarrito(listaDeCarritos);
@@ -69,8 +71,6 @@ public class Comercio extends Actor {
 	public void setCUIT(long cuit) throws Exception {
 		if (validarIdentificadorUnico(cuit)) // valida el cuit y si es verdadero se asigna
 			CUIT = cuit;
-		else
-			throw new Exception("\nCuil invalido. Por favor intente nuevamente...\n");
 	}
 
 	public double getCostoFijo() {
@@ -164,13 +164,8 @@ public class Comercio extends Actor {
 	}
 
 	// ----------------------------METODOS--------------------------------------
-	// valida el cuit, segun algoritmo para validar cuit y cuil
-	protected boolean validarIdentificadorUnico() {
-		return validarIdentificadorUnico(this.CUIT);
 
-	}
-
-	protected boolean validarIdentificadorUnico(long cuit) {
+	protected boolean validarIdentificadorUnico(long cuit) throws Exception {
 		String cuitCadena = String.valueOf(cuit); // convierte el cuit a cadena
 		String valores = "5432765432"; // valores para hacer el calculo
 		char[] cuitDescompuesto = cuitCadena.toCharArray(); // descompone el cuit numero por numero
@@ -217,7 +212,10 @@ public class Comercio extends Actor {
 					validacion = true;
 			}
 		}
-
+		
+		if( ! validacion)
+			throw new Exception("\nCuil invalido. Por favor intente nuevamente...\n");
+		
 		return validacion; // devuelve el resultado
 	}
 
@@ -263,6 +261,7 @@ public class Comercio extends Actor {
 		}
 		if(!turnosOcupados.isEmpty()) {
 			for(int i = 0;i<turnosOcupados.size();i++) {
+		
 				agenda.add(turnosOcupados.get(i));
 			}
 		}
