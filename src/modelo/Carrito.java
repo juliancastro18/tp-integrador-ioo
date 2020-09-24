@@ -15,31 +15,26 @@ public class Carrito{
 	private Entrega entrega;
 	
 	
-	public Carrito(int id, LocalDate fecha, LocalTime hora, boolean cerrado, double descuento,
-			List<ItemCarrito> listaItems, Cliente cliente, Entrega entrega) {
+	public Carrito(int id, Cliente cliente) {
 		super();
 		this.idCarrito = id;
-		this.fecha = fecha;
-		this.hora = hora;
-		this.cerrado = cerrado;
-		this.descuento = descuento;
 		this.cliente = cliente;
-		this.lstItemCarrito = listaItems;
-		this.entrega = entrega;
+		this.lstItemCarrito = new ArrayList<ItemCarrito>();
+		inicializarValoresPorDefecto();
 	}
 	
-	public Carrito(int id, Cliente cliente) {
-		this(id, LocalDate.now(), LocalTime.now(), false, 0, new ArrayList<ItemCarrito>(), cliente, null);
+	private void inicializarValoresPorDefecto() {
+		this.fecha = LocalDate.now();
+		this.hora = LocalTime.now();
+		this.cerrado = false;
 	}
+	
 	
 	//------------------------constructor para pruebas----------------------
 	public Carrito(Entrega entrega)
 	{
 		setEntrega(entrega);
-	}
-	
-	
-	
+	}	
 	public Carrito() {
 		super();
 		// TODO Auto-generated constructor stub
