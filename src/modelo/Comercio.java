@@ -3,6 +3,7 @@ package modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Comercio extends Actor {
@@ -244,9 +245,6 @@ public class Comercio extends Actor {
 
 		return resultado;
 	}
-
-
-	
 	// GENERAR AGENDA
 	
 	public List<Turno> generarAgenda(LocalDate fecha) {
@@ -261,31 +259,28 @@ public class Comercio extends Actor {
 		}
 		if(!turnosOcupados.isEmpty()) {
 			for(int i = 0;i<turnosOcupados.size();i++) {
-		
 				agenda.add(turnosOcupados.get(i));
 			}
 		}
-
+		//ordena la lista
+		Collections.sort(agenda,Collections.reverseOrder());
+		
 		return agenda;
 	}
-
-	
 
 	 public List<Turno> generarTurnosOcupados(LocalDate fecha) {
 		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
 		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	
 		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();	
 		int intervalo = obtenerDiaRetiro(fecha).getIntervalo();
-		
 		RetiroLocal carritoAux;												
 		boolean esIgual = false;
 
-		if (!getListaCarrito().isEmpty()) { 							
+		if (!getListaCarrito().isEmpty()) {							
 			while (horadesde.getHour() < horahasta.getHour()) {					
 				for (Carrito carrito : obtenerCarritosPorFecha(fecha)) {				
 					if (carrito.getEntrega() instanceof RetiroLocal) {			
 						carritoAux = (RetiroLocal) carrito.getEntrega();		
-
 						if ((horadesde.equals(carritoAux.getHoraEntrega()))) {	
 							esIgual = true;																							
 						}
@@ -297,10 +292,11 @@ public class Comercio extends Actor {
 				esIgual = false;												
 				horadesde = horadesde.plusMinutes(intervalo);						
 			}
+		}else {
+			listaTurnosOcupados = null;
 		}
 		return listaTurnosOcupados;	
 	}
-
 
 	// METODO GENERARTURNOSLIBRES
 	/*
@@ -315,10 +311,7 @@ public class Comercio extends Actor {
 	 siguiente turno esta ocupado.
 	 */
 	
-	
-	
-	
-	
+
 	// metodo generarTurnosLibres
 
 
@@ -335,7 +328,6 @@ public class Comercio extends Actor {
 				listaTurnos.add(new Turno(fecha, horadesde, false));//crea y agrega un nuevo turno disponible a la lista
 				horadesde = horadesde.plusMinutes(intervalo);			// aumenta la hora para el turno siguiente
 			}
-
 		}
 
 		else {																	
@@ -353,9 +345,7 @@ public class Comercio extends Actor {
 							esIgual = true;										//si la hora es la misma significa que el turno esta ocupado y se actualiza el flag													
 						}
 					}
-
 				}
-
 				if (!(esIgual)) {												//si el flag es false se agregan turnos
 					listaTurnos.add(new Turno(fecha, horadesde, false));
 				}
@@ -369,13 +359,11 @@ public class Comercio extends Actor {
 		return listaTurnos;														//devuelve la lista
 
 	}
-	
-	
-	
+
 	///////////////////////////////ADMINISTRACION DE PRODUCTOS-ARTICULOS////////////////////////////////////////
 	
 	// AGREGA PRODUCTO AL COMERCIO
-	/*
+	
 	public boolean agregarProducto(String producto,String codBarras,double precio) throws Exception{
 		boolean addProducto = false;
 		int id = 0;
@@ -388,7 +376,7 @@ public class Comercio extends Actor {
 		listaArticulos.add(articulo);
 		addProducto=true;
 		return addProducto;
-	}*/
+	}
 	
 	
 	public Articulo traerProducto(int idArticulo) {
