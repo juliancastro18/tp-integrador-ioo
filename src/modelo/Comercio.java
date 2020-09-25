@@ -166,8 +166,9 @@ public class Comercio extends Actor {
 
 	// ----------------------------METODOS--------------------------------------
 
-	protected boolean validarIdentificadorUnico(long cuit) throws Exception {
-		String cuitCadena = String.valueOf(cuit); // convierte el cuit a cadena
+	@Override
+	protected boolean validarIdentificadorUnico(long iUnico) throws Exception {
+		String cuitCadena = String.valueOf(iUnico); // convierte el cuit a cadena
 		String valores = "5432765432"; // valores para hacer el calculo
 		char[] cuitDescompuesto = cuitCadena.toCharArray(); // descompone el cuit numero por numero
 		char[] valoresDescompuesto = valores.toCharArray(); // descompone los valores numero por numero
@@ -220,6 +221,7 @@ public class Comercio extends Actor {
 		return validacion; // devuelve el resultado
 	}
 
+	
 	// obtiene una lista de carritos segun la fecha especificada
 	public List<Carrito> obtenerCarritosPorFecha(LocalDate fecha) {
 		List<Carrito> listaCarritos = new ArrayList<Carrito>();

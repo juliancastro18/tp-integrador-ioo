@@ -6,6 +6,7 @@ public class Cliente extends Actor {
 	private String apellido;
 	private String nombre;
 	private int dni;
+	private char sexo;
 	
 	//-------------------------CONSTRUCTOR-------------------------
 	public Cliente(Contacto contacto, String apellido, String nombre, int dni) {
@@ -46,6 +47,14 @@ public class Cliente extends Actor {
 		}
 	}
 
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
+	}
+
 	//-------------------------METODOS-------------------------
 	@Override
 	public String toString() {
@@ -68,12 +77,8 @@ public class Cliente extends Actor {
 		return equals;
 	}
 
-	@Override
-	protected boolean validarIdentificadorUnico() {
-		return validarIdentificadorUnico(this.dni);
-	}
-	
-	protected boolean validarIdentificadorUnico(int iUnico) {
+	@Override	
+	protected boolean validarIdentificadorUnico(long iUnico) {
 		boolean validador = false;
 		if(iUnico>0 && iUnico<99999999) {
 			validador = true;

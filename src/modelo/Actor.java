@@ -53,7 +53,7 @@ public abstract class Actor {
 		return equals;
 	}
 
-	protected abstract boolean validarIdentificadorUnico();
+	protected abstract boolean validarIdentificadorUnico(long iUnico);
 
 		
 }
