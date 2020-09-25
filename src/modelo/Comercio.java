@@ -371,7 +371,8 @@ public class Comercio extends Actor {
 		int id = 0;
 		for(Articulo art: listaArticulos) {
 			String nombreProducto = art.getNombre();
-			if(nombreProducto == producto)throw new Exception( "El producto ya existe");
+			
+			if(art.equals(producto))throw new Exception( "El producto ya existe");
 		}
 		id=this.getNuevoIdArticulo();
 		Articulo articulo = new Articulo(id,producto,codBarras,precio);

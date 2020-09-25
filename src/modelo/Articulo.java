@@ -60,8 +60,14 @@ public class Articulo {
 	}
 
 	//-------------------------METODOS-------------------------
+	
 	public boolean equals(Articulo art) {
 		return this.idArticulo == art.getIdArticulo();
+	}
+	
+	
+	public boolean equals(String nombre) {
+		return this.nombre == nombre;
 	}
 	
 	@Override
