@@ -14,6 +14,11 @@ public abstract class Actor {
 		this.id = id;
 		this.contacto = contacto;
 	}
+	
+	public Actor(Contacto contacto) {
+		super();
+		this.contacto = contacto;
+	}
 
 
 	//-------------------------GETTERS Y SETTERS-------------------------

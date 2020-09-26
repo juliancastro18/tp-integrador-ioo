@@ -1,22 +1,33 @@
 package modelo;
+/*import modelo.Contacto;
+import modelo.Ubicacion;*/
 
 public class Cliente extends Actor {
 	
 	//-------------------------ATRIBUTOS-------------------------
 	private String apellido;
 	private String nombre;
-	private int dni;
+	private long dni;
 	private char sexo;
 	
 	//-------------------------CONSTRUCTOR-------------------------
-	public Cliente(int id, Contacto contacto, String apellido, String nombre, int dni, char sexo) {
-		super(id, contacto);
+	public Cliente(Contacto contacto, String apellido, String nombre, long dni, char sexo) {
+		super(contacto);
 		this.apellido = apellido;
 		this.nombre = nombre;
 		this.dni = dni;
 		this.sexo = sexo;
 	}
 
+	/*public Cliente(String apellido, String nombre, long dni, char sexo, String email, String celular, double latitud, double longitud) {
+		Ubicacion ubicacion = new Ubicacion(latitud, longitud);
+		Contacto contacto = new Contacto(email,celular,ubicacion);
+		super(contacto);
+		this.apellido = apellido;
+		this.nombre = nombre;
+		this.dni = dni;
+		this.sexo = sexo;
+	}*/
 
 	//-------------------------GETTERS Y SETTERS-------------------------
 	public String getApellido() {
@@ -39,11 +50,11 @@ public class Cliente extends Actor {
 		return getNombre() + " " + getApellido();
 	}
 
-	public int getDni() {
+	public long getDni() {
 		return dni;
 	}
 
-	public void setDni(int dni) {
+	public void setDni(long dni) {
 		if(validarIdentificadorUnico(dni)) {
 			this.dni = dni;
 		}
@@ -61,14 +72,6 @@ public class Cliente extends Actor {
 	@Override
 	public String toString() {
 		return "Cliente= Id: " + super.getId() + " - Apellido: " + apellido + " - Nombre: " + nombre + " - DNI: " + dni + contacto;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + dni;
-		return result;
 	}
 
 	public boolean equals(Cliente c) {

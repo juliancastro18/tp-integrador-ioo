@@ -1,5 +1,10 @@
 package modelo;
 
+import modelo.Carrito;
+import modelo.Cliente;
+import modelo.Contacto;
+import modelo.Ubicacion;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -180,6 +185,12 @@ public class Comercio extends Actor {
 
 	// ----------------------------- METODOS ----------------------------- 
 
+	//TOSTRING
+		@Override
+		public String toString() {
+			return super.toString() + "\nNombre: " + getNombreComercio() + "\nCUIT: " + getCUIT();
+		}
+	
 	//VALIDACION CUIL
 	@Override
 	protected boolean validarIdentificadorUnico(long iUnico) throws Exception {
@@ -325,8 +336,8 @@ public class Comercio extends Actor {
 	  dentro de la lista (con la misma fecha que la solicitada), se recorren para
 	  ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
 	  la hora segun el intervalo especificado en DiaRetiro para preguntar si el
-	  siguiente turno esta ocupado.*/
-	
+	  siguiente turno esta ocupado.
+	  */
 	public List<Turno> generarTurnosLibres(LocalDate fecha) {
 
 		List<Turno> listaTurnos = new ArrayList<Turno>();  				//crea una lista de turnos que sera retornada
@@ -417,16 +428,21 @@ public class Comercio extends Actor {
 	
 	// ----------------------------- ADMINISTRAR CARRITOS -----------------------------
 
-	//AGREGAR
+	//AGREGAR CARRITO
 	public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
-
+		
 		if (getCarritoAbierto(cliente) != null) {
 			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
-
+		
+		if(cliente.getId() == 0) {
+			cliente.setId(getNuevoIdCliente());
+		}
+		
 		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), cliente);
 		listaCarrito.add(nuevoCarrito);
 	}
+	
 	
 	//ELIMINAR POR ID
 	public void eliminarCarrito(int idCarrito) throws Exception {
@@ -509,7 +525,9 @@ public class Comercio extends Actor {
 		return carrito;
 	}
 	
-	//BUSCAR CARRITO ABIERTO POR CLIENTE
+	
+	
+	//BUSCA CARRITO ABIERTO POR CLIENTE
 	public Carrito getCarritoAbierto(Cliente cliente) {
 		Carrito carritoAbierto = null;
 		int contador = 0;
@@ -520,14 +538,8 @@ public class Comercio extends Actor {
 			}
 			contador++;
 		}
-
 		return carritoAbierto;
 	}
-
-
-	@Override
-	public String toString() {
-		return super.toString() + "\nNombre: " + getNombreComercio() + "\nCUIT: " + getCUIT();
-	}
-
+	
+	// ----------------------------- FIN -----------------------------
 }
