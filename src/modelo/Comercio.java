@@ -408,24 +408,22 @@ public class Comercio extends Actor {
 	
 	// ----------------------------- ADMINISTRACION DE PRODUCTOS-ARTICULOS -----------------------------
 	
-	//AGREGA PRODUCTO AL COMERCIO	
-	public boolean agregarProducto(String producto,String codBarras,double precio) throws Exception{
-		boolean addProducto = false;
+	//AGREGA ARTICULO AL COMERCIO	
+	public boolean agregarArticulo(String articuloNombre,String codBarras,double precio) throws Exception{
+		boolean addArticulo = false;
 		int id = 0;
-		for(Articulo art: listaArticulos) {
-			String nombreProducto = art.getNombre();
-			
-			if(art.equals(producto))throw new Exception( "El producto ya existe");
+		for(Articulo art : listaArticulos) {
+			if(art.equals(articuloNombre))throw new Exception( "El producto ya existe");
 		}
 		id=this.getNuevoIdArticulo();
-		Articulo articulo = new Articulo(id,producto,codBarras,precio);
+		Articulo articulo = new Articulo(id,articuloNombre,codBarras,precio);
 		listaArticulos.add(articulo);
-		addProducto=true;
-		return addProducto;
+		addArticulo=true;
+		return addArticulo;
 	}
 	
-	//BUSCAR PRODUCTO POR ID
-	public Articulo traerProducto(int idArticulo) {
+	//BUSCAR ARTICULO POR ID
+	public Articulo traerArticulo(int idArticulo) {
 		boolean found = false;
 		boolean finLista = false;
 		int vueltas = 0;
@@ -446,6 +444,24 @@ public class Comercio extends Actor {
 
 		}
 		return art;
+	}
+	
+	//ELIMINAR ARTICULO
+	public void eliminarArticulo(int idArticulo) throws Exception {
+		Articulo artEliminar = traerArticulo(idArticulo);
+		
+		if (artEliminar == null) {
+			throw new Exception("Articulo no encontrado");
+		}
+		
+		for(Carrito carro : listaCarrito) {
+			ItemCarrito itemAux = carro.getItemCarrito(artEliminar);
+			if (itemAux != null) {
+				throw new Exception("El articulo fue agregado a almenos un carrito, y no puede ser eliminado");
+			}
+		}
+
+		listaArticulos.remove(artEliminar);
 	}
 
 	
