@@ -8,11 +8,14 @@ public abstract class Actor {
 	protected Contacto contacto;
 	
 	//-------------------------CONSTRUCTOR-------------------------
-	public Actor(Contacto contacto) {
+	
+	public Actor(int id, Contacto contacto) {
 		super();
+		this.id = id;
 		this.contacto = contacto;
 	}
-	
+
+
 	//-------------------------GETTERS Y SETTERS-------------------------
 	public int getId() {
 		return id;

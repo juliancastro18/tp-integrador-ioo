@@ -21,9 +21,9 @@ public class Comercio extends Actor {
 
 	// -------------------CONSTRUCTOR-------------------------
 	// VALIDA LOS DATOS ANTES DE ASIGNARLOS
-	public Comercio(Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
+	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
 			int diaDescuento) throws Exception {
-		super(contacto);
+		super(id, contacto);
 		setNombreComercio(nombreComercio);
 		setCUIT(cuit);
 		setCostoFijo(costoFijo);
@@ -31,25 +31,26 @@ public class Comercio extends Actor {
 		setDiaDescuento(diaDescuento);
 	}
 
+
 	// constructor para realizar test
-	public Comercio(Contacto contacto, long cuit, List<Carrito> listaDeCarritos, List<DiaRetiro> diasRetiro) throws Exception {
-		super(contacto);
+	public Comercio(int id, Contacto contacto, long cuit, List<Carrito> listaDeCarritos, List<DiaRetiro> diasRetiro) throws Exception {
+		super(id, contacto);
 		setCUIT(cuit);
 		setListaCarrito(listaDeCarritos);
 		setListaDiaRetiro(diasRetiro);
 	}
 
-	public Comercio(Contacto contacto, long cuit, List<DiaRetiro> diasRetiro) throws Exception {
-		super(contacto);
+	public Comercio(int id, Contacto contacto, long cuit, List<DiaRetiro> diasRetiro) throws Exception {
+		super(id, contacto);
 		setCUIT(cuit); 
 		setListaDiaRetiro(diasRetiro);
 		setListaCarrito(new ArrayList<Carrito>());
 	}
 
 	// Constructor para test de carrito, y articulos
-	public Comercio(Contacto contacto, String nombreComercio, List<Articulo> listaArticulos,
+	public Comercio(int id, Contacto contacto, String nombreComercio, List<Articulo> listaArticulos,
 			List<Carrito> listaDeCarritos) throws Exception {
-		super(contacto);
+		super(id, contacto);
 		setListaArticulos(listaArticulos);
 		setListaCarrito(listaDeCarritos);
 		setNombreComercio(nombreComercio);

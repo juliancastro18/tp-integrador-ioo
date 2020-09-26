@@ -9,13 +9,15 @@ public class Cliente extends Actor {
 	private char sexo;
 	
 	//-------------------------CONSTRUCTOR-------------------------
-	public Cliente(Contacto contacto, String apellido, String nombre, int dni) {
-		super(contacto);
+	public Cliente(int id, Contacto contacto, String apellido, String nombre, int dni, char sexo) {
+		super(id, contacto);
 		this.apellido = apellido;
 		this.nombre = nombre;
 		this.dni = dni;
+		this.sexo = sexo;
 	}
-	
+
+
 	//-------------------------GETTERS Y SETTERS-------------------------
 	public String getApellido() {
 		return apellido;
