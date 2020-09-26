@@ -45,10 +45,10 @@ public class Comercio extends Actor {
 		setListaDiaRetiro(diasRetiro);
 	}
 
-	public Comercio(int id, Contacto contacto, long cuit, List<DiaRetiro> diasRetiro) throws Exception {
+	public Comercio(int id, Contacto contacto, long cuit) throws Exception {
 		super(id, contacto);
 		setCUIT(cuit); 
-		setListaDiaRetiro(diasRetiro);
+		setListaDiaRetiro(new ArrayList<DiaRetiro>());
 		setListaCarrito(new ArrayList<Carrito>());
 	}
 
@@ -78,6 +78,9 @@ public class Comercio extends Actor {
 	public void setCUIT(long cuit) throws Exception {
 		if (validarIdentificadorUnico(cuit)) // valida el cuit y si es verdadero se asigna
 			CUIT = cuit;
+		
+		else
+			throw new Exception("\nError al validar CUIT. Por favor intente nuevamente...\n");
 	}
 
 	public double getCostoFijo() {
@@ -179,10 +182,10 @@ public class Comercio extends Actor {
 	}
 
 	// ----------------------------- METODOS ----------------------------- 
-
+	
 	//VALIDACION CUIL
 	@Override
-	protected boolean validarIdentificadorUnico(long iUnico) throws Exception {
+	protected boolean validarIdentificadorUnico(long iUnico) {
 		String cuitCadena = String.valueOf(iUnico); // convierte el cuit a cadena
 		String valores = "5432765432"; // valores para hacer el calculo
 		char[] cuitDescompuesto = cuitCadena.toCharArray(); // descompone el cuit numero por numero
@@ -230,9 +233,6 @@ public class Comercio extends Actor {
 			}
 		}
 		
-		if( ! validacion)
-			throw new Exception("\nCuil invalido. Por favor intente nuevamente...\n");
-		
 		return validacion; // devuelve el resultado
 	}
 
@@ -262,6 +262,19 @@ public class Comercio extends Actor {
 
 		return resultado;
 	}
+	
+	//OBTIENE DIA RETIRO POR DIA DE SEMANA
+		public DiaRetiro obtenerDiaRetiro(int diaSemana) {
+			DiaRetiro resultado = null;
+			for (DiaRetiro dato : getListaDiaRetiro()) {
+				if (dato.getDiaSemana() == diaSemana) {
+					resultado = dato;
+				}
+			}
+
+			return resultado;
+		}
+	
 	
 	//GENERA AGENDA	
 	public List<Turno> generarAgenda(LocalDate fecha) {
@@ -371,6 +384,27 @@ public class Comercio extends Actor {
 		return listaTurnos;														//devuelve la lista
 	}
 
+	
+	//METODO PARA AGREGAR UN DIARETIRO A LA LISTA
+	public boolean agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) throws Exception
+	{
+		if(obtenerDiaRetiro(diaSemana) == null)
+		{
+			getListaDiaRetiro().add(new DiaRetiro(getNuevoIdDiaRetiro(), diaSemana, horaDesde, horaHasta, intervalo));
+		}
+		
+		else 
+			throw new Exception("\nEl dia de retiro ya existe\n");
+			
+		return true;
+	}
+			
+		
+	
+	
+	
+	
+	
 	
 	// ----------------------------- ADMINISTRACION DE PRODUCTOS-ARTICULOS -----------------------------
 	

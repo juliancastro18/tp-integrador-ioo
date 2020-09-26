@@ -23,9 +23,9 @@ public class testJuan {
 		Ubicacion ubicacion1 = new Ubicacion(342, 764);
 		Contacto contacto1 = new Contacto("juan@gmail.com","1134764321",ubicacion1);
 		
-		LocalDate fecha = LocalDate.of(2020, 9, 1);
-		List<DiaRetiro> listaDiasRetiro = new ArrayList<DiaRetiro>();
-		listaDiasRetiro.add(new DiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 30));
+		LocalDate fecha = LocalDate.of(2020, 9, 5);
+		//List<DiaRetiro> listaDiasRetiro = new ArrayList<DiaRetiro>();
+		//listaDiasRetiro.add(new DiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 30));
 		List<Carrito> carritos = new ArrayList<Carrito>();
 		Entrega entrega = new RetiroLocal(fecha, LocalTime.of(12, 0));
 		Entrega entrega2 = new RetiroLocal(fecha, LocalTime.of(14, 0));
@@ -35,9 +35,12 @@ public class testJuan {
 		try
 		{
 			
-			Comercio comercio = new Comercio(contacto1, 20395149866L, carritos, listaDiasRetiro);
+			Comercio comercio = new Comercio(123, contacto1, 20395149866L);
+			comercio.agregarDiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 30);
+			comercio.agregarDiaRetiro(5, LocalTime.of(10, 0), LocalTime.of(17, 0), 40);
+			//comercio.agregarCarrito(cliente, esEnvio);
 			
-			for(Turno turno : comercio.generarTurnosLibres(fecha))
+			for(DiaRetiro turno : comercio.getListaDiaRetiro())
 			{
 				System.out.println(turno.toString());
 				System.out.println("");
