@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Comercio extends Actor {
 
+	// ----------------------------- ATRIBUTOS -----------------------------
+	
 	private String nombreComercio;
 	private long CUIT;
 	private double costoFijo;
@@ -19,8 +21,8 @@ public class Comercio extends Actor {
 	private List<Carrito> listaCarrito;
 	private List<Articulo> listaArticulos;
 
-	// -------------------CONSTRUCTOR-------------------------
-	// VALIDA LOS DATOS ANTES DE ASIGNARLOS
+	// ----------------------------- CONSTRUCTOR -----------------------------
+	
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
 			int diaDescuento) throws Exception {
 		super(id, contacto);
@@ -29,6 +31,9 @@ public class Comercio extends Actor {
 		setCostoFijo(costoFijo);
 		setCostoPorKm(costoPorKm);
 		setDiaDescuento(diaDescuento);
+		this.listaDiaRetiro = new ArrayList<DiaRetiro>();
+		this.listaCarrito = new ArrayList<Carrito>();
+		this.listaArticulos = new ArrayList<Articulo>();
 	}
 
 
@@ -56,7 +61,7 @@ public class Comercio extends Actor {
 		setNombreComercio(nombreComercio);
 	}
 
-	// --------------------GETTERS Y SETTERS-----------------------------
+	// ----------------------------- GETTERS Y SETTERS -----------------------------
 
 	public String getNombreComercio() {
 		return nombreComercio;
@@ -139,7 +144,7 @@ public class Comercio extends Actor {
 		this.listaArticulos = listaArticulos;
 	}
 
-	// --- GET IDs PARA LISTAS
+	// ----------------------------- NUEVOS ID PARA LISTAS -----------------------------
 
 	protected int getNuevoIdDiaRetiro() {
 		int idSiguiente = 0;
@@ -164,9 +169,18 @@ public class Comercio extends Actor {
 		}
 		return idSiguiente;
 	}
+	
+	protected int getNuevoIdCliente() {
+		int idSiguiente = 1;
+		if (listaCarrito.isEmpty() == false) {
+			idSiguiente = listaCarrito.get(listaCarrito.size() - 1).getCliente().getId() + 1;
+		}
+		return idSiguiente;
+	}
 
-	// ----------------------------METODOS--------------------------------------
+	// ----------------------------- METODOS ----------------------------- 
 
+	//VALIDACION CUIL
 	@Override
 	protected boolean validarIdentificadorUnico(long iUnico) throws Exception {
 		String cuitCadena = String.valueOf(iUnico); // convierte el cuit a cadena
@@ -223,7 +237,7 @@ public class Comercio extends Actor {
 	}
 
 	
-	// obtiene una lista de carritos segun la fecha especificada
+	//OBTIENE LISTA DE CARRITOS POR FECHA
 	public List<Carrito> obtenerCarritosPorFecha(LocalDate fecha) {
 		List<Carrito> listaCarritos = new ArrayList<Carrito>();
 
@@ -236,7 +250,7 @@ public class Comercio extends Actor {
 		return listaCarritos;
 	}
 
-	// metodo para obtener un diaRetiro segun la fecha indicada
+	//OBTIENE DIA RETIRO POR FECHA
 	public DiaRetiro obtenerDiaRetiro(LocalDate fecha) {
 		DiaRetiro resultado = null;
 		int dia = fecha.getDayOfMonth();
@@ -248,16 +262,16 @@ public class Comercio extends Actor {
 
 		return resultado;
 	}
-	// GENERAR AGENDA
 	
+	//GENERA AGENDA	
 	public List<Turno> generarAgenda(LocalDate fecha) {
 		List<Turno> agenda = new ArrayList<Turno>();
 		List<Turno> turnosLibres = new ArrayList<Turno>();
 		List<Turno> turnosOcupados = new ArrayList<Turno>();
 		turnosLibres = generarTurnosLibres(fecha);
 		turnosOcupados = generarTurnosOcupados(fecha);
-		//VAMOS A RECORRER LOS TURNOS LIBRES QUE HAY EN ESA FECHA
-		for (int i = 0; i < turnosLibres.size(); i++) {
+
+		for (int i = 0; i < turnosLibres.size(); i++) { //recorre turnos libres por fecha
 			agenda.add(turnosLibres.get(i));
 		}
 		if(!turnosOcupados.isEmpty()) {
@@ -265,13 +279,14 @@ public class Comercio extends Actor {
 				agenda.add(turnosOcupados.get(i));
 			}
 		}
-		//ordena la lista
-		Collections.sort(agenda,Collections.reverseOrder());
+		
+		Collections.sort(agenda,Collections.reverseOrder()); //ordena la lista
 		
 		return agenda;
 	}
 
-	 public List<Turno> generarTurnosOcupados(LocalDate fecha) {
+	//OBTIENE LISTA DE TURNOS OCUPADOS
+	public List<Turno> generarTurnosOcupados(LocalDate fecha) {
 		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
 		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	
 		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();	
@@ -301,23 +316,17 @@ public class Comercio extends Actor {
 		return listaTurnosOcupados;	
 	}
 
-	// METODO GENERARTURNOSLIBRES
-	/*
-	 este metodo devuelve una lista de turnos en base a la fecha especificada por
-	 parametro (clase DiaRetiro) y los horarios correspondientes a las Entregas
-	 (clase Entregas) de carritos ya confirmados. Si no hay ningun carrito
-	 confirmado el metodo genera turnos nuevos con todos los horarios del dia
-	 especificado y devuelve la lista. En caso de que ya haya carritos confirmados
-	 dentro de la lista (con la misma fecha que la solicitada), se recorren para
-	 ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
-	 la hora segun el intervalo especificado en DiaRetiro para preguntar si el
-	 siguiente turno esta ocupado.
-	 */
+	//GENERA TURNOS LIBRES
+	/*este metodo devuelve una lista de turnos en base a la fecha especificada por
+	  parametro (clase DiaRetiro) y los horarios correspondientes a las Entregas
+	  (clase Entregas) de carritos ya confirmados. Si no hay ningun carrito
+	  confirmado el metodo genera turnos nuevos con todos los horarios del dia
+	  especificado y devuelve la lista. En caso de que ya haya carritos confirmados
+	  dentro de la lista (con la misma fecha que la solicitada), se recorren para
+	  ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
+	  la hora segun el intervalo especificado en DiaRetiro para preguntar si el
+	  siguiente turno esta ocupado.*/
 	
-
-	// metodo generarTurnosLibres
-
-
 	public List<Turno> generarTurnosLibres(LocalDate fecha) {
 
 		List<Turno> listaTurnos = new ArrayList<Turno>();  				//crea una lista de turnos que sera retornada
@@ -360,13 +369,12 @@ public class Comercio extends Actor {
 		}
 
 		return listaTurnos;														//devuelve la lista
-
 	}
 
-	///////////////////////////////ADMINISTRACION DE PRODUCTOS-ARTICULOS////////////////////////////////////////
 	
-	// AGREGA PRODUCTO AL COMERCIO
+	// ----------------------------- ADMINISTRACION DE PRODUCTOS-ARTICULOS -----------------------------
 	
+	//AGREGA PRODUCTO AL COMERCIO	
 	public boolean agregarProducto(String producto,String codBarras,double precio) throws Exception{
 		boolean addProducto = false;
 		int id = 0;
@@ -382,7 +390,7 @@ public class Comercio extends Actor {
 		return addProducto;
 	}
 	
-	
+	//BUSCAR PRODUCTO POR ID
 	public Articulo traerProducto(int idArticulo) {
 		boolean found = false;
 		boolean finLista = false;
@@ -406,8 +414,10 @@ public class Comercio extends Actor {
 		return art;
 	}
 
-	// ------------- ADMINISTRAR CARRITOS -------------
+	
+	// ----------------------------- ADMINISTRAR CARRITOS -----------------------------
 
+	//AGREGAR
 	public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
 
 		if (getCarritoAbierto(cliente) != null) {
@@ -418,23 +428,18 @@ public class Comercio extends Actor {
 		listaCarrito.add(nuevoCarrito);
 	}
 	
+	//ELIMINAR POR ID
 	public void eliminarCarrito(int idCarrito) throws Exception {
 		
 		Carrito carritoEliminar = getCarritoFromLista(idCarrito);
-		
-
-		//TODO: corregir el parametro de descuento
-		//Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), LocalDate.now(), LocalTime.now(), false, 1234, cliente, entrega);
-		//listaCarrito.add(nuevoCarrito);
-
-		if(carritoEliminar.isCerrado()) {
+		if(!carritoEliminar.isCerrado()) {
 			listaCarrito.remove(carritoEliminar);
 		}else {
 			throw new Exception("No se puede eliminar un carrito que ya fue cerrado");
 		}
-
 	}
 	
+	//ELIMINAR POR CLIENTE
 	public void eliminarCarritoAbierto(Cliente cliente) throws Exception {
 		Carrito carritoEliminar = getCarritoAbierto(cliente);
 		if(carritoEliminar!=null) {
@@ -444,6 +449,7 @@ public class Comercio extends Actor {
 		}
 	}
 	
+	//CONFIRMAR ENVIO
 	public void confirmarCarritoEnvio(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega, LocalTime horaDesde, LocalTime horaHasta) throws Exception {
 		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
 			Ubicacion origen = contacto.getUbicacion();
@@ -460,6 +466,7 @@ public class Comercio extends Actor {
 		}
 	}
 	
+	//CONFIRMAR RETIRO
 	public void confirmarCarritoRetiroLocal(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega) throws Exception {
 		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
 			Ubicacion origen = contacto.getUbicacion();
@@ -477,11 +484,13 @@ public class Comercio extends Actor {
 		}
 	}
 	
+	//MOSTRAR POR ID
 	public void mostrarCarrito(int idCarrito) throws Exception {
 		Carrito carritoMostrar = getCarritoFromLista(idCarrito);
 		System.out.println(carritoMostrar);
 	}
 	
+	//BUSCAR CARRITO POR ID
 	public Carrito getCarritoFromLista(int idCarrito) throws Exception {
 		boolean encontrado = false;
 		int contador = 0;
@@ -500,6 +509,7 @@ public class Comercio extends Actor {
 		return carrito;
 	}
 	
+	//BUSCAR CARRITO ABIERTO POR CLIENTE
 	public Carrito getCarritoAbierto(Cliente cliente) {
 		Carrito carritoAbierto = null;
 		int contador = 0;
@@ -514,8 +524,7 @@ public class Comercio extends Actor {
 		return carritoAbierto;
 	}
 
-	// ----------------------------------METODO
-	// TOSTRING------------------------------------------
+
 	@Override
 	public String toString() {
 		return super.toString() + "\nNombre: " + getNombreComercio() + "\nCUIT: " + getCUIT();
