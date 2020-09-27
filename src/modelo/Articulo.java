@@ -58,6 +58,10 @@ public class Articulo {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+	
+	public String getDetalle() {
+		return "id: " + idArticulo + "  -  " + nombre + "  -  Precio Un.: " + precio;
+	}
 
 	//-------------------------METODOS-------------------------
 	

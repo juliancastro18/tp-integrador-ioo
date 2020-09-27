@@ -24,13 +24,15 @@ public class Comercio extends Actor {
 	// ----------------------------- CONSTRUCTOR -----------------------------
 	
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
-			int diaDescuento) throws Exception {
+			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo) throws Exception {
 		super(id, contacto);
 		setNombreComercio(nombreComercio);
 		setCUIT(cuit);
 		setCostoFijo(costoFijo);
 		setCostoPorKm(costoPorKm);
 		setDiaDescuento(diaDescuento);
+		setPorcentajeDescuentoDia(porcentajeDescuentoDia);
+		setPorcentajeDescuentoEfectivo(porcentajeDescuentoEfectivo);
 		this.listaDiaRetiro = new ArrayList<DiaRetiro>();
 		this.listaCarrito = new ArrayList<Carrito>();
 		this.listaArticulos = new ArrayList<Articulo>();
@@ -119,7 +121,7 @@ public class Comercio extends Actor {
 		return porcentajeDescuentoEfectivo;
 	}
 
-	public void setPorcentajeDescuentoEfecivo(int porcentajeDesccuentoEfecivo) {
+	public void setPorcentajeDescuentoEfectivo(int porcentajeDesccuentoEfecivo) {
 		this.porcentajeDescuentoEfectivo = porcentajeDesccuentoEfecivo;
 	}
 

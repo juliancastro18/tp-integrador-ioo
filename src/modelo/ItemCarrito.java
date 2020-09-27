@@ -33,6 +33,10 @@ public class ItemCarrito{
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	
+	public String getDetalle() {
+		return this.articulo.getDetalle() + "  -  Cantidad: " + cantidad + "\n";
+	}
 
 	//-------------------------METODOS-------------------------
 	public boolean equals(ItemCarrito item) {
@@ -41,7 +45,7 @@ public class ItemCarrito{
 	
 	@Override
 	public String toString() {
-		return "Articulo: " + articulo + ", Cantidad: " + cantidad + "\n";
+		return articulo + "  -  Cantidad: " + cantidad + "\n";
 	}
 	
 	public double calcularSubTotalItem() {

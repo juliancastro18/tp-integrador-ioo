@@ -18,16 +18,7 @@ public class Cliente extends Actor {
 		this.dni = dni;
 		this.sexo = sexo;
 	}
-
-	/*public Cliente(String apellido, String nombre, long dni, char sexo, String email, String celular, double latitud, double longitud) {
-		Ubicacion ubicacion = new Ubicacion(latitud, longitud);
-		Contacto contacto = new Contacto(email,celular,ubicacion);
-		super(contacto);
-		this.apellido = apellido;
-		this.nombre = nombre;
-		this.dni = dni;
-		this.sexo = sexo;
-	}*/
+	
 
 	//-------------------------GETTERS Y SETTERS-------------------------
 	public String getApellido() {
@@ -71,7 +62,7 @@ public class Cliente extends Actor {
 	//-------------------------METODOS-------------------------
 	@Override
 	public String toString() {
-		return "Cliente= Id: " + super.getId() + " - Apellido: " + apellido + " - Nombre: " + nombre + " - DNI: " + dni + contacto;
+		return "Cliente= Id: " + id + " - Apellido: " + apellido + " - Nombre: " + nombre + " - DNI: " + dni + contacto;
 	}
 
 	public boolean equals(Cliente c) {
