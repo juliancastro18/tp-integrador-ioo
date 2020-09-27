@@ -1,10 +1,5 @@
 package modelo;
 
-import modelo.Carrito;
-import modelo.Cliente;
-import modelo.Contacto;
-import modelo.Ubicacion;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -50,10 +45,10 @@ public class Comercio extends Actor {
 		setListaDiaRetiro(diasRetiro);
 	}
 
-	public Comercio(int id, Contacto contacto, long cuit, List<DiaRetiro> diasRetiro) throws Exception {
+	public Comercio(int id, Contacto contacto, long cuit) throws Exception {
 		super(id, contacto);
 		setCUIT(cuit); 
-		setListaDiaRetiro(diasRetiro);
+		setListaDiaRetiro(new ArrayList<DiaRetiro>());
 		setListaCarrito(new ArrayList<Carrito>());
 	}
 
@@ -83,6 +78,9 @@ public class Comercio extends Actor {
 	public void setCUIT(long cuit) throws Exception {
 		if (validarIdentificadorUnico(cuit)) // valida el cuit y si es verdadero se asigna
 			CUIT = cuit;
+		
+		else
+			throw new Exception("\nError al validar CUIT. Por favor intente nuevamente...\n");
 	}
 
 	public double getCostoFijo() {
@@ -183,7 +181,7 @@ public class Comercio extends Actor {
 		return idSiguiente;
 	}
 
-	// ----------------------------- METODOS ----------------------------- 
+	// ----------------------------- METODOS -----------------------------
 
 	//TOSTRING
 		@Override
@@ -193,7 +191,7 @@ public class Comercio extends Actor {
 	
 	//VALIDACION CUIL
 	@Override
-	protected boolean validarIdentificadorUnico(long iUnico) throws Exception {
+	protected boolean validarIdentificadorUnico(long iUnico) {
 		String cuitCadena = String.valueOf(iUnico); // convierte el cuit a cadena
 		String valores = "5432765432"; // valores para hacer el calculo
 		char[] cuitDescompuesto = cuitCadena.toCharArray(); // descompone el cuit numero por numero
@@ -241,9 +239,6 @@ public class Comercio extends Actor {
 			}
 		}
 		
-		if( ! validacion)
-			throw new Exception("\nCuil invalido. Por favor intente nuevamente...\n");
-		
 		return validacion; // devuelve el resultado
 	}
 
@@ -273,6 +268,19 @@ public class Comercio extends Actor {
 
 		return resultado;
 	}
+	
+	//OBTIENE DIA RETIRO POR DIA DE SEMANA
+		public DiaRetiro obtenerDiaRetiro(int diaSemana) {
+			DiaRetiro resultado = null;
+			for (DiaRetiro dato : getListaDiaRetiro()) {
+				if (dato.getDiaSemana() == diaSemana) {
+					resultado = dato;
+				}
+			}
+
+			return resultado;
+		}
+	
 	
 	//GENERA AGENDA	
 	public List<Turno> generarAgenda(LocalDate fecha) {
@@ -383,26 +391,45 @@ public class Comercio extends Actor {
 	}
 
 	
+	//METODO PARA AGREGAR UN DIARETIRO A LA LISTA
+	public boolean agregarDiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) throws Exception
+	{
+		if(obtenerDiaRetiro(diaSemana) == null)
+		{
+			getListaDiaRetiro().add(new DiaRetiro(getNuevoIdDiaRetiro(), diaSemana, horaDesde, horaHasta, intervalo));
+		}
+		
+		else 
+			throw new Exception("\nEl dia de retiro ya existe\n");
+			
+		return true;
+	}
+			
+		
+	
+	
+	
+	
+	
+	
 	// ----------------------------- ADMINISTRACION DE PRODUCTOS-ARTICULOS -----------------------------
 	
-	//AGREGA PRODUCTO AL COMERCIO	
-	public boolean agregarProducto(String producto,String codBarras,double precio) throws Exception{
-		boolean addProducto = false;
+	//AGREGA ARTICULO AL COMERCIO	
+	public boolean agregarArticulo(String articuloNombre,String codBarras,double precio) throws Exception{
+		boolean addArticulo = false;
 		int id = 0;
-		for(Articulo art: listaArticulos) {
-			String nombreProducto = art.getNombre();
-			
-			if(art.equals(producto))throw new Exception( "El producto ya existe");
+		for(Articulo art : listaArticulos) {
+			if(art.equals(articuloNombre))throw new Exception( "El producto ya existe");
 		}
 		id=this.getNuevoIdArticulo();
-		Articulo articulo = new Articulo(id,producto,codBarras,precio);
+		Articulo articulo = new Articulo(id,articuloNombre,codBarras,precio);
 		listaArticulos.add(articulo);
-		addProducto=true;
-		return addProducto;
+		addArticulo=true;
+		return addArticulo;
 	}
 	
-	//BUSCAR PRODUCTO POR ID
-	public Articulo traerProducto(int idArticulo) {
+	//BUSCAR ARTICULO POR ID
+	public Articulo traerArticulo(int idArticulo) {
 		boolean found = false;
 		boolean finLista = false;
 		int vueltas = 0;
@@ -423,6 +450,24 @@ public class Comercio extends Actor {
 
 		}
 		return art;
+	}
+	
+	//ELIMINAR ARTICULO
+	public void eliminarArticulo(int idArticulo) throws Exception {
+		Articulo artEliminar = traerArticulo(idArticulo);
+		
+		if (artEliminar == null) {
+			throw new Exception("Articulo no encontrado");
+		}
+		
+		for(Carrito carro : listaCarrito) {
+			ItemCarrito itemAux = carro.getItemCarrito(artEliminar);
+			if (itemAux != null) {
+				throw new Exception("El articulo fue agregado a almenos un carrito, y no puede ser eliminado");
+			}
+		}
+
+		listaArticulos.remove(artEliminar);
 	}
 
 	

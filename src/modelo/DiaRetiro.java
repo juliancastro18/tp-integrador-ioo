@@ -1,6 +1,7 @@
 package modelo;
 import java.time.LocalTime;
 
+
 public class DiaRetiro {
 	
 	private int id;
@@ -10,11 +11,12 @@ public class DiaRetiro {
 	private int intervalo;
 	
 	
-	public DiaRetiro(int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) {
-		this.diaSemana = diaSemana;
-		this.horaDesde = horaDesde;
-		this.horaHasta = horaHasta;
-		this.intervalo = intervalo;
+	public DiaRetiro(int id, int diaSemana, LocalTime horaDesde, LocalTime horaHasta, int intervalo) {
+		setId(id);
+		setDiaSemana(diaSemana);
+		setHoraDesde(horaDesde);
+		setHoraHasta(horaHasta);
+		setIntervalo(intervalo);
 	}
 	
 	
@@ -48,7 +50,6 @@ public class DiaRetiro {
 	public void setIntervalo(int intervalo) {
 		this.intervalo = intervalo;
 	}
-	
 	
 	
 	//--------------------------METODO TOSTRING--------------------------------------
