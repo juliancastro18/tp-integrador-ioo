@@ -427,8 +427,13 @@ public class Comercio extends Actor {
 		return addArticulo;
 	}
 	
+
+	
+	
+	
+	
 	//BUSCAR ARTICULO POR ID
-	public Articulo traerArticulo(int idArticulo) {
+	public Articulo traerArticulo(int idArticulo)throws Exception{
 		boolean found = false;
 		boolean finLista = false;
 		int vueltas = 0;
@@ -446,6 +451,8 @@ public class Comercio extends Actor {
 			if (vueltas == listaArticulos.size()) {
 				finLista = true;
 			}
+			
+			if(finLista && found==false)throw new Exception("El articulo no existe");
 
 		}
 		return art;
