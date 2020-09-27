@@ -14,6 +14,7 @@ public class Contacto {
 		this.ubicacion = ubicacion;
 	}
 	
+
 	//-------------------------GETTERS Y SETTERS-------------------------
 	public String getEmail() {
 		return email;

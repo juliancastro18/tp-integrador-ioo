@@ -174,11 +174,14 @@ public class Comercio extends Actor {
 	}
 	
 	protected int getNuevoIdCliente() {
-		int idSiguiente = 1;
-		if (listaCarrito.isEmpty() == false) {
-			idSiguiente = listaCarrito.get(listaCarrito.size() - 1).getCliente().getId() + 1;
+		int idSiguiente = 0;
+		
+		for(Carrito i: this.listaCarrito) {
+			if(i.getCliente().getId() > idSiguiente) {
+				idSiguiente = i.getCliente().getId();
+			}
 		}
-		return idSiguiente;
+		return idSiguiente+1;
 	}
 
 	// ----------------------------- METODOS -----------------------------
@@ -405,12 +408,6 @@ public class Comercio extends Actor {
 		return true;
 	}
 			
-		
-	
-	
-	
-	
-	
 	
 	// ----------------------------- ADMINISTRACION DE PRODUCTOS-ARTICULOS -----------------------------
 	
@@ -530,8 +527,6 @@ public class Comercio extends Actor {
 	//CONFIRMAR RETIRO
 	public void confirmarCarritoRetiroLocal(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega) throws Exception {
 		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
-			Ubicacion origen = contacto.getUbicacion();
-			Ubicacion destino = carrito.getCliente().getContacto().getUbicacion();
 			LocalTime horaEntrega = generarTurnosLibres(fechaEntrega).get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
 			Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
 			
@@ -570,8 +565,7 @@ public class Comercio extends Actor {
 		return carrito;
 	}
 	
-	
-	
+		
 	//BUSCA CARRITO ABIERTO POR CLIENTE
 	public Carrito getCarritoAbierto(Cliente cliente) {
 		Carrito carritoAbierto = null;
