@@ -21,8 +21,8 @@ public class testJuan {
 		Ubicacion ubicacion1 = new Ubicacion(342, 764);
 		Contacto contacto1 = new Contacto("juan@gmail.com", "1134764321", ubicacion1);
 		LocalDate fecha = LocalDate.of(2020, 9, 1);
-		Cliente cliente1 = new Cliente(1, contacto1, "asd", "asd", 39514986, 'm');
-		Cliente cliente2 = new Cliente(2, contacto1, "ertert", "bnmbnm", 39514986, 'f');
+		Cliente cliente1 = new Cliente(contacto1, "asd", "asd", 39514986, 'm');
+		Cliente cliente2 = new Cliente(contacto1, "ertert", "bnmbnm", 39514986, 'f');
 		List<Carrito> listaCarritos = new ArrayList<Carrito>();
 		List<DiaRetiro> listaDiaRetiros = new ArrayList<DiaRetiro>();
 		Carrito carrito1 = new Carrito(1, cliente1);

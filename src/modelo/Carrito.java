@@ -105,27 +105,19 @@ public class Carrito{
 		this.entrega = entrega;
 	}
 	
-	/*
-	@Override
-	public String toString() {
-		return "Carrito [id=" + idCarrito + ", fecha: " + fecha + ", hora: " + hora + ", cerrado: " + cerrado + ", descuento = "
-				+ descuento + ", cliente = " + cliente + ", lstItemCarrito = " + lstItemCarrito + ", entrega = " + entrega
-				+ "]";
-	}*/
 	
 	public String toString() {
-		String str = "";
-		str += "#" + idCarrito + " " + fecha + " - " + hora + "\n";
-		str += "Cliente: " + cliente.getNombreCompleto() + "\nCerrado: " + cerrado + "\n";
-		str += "Detalle: \n";
+		String str = "Carrito Id: " + idCarrito + "\nFecha: " + fecha + "\nHora: " + hora + "\nCliente: " + cliente.getNombreCompleto()
+		+ "  -  DNI: " + cliente.getDni() + "\nCerrado: " + cerrado + "\n\n\nDetalle: \n";
+		
 		for(ItemCarrito item : lstItemCarrito) {
-			str += item.toString();
+			str += item.getDetalle();
 		}
-		if(lstItemCarrito.isEmpty()) str+= "<no hay items en el carrito>\n";
+		if(lstItemCarrito.isEmpty()) str+= "<No hay items en el carrito>\n";
 		if(cerrado) {
 			str += entrega.toString();
 		}else {
-			str += "<entrega sin definir>\n";
+			str += "\n\n<Entrega sin definir>\n";
 		}
 		return str;
 	}

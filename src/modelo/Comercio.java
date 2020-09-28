@@ -24,13 +24,15 @@ public class Comercio extends Actor {
 	// ----------------------------- CONSTRUCTOR -----------------------------
 	
 	public Comercio(int id, Contacto contacto, String nombreComercio, long cuit, double costoFijo, double costoPorKm,
-			int diaDescuento) throws Exception {
+			int diaDescuento, int porcentajeDescuentoDia, int porcentajeDescuentoEfectivo) throws Exception {
 		super(id, contacto);
 		setNombreComercio(nombreComercio);
 		setCUIT(cuit);
 		setCostoFijo(costoFijo);
 		setCostoPorKm(costoPorKm);
 		setDiaDescuento(diaDescuento);
+		setPorcentajeDescuentoDia(porcentajeDescuentoDia);
+		setPorcentajeDescuentoEfectivo(porcentajeDescuentoEfectivo);
 		this.listaDiaRetiro = new ArrayList<DiaRetiro>();
 		this.listaCarrito = new ArrayList<Carrito>();
 		this.listaArticulos = new ArrayList<Articulo>();
@@ -119,7 +121,7 @@ public class Comercio extends Actor {
 		return porcentajeDescuentoEfectivo;
 	}
 
-	public void setPorcentajeDescuentoEfecivo(int porcentajeDesccuentoEfecivo) {
+	public void setPorcentajeDescuentoEfectivo(int porcentajeDesccuentoEfecivo) {
 		this.porcentajeDescuentoEfectivo = porcentajeDesccuentoEfecivo;
 	}
 
@@ -174,14 +176,23 @@ public class Comercio extends Actor {
 	}
 	
 	protected int getNuevoIdCliente() {
-		int idSiguiente = 1;
-		if (listaCarrito.isEmpty() == false) {
-			idSiguiente = listaCarrito.get(listaCarrito.size() - 1).getCliente().getId() + 1;
+		int idSiguiente = 0;
+		
+		for(Carrito i: this.listaCarrito) {
+			if(i.getCliente().getId() > idSiguiente) {
+				idSiguiente = i.getCliente().getId();
+			}
 		}
-		return idSiguiente;
+		return idSiguiente+1;
 	}
 
-	// ----------------------------- METODOS ----------------------------- 
+	// ----------------------------- METODOS -----------------------------
+
+	//TOSTRING
+		@Override
+		public String toString() {
+			return super.toString() + "\nNombre: " + getNombreComercio() + "\nCUIT: " + getCUIT();
+		}
 	
 	//VALIDACION CUIL
 	@Override
@@ -338,8 +349,8 @@ public class Comercio extends Actor {
 	  dentro de la lista (con la misma fecha que la solicitada), se recorren para
 	  ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
 	  la hora segun el intervalo especificado en DiaRetiro para preguntar si el
-	  siguiente turno esta ocupado.*/
-	
+	  siguiente turno esta ocupado.
+	  */
 	public List<Turno> generarTurnosLibres(LocalDate fecha) {
 
 		List<Turno> listaTurnos = new ArrayList<Turno>();  				//crea una lista de turnos que sera retornada
@@ -400,32 +411,31 @@ public class Comercio extends Actor {
 		return true;
 	}
 			
-		
-	
-	
-	
-	
-	
 	
 	// ----------------------------- ADMINISTRACION DE PRODUCTOS-ARTICULOS -----------------------------
 	
-	//AGREGA PRODUCTO AL COMERCIO	
-	public boolean agregarProducto(String producto,String codBarras,double precio) throws Exception{
-		boolean addProducto = false;
+	//AGREGA ARTICULO AL COMERCIO	
+	public boolean agregarArticulo(String articuloNombre,String codBarras,double precio) throws Exception{
+		boolean addArticulo = false;
 		int id = 0;
-		for(Articulo art: listaArticulos) {
-			
-			if(art.equals(producto))throw new Exception( "El producto ya existe");
+
+		for(Articulo art : listaArticulos) {
+			if(art.equals(articuloNombre))throw new Exception( "El producto ya existe");
 		}
 		id=this.getNuevoIdArticulo();
-		Articulo articulo = new Articulo(id,producto,codBarras,precio);
+		Articulo articulo = new Articulo(id,articuloNombre,codBarras,precio);
 		listaArticulos.add(articulo);
-		addProducto=true;
-		return addProducto;
+		addArticulo=true;
+		return addArticulo;
 	}
 	
-	//BUSCAR PRODUCTO POR ID
-	public Articulo traerProducto(int idArticulo) {
+
+	
+	
+	
+	
+	//BUSCAR ARTICULO POR ID
+	public Articulo traerArticulo(int idArticulo)throws Exception{
 		boolean found = false;
 		boolean finLista = false;
 		int vueltas = 0;
@@ -443,24 +453,49 @@ public class Comercio extends Actor {
 			if (vueltas == listaArticulos.size()) {
 				finLista = true;
 			}
+			
+			if(finLista && found==false)throw new Exception("El articulo no existe");
 
 		}
 		return art;
+	}
+	
+	//ELIMINAR ARTICULO
+	public void eliminarArticulo(int idArticulo) throws Exception {
+		Articulo artEliminar = traerArticulo(idArticulo);
+		
+		if (artEliminar == null) {
+			throw new Exception("Articulo no encontrado");
+		}
+		
+		for(Carrito carro : listaCarrito) {
+			ItemCarrito itemAux = carro.getItemCarrito(artEliminar);
+			if (itemAux != null) {
+				throw new Exception("El articulo fue agregado a almenos un carrito, y no puede ser eliminado");
+			}
+		}
+
+		listaArticulos.remove(artEliminar);
 	}
 
 	
 	// ----------------------------- ADMINISTRAR CARRITOS -----------------------------
 
-	//AGREGAR
+	//AGREGAR CARRITO
 	public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
-
+		
 		if (getCarritoAbierto(cliente) != null) {
 			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
-
+		
+		if(cliente.getId() == 0) {
+			cliente.setId(getNuevoIdCliente());
+		}
+		
 		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), cliente);
 		listaCarrito.add(nuevoCarrito);
 	}
+	
 	
 	//ELIMINAR POR ID
 	public void eliminarCarrito(int idCarrito) throws Exception {
@@ -503,8 +538,6 @@ public class Comercio extends Actor {
 	//CONFIRMAR RETIRO
 	public void confirmarCarritoRetiroLocal(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega) throws Exception {
 		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
-			Ubicacion origen = contacto.getUbicacion();
-			Ubicacion destino = carrito.getCliente().getContacto().getUbicacion();
 			LocalTime horaEntrega = generarTurnosLibres(fechaEntrega).get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
 			Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
 			
@@ -543,7 +576,8 @@ public class Comercio extends Actor {
 		return carrito;
 	}
 	
-	//BUSCAR CARRITO ABIERTO POR CLIENTE
+		
+	//BUSCA CARRITO ABIERTO POR CLIENTE
 	public Carrito getCarritoAbierto(Cliente cliente) {
 		Carrito carritoAbierto = null;
 		int contador = 0;
@@ -554,14 +588,8 @@ public class Comercio extends Actor {
 			}
 			contador++;
 		}
-
 		return carritoAbierto;
 	}
-
-
-	@Override
-	public String toString() {
-		return super.toString() + "\nNombre: " + getNombreComercio() + "\nCUIT: " + getCUIT();
-	}
-
+	
+	// ----------------------------- FIN -----------------------------
 }

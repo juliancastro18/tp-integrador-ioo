@@ -9,7 +9,7 @@ public class Articulo {
 	private double precio;
 
 	//-------------------------CONSTRUCTOR-------------------------
-	public Articulo(int id, String nombre, String codBarras, double precio) {
+	public Articulo(int id, String nombre, String codBarras, double precio)throws Exception {
 		super();
 		this.idArticulo = id;
 		this.nombre = nombre;
@@ -43,7 +43,7 @@ public class Articulo {
 		return codBarras;
 	}
 
-	public void setCodBarras(String codBarras) {
+	public void setCodBarras(String codBarras)throws Exception {
 		if (validarCodBarras(codBarras)) {
 			this.codBarras = codBarras;
 		} else {
@@ -57,6 +57,10 @@ public class Articulo {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	public String getDetalle() {
+		return "id: " + idArticulo + "  -  " + nombre + "  -  Precio Un.: " + precio;
 	}
 
 	//-------------------------METODOS-------------------------
@@ -76,7 +80,7 @@ public class Articulo {
 				+ precio;
 	}
 
-	public boolean validarCodBarras(String codBarras) {
+	public boolean validarCodBarras(String codBarras) throws Exception {
 		boolean codigoValidado = false;
 		int[] numPosicionesPares = new int[6];
 		int[] numPosicionesImpares = new int[6];
@@ -86,8 +90,9 @@ public class Articulo {
 		int numero = 0;
 		
 		char[] codBarrasDescompuesto = codBarras.toCharArray();
+		if(codBarrasDescompuesto.length!=13)  throw new Exception("El codigo ("+codBarras+") es invalido (Faltan digitos)");
 		for (int i = 0; i < codBarrasDescompuesto.length-1; i++) {
-
+			
 			if ((i % 2 )== 0 && j<6) {
 					numero = Integer.valueOf(String.valueOf(codBarrasDescompuesto[i]));
 					numPosicionesPares[j] = numero;
@@ -121,6 +126,8 @@ public class Articulo {
 		//System.out.println(digitoDeControl);
 		if (Integer.valueOf(String.valueOf(codBarrasDescompuesto[12])) == digitoDeControl) {
 			codigoValidado = true;
+		}else {
+			throw new Exception("El codigo de barras es invalido");
 		}
 		
 		
