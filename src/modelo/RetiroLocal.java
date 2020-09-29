@@ -29,7 +29,10 @@ public class RetiroLocal extends Entrega {
 
 	@Override
 	public String toString() {
-		return "RetiroLocal [horaEntrega=" + horaEntrega + ", id=" + id + ", fecha=" + fecha + ", efectivo=" + efectivo	+ "]";
+		String str = "";
+		str += super.toString();
+		str += "Tipo de entrega: Retiro en el local\nHora de entrega: " + horaEntrega;
+		return str;
 	}
 			
 	

@@ -40,6 +40,11 @@ public abstract class Entrega {
 	public void setEfectivo(boolean efectivo) {
 		this.efectivo = efectivo;
 	}
+
+	@Override
+	public String toString() {
+		return "Fecha de entrega: " + fecha + "\nAbona en efectivo: " + efectivo + "\n";
+	}
 	
 	
 	

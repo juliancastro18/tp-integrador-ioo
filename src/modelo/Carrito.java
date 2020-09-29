@@ -108,19 +108,19 @@ public class Carrito{
 	
 	public String toString() {
 		String str = "Carrito Id: " + idCarrito + "\nFecha: " + fecha + "\nHora: " + hora + "\nCliente: Id " + cliente.getId() + "  -  " + cliente.getNombreCompleto()
-		+ "  -  DNI: " + cliente.getDni() + "\nCerrado: " + cerrado + "\n\n\nDetalle: \n";
+		+ "  -  DNI: " + cliente.getDni() + "\nCerrado: " + cerrado + "\n\nDetalle: \n";
 		
 		for(ItemCarrito item : lstItemCarrito) {
 			str += item.getDetalle();
 		}
 		
-		if(lstItemCarrito.isEmpty()) str+= "<No hay items en el carrito>\n";
+		if(lstItemCarrito.isEmpty()) str+= "\n<No hay items en el carrito>\n";
 
 		
 		if(cerrado) {
-			str += "\n\n<Entrega sin definir>\n"; //str += entrega.toString();
+			str += "\n" + this.entrega.toString();
 		}else {
-			str += "\n\n<Entrega sin definir>\n";
+			str += "\n<Entrega sin definir>\n";
 		}
 		
 		str += "\n\nDescuento: $ " + this.descuento + "\n\nTotal a pagar: $ ";

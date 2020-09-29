@@ -253,8 +253,10 @@ public class Comercio extends Actor {
 		List<Carrito> listaCarritos = new ArrayList<Carrito>();
 
 		for (Carrito carrito : getListaCarrito()) {
-			if (carrito.getEntrega().getFecha().equals(fecha)) {
-				listaCarritos.add(carrito);
+			if (carrito.getEntrega() != null) {
+				if (carrito.getEntrega().getFecha().equals(fecha)) {
+					listaCarritos.add(carrito);
+				}
 			}
 		}
 
@@ -313,7 +315,7 @@ public class Comercio extends Actor {
 	public List<Turno> generarTurnosOcupados(LocalDate fecha) {
 		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
 		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	
-		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();	
+		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();
 		int intervalo = obtenerDiaRetiro(fecha).getIntervalo();
 		RetiroLocal carritoAux;												
 		boolean esIgual = false;

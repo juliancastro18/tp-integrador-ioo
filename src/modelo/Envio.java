@@ -51,8 +51,11 @@ public class Envio extends Entrega{
 
 	@Override
 	public String toString() {
-		return "Envio [horaHasta=" + horaHasta + ", horaDesde=" + horaDesde + ", costo=" + costo + ", ubicacion="
-				+ ubicacion + ", id=" + id + ", fecha=" + fecha + ", efectivo=" + efectivo + "]";
+		String str = "";
+		str += super.toString();
+		str += "Tipo de entrega: Envío\n";
+		str += "Rango de entrega: " + horaHasta + " / " + horaDesde + "\n" + "Costo de envío: " + costo;
+		return str;
 	}
 	
 }
