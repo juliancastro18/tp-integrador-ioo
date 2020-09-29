@@ -152,21 +152,18 @@ public class Carrito{
 		if(cerrado) throw new Exception("No se puede eliminar items de un carrito cerrado");
 		
 		ItemCarrito auxIC = getItemCarrito(art);
-		
-		if(auxIC != null) {
-			
-			int cantActual = auxIC.getCantidad();
-			
-			if( (cantActual<cantidad) || (cantidad<=0)) {
-				throw new Exception ("Cantidad a eliminar invalida");
-			}else if( cantActual == cantidad) {
-				lstItemCarrito.remove(auxIC);
-			}else if( cantActual > cantidad) {
-				auxIC.setCantidad(auxIC.getCantidad() - cantidad);
-			}
-			
-		}else {
+		if(auxIC == null) {
 			throw new Exception ("No existe el producto en el carrito");
+		}
+			
+		int cantActual = auxIC.getCantidad();
+		
+		if( (cantActual<cantidad) || (cantidad<=0)) {
+			throw new Exception ("Cantidad a eliminar invalida");
+		}else if( cantActual == cantidad) {
+			lstItemCarrito.remove(auxIC);
+		}else if( cantActual > cantidad) {
+			auxIC.setCantidad(auxIC.getCantidad() - cantidad);
 		}
 	}
 	

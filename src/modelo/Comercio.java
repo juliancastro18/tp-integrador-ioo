@@ -520,35 +520,35 @@ public class Comercio extends Actor {
 	
 	//CONFIRMAR ENVIO
 	public void confirmarCarritoEnvio(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega, LocalTime horaDesde, LocalTime horaHasta) throws Exception {
-		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
-			Ubicacion origen = contacto.getUbicacion();
-			Ubicacion destino = carrito.getCliente().getContacto().getUbicacion();
-			Entrega entrega = new Envio(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaDesde, horaHasta, origen, destino, getCostoFijo(), getCostoPorKm());
-			
-			carrito.setCerrado(true);
-			double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
-			carrito.setDescuento(descuento);
-			carrito.setEntrega(entrega);
-			
-		}else {
+		if(carrito.isCerrado() || carrito.getLstItemCarrito().isEmpty() == true) {
 			throw new Exception("El carrito está vacío o ya fue cerrado");
 		}
+		
+		Ubicacion origen = contacto.getUbicacion();
+		Ubicacion destino = carrito.getCliente().getContacto().getUbicacion();
+		Entrega entrega = new Envio(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaDesde, horaHasta, origen, destino, getCostoFijo(), getCostoPorKm());
+		
+		carrito.setCerrado(true);
+		double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
+		carrito.setDescuento(descuento);
+		carrito.setEntrega(entrega);
+			
 	}
 	
 	//CONFIRMAR RETIRO
 	public void confirmarCarritoRetiroLocal(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega) throws Exception {
-		if(!carrito.isCerrado() && carrito.getLstItemCarrito().isEmpty() == false) {
-			LocalTime horaEntrega = generarTurnosLibres(fechaEntrega).get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
-			Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
-			
-			carrito.setCerrado(true);
-			double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
-			carrito.setDescuento(descuento);
-			carrito.setEntrega(entrega);
-			
-		}else {
+		if(carrito.isCerrado() || carrito.getLstItemCarrito().isEmpty() == true) {
 			throw new Exception("El carrito está vacío o ya fue cerrado");
 		}
+		
+		LocalTime horaEntrega = generarTurnosLibres(fechaEntrega).get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
+		Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
+		
+		carrito.setCerrado(true);
+		double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
+		carrito.setDescuento(descuento);
+		carrito.setEntrega(entrega);
+			
 	}
 	
 	//MOSTRAR POR ID
