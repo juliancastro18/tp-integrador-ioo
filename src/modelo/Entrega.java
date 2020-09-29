@@ -43,7 +43,7 @@ public abstract class Entrega {
 
 	@Override
 	public String toString() {
-		return "Fecha de entrega: " + fecha + "\nAbona en efectivo: " + efectivo + "\n";
+		return "Fecha de entrega: " + fecha + "\nAbona en efectivo: " + (efectivo? "Sí" : "No") + "\n";
 	}
 	
 	

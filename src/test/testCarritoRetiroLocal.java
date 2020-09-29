@@ -42,7 +42,10 @@ public class testCarritoRetiroLocal {
 		almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getCarritoFromLista(0), true, LocalDate.of(2020, 9, 1));
 		
 		//MOSTRAMOS POR CONSOLA
-		System.out.println( almacenGranate.getListaCarrito().get(0) + " " + almacenGranate.getListaCarrito().get(0).totalAPagarCarrito() + "\n\n");
+		System.out.println( almacenGranate.getListaCarrito().get(0) );
+		
+		//MUESTRO TODOS LOS TURNOS DEL DIA 1
+		almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)).toString();
 	}
 
 }

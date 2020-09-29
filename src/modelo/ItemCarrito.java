@@ -35,7 +35,7 @@ public class ItemCarrito{
 	}
 	
 	public String getDetalle() {
-		return this.articulo.getDetalle() + "  -  Cantidad: " + cantidad + "\t\t $ " + this.articulo.getPrecio() * this.cantidad + "\n";
+		return this.articulo.getDetalle() + " - Cant: " + cantidad + " - $" + this.articulo.getPrecio() * this.cantidad + "\n";
 	}
 
 	//-------------------------METODOS-------------------------

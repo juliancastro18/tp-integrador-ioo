@@ -60,7 +60,7 @@ public class Articulo {
 	}
 	
 	public String getDetalle() {
-		return "id: " + idArticulo + "  -  " + nombre + "  -  Precio Un.: " + precio;
+		return "Art. ID: " + idArticulo + " - " + nombre + " - Precio Un.: $" + precio;
 	}
 
 	//-------------------------METODOS-------------------------
