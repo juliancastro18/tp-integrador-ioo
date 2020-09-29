@@ -11,11 +11,11 @@ public class Cliente extends Actor {
 	private char sexo;
 	
 	//-------------------------CONSTRUCTOR-------------------------
-	public Cliente(Contacto contacto, String apellido, String nombre, long dni, char sexo) {
+	public Cliente(Contacto contacto, String apellido, String nombre, long dni, char sexo) throws Exception {
 		super(contacto);
 		this.apellido = apellido;
 		this.nombre = nombre;
-		this.dni = dni;
+		setDni(dni);
 		this.sexo = sexo;
 	}
 	
@@ -45,9 +45,12 @@ public class Cliente extends Actor {
 		return dni;
 	}
 
-	public void setDni(long dni) {
+	public void setDni(long dni) throws Exception {
 		if(validarIdentificadorUnico(dni)) {
 			this.dni = dni;
+		}
+		else {
+			throw new Exception("\nError al validar DNI. Por favor verifiquelo\n");
 		}
 	}
 
