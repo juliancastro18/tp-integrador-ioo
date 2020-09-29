@@ -7,11 +7,11 @@ public class Contacto {
 	private Ubicacion ubicacion;
 	
 	//-------------------------CONSTRUCTOR-------------------------
-	public Contacto(String email, String celular, Ubicacion ubicacion) {
+	public Contacto(String email, String celular, Ubicacion ubicacion) throws Exception {
 		super();
-		this.email = email;
-		this.celular = celular;
-		this.ubicacion = ubicacion;
+		setEmail(email);
+		setCelular(celular);
+		setUbicacion(ubicacion);
 	}
 	
 
@@ -20,7 +20,17 @@ public class Contacto {
 		return email;
 	}
 	
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception {
+		boolean mailValido = true;
+		if(email.indexOf("@") < 1) { //si el arroba no está a partir de la pos 1
+			mailValido = false;
+		}
+		if(email.lastIndexOf(".") <= email.indexOf("@")+1) { //si no hay un punto luego del arroba
+			mailValido = false;
+		}
+		if(mailValido==false) {
+			throw new Exception ("Email inválido");
+		}
 		this.email = email;
 	}
 	
@@ -28,7 +38,10 @@ public class Contacto {
 		return celular;
 	}
 	
-	public void setCelular(String celular) {
+	public void setCelular(String celular) throws Exception {
+		if(celular.length()<=8) {
+			throw new Exception("Celular inválido");
+		}
 		this.celular = celular;
 	}
 	
