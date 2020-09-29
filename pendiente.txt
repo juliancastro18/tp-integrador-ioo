@@ -1,0 +1,4 @@
++ cambiar for each por while en metodos de turno
++ emprolijar toString de Carrito
++ arreglar try/catch en el main
++ definir si dejamos así DiaRetiro
