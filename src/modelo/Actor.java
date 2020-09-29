@@ -17,6 +17,7 @@ public abstract class Actor {
 	
 	public Actor(Contacto contacto) {
 		super();
+		this.id = -1;
 		this.contacto = contacto;
 	}
 

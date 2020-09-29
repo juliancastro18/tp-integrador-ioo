@@ -482,13 +482,13 @@ public class Comercio extends Actor {
 	// ----------------------------- ADMINISTRAR CARRITOS -----------------------------
 
 	//AGREGAR CARRITO
-	public void agregarCarrito(Cliente cliente, boolean esEnvio) throws Exception {
+	public void agregarCarrito(Cliente cliente) throws Exception {
 		
 		if (getCarritoAbierto(cliente) != null) {
 			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
 		
-		if(cliente.getId() == 0) {
+		if(cliente.getId() == -1) {
 			cliente.setId(getNuevoIdCliente());
 		}
 		
