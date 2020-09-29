@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import modelo.Articulo;
 import modelo.Carrito;

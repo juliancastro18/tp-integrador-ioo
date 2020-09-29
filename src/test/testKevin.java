@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import modelo.Ubicacion;
 
 public class testKevin {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Ubicacion ubicacion1 = new Ubicacion(150.0,210.00);
 		
@@ -24,7 +24,6 @@ public class testKevin {
 		List<Carrito> listaCarrito = new ArrayList<Carrito>();
 		Cliente cliente1 = new Cliente(contacto1,"Cánepa","Kevin",38826035,'m');
 		Carrito carrito1 = new Carrito(1,cliente1);
-		
 		
 		
 		

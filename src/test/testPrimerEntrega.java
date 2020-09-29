@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import modelo.Ubicacion;
 import modelo.Contacto;
