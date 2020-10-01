@@ -420,14 +420,37 @@ public class Comercio extends Actor {
 	public boolean agregarArticulo(String articuloNombre,String codBarras,double precio) throws Exception{
 		boolean addArticulo = false;
 		int id = 0;
+		boolean articuloExiste = false;
+		boolean finLista = false;
+		int vueltas = 0;
 
-		for(Articulo art : listaArticulos) {
-			if(art.equals(articuloNombre))throw new Exception( "El producto ya existe");
+		
+		if(listaArticulos.size()>0) {
+			while (articuloExiste == false && finLista == false) {
+				Articulo art = listaArticulos.get(vueltas);
+				if (art.equals(articuloNombre)) {
+					articuloExiste = true;
+				}
+				vueltas++;
+				
+				if (vueltas == listaArticulos.size()) {
+					finLista = true;
+				}
+				
+			}
 		}
-		id=this.getNuevoIdArticulo();
-		Articulo articulo = new Articulo(id,articuloNombre,codBarras,precio);
-		listaArticulos.add(articulo);
-		addArticulo=true;
+
+		
+		if(articuloExiste == true)throw new Exception( "El articulos ya existe");
+		
+		
+		if(articuloExiste == false) {
+			id=this.getNuevoIdArticulo();
+			Articulo articulo = new Articulo(id,articuloNombre,codBarras,precio);
+			listaArticulos.add(articulo);
+			addArticulo=true;
+			
+		}
 		return addArticulo;
 	}
 	

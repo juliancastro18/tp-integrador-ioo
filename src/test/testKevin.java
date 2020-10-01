@@ -37,7 +37,12 @@ public class testKevin {
 			
 			comercio.agregarArticulo("Tv lg 50 pulgadas","8412584512541", 45.000);
 			comercio.agregarArticulo("Heladera LG", "7791234567898", 85.000);
-			System.out.println(comercio);
+			comercio.agregarArticulo("Aire acondicionado LG", "8412345678905", 65000);
+		
+			/////////////////////////CHEQUEADO////////////////////////////////////
+			System.out.println(comercio.getListaArticulos());
+			
+
 			System.out.println(comercio.traerArticulo(1));
 			carrito1.agregarItem(art1, 4);
 			carrito1.agregarItem(art2, 1);
