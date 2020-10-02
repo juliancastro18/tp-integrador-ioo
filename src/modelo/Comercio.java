@@ -366,7 +366,7 @@ public class Comercio extends Actor {
 		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	//obtiene la hora desde del dia de retiro especificado 
 		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();	//obtiene la hora hasta del dia de retiro especificado 
 		int intervalo = obtenerDiaRetiro(fecha).getIntervalo();			//obtiene el intervalo (cada cuanto se generan turnos nuevos)
-
+		
 		if (obtenerCarritosPorFecha(fecha) == null) { 							
 			while (horadesde.getHour() < horahasta.getHour()) {		//recorre desde la hora que abre el comercio hasta una hora antes que cierre (ultimo turno)
 				listaTurnos.add(new Turno(fecha, horadesde, false));//crea y agrega un nuevo turno disponible a la lista
@@ -380,22 +380,29 @@ public class Comercio extends Actor {
 				List<Carrito> carritos = obtenerCarritosPorFecha(fecha);					//se guarda la lista de los turnos ocupados				
 				int indice = 0;
 				RetiroLocal aux;
+				boolean bandera = false;
 				
 				while(horadesde.getHour() < horahasta.getHour())					//se recorren los horarios de los turnos segun el intervalo
 				{
-					while(indice < carritos.size())												//se recorre hasta que se encuentra un turno con el mismo horario, significa que el turno ya existe
+					while(indice < carritos.size() & !bandera)												//se recorre hasta que se encuentra un turno con el mismo horario, significa que el turno ya existe
 					{		
 						aux = (RetiroLocal) carritos.get(indice).getEntrega();
-						if( ! horadesde.equals(aux.getHoraEntrega()))			//compara los horarios del turno existente con el horario que se desea agregar para un turno nuevo
+					
+						if(horadesde.equals(aux.getHoraEntrega()))			//compara los horarios del turno existente con el horario que se desea agregar para un turno nuevo
 						{
-							listaTurnos.add(new Turno(fecha, horadesde, false));											//bandera se pone en true para no crear un turno nuevo
+							bandera = true;											//bandera se pone en true para no crear un turno nuevo
 						}
 						
-						indice++;
+						indice = indice + 1;
 					}
 					
+					if(! bandera)
+						listaTurnos.add(new Turno(fecha, horadesde, false));
+					
 					indice = 0;
-					horadesde = horadesde.plusMinutes(intervalo);					//la hora desde incrementa segun el intervalo 			
+					bandera = false;
+					horadesde = horadesde.plusMinutes(intervalo);					//la hora desde incrementa segun el intervalo
+					
 				}	
 			}
 
