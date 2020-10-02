@@ -251,14 +251,21 @@ public class Comercio extends Actor {
 	//OBTIENE LISTA DE CARRITOS POR FECHA
 	public List<Carrito> obtenerCarritosPorFecha(LocalDate fecha) {
 		List<Carrito> listaCarritos = new ArrayList<Carrito>();
-
+		
 		for (Carrito carrito : getListaCarrito()) {
-			if (carrito.getEntrega() != null) {
-				if (carrito.getEntrega().getFecha().equals(fecha)) {
-					listaCarritos.add(carrito);
+			if(carrito.isCerrado())
+			{
+				if(carrito.getEntrega() instanceof RetiroLocal)
+				{
+					//System.out.println(carrito.toString());
+					if (carrito.getEntrega().getFecha().equals(fecha))
+						listaCarritos.add(carrito);
 				}
 			}
 		}
+		
+		if(listaCarritos.isEmpty())
+			listaCarritos = null;
 
 		return listaCarritos;
 	}
@@ -360,40 +367,37 @@ public class Comercio extends Actor {
 		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();	//obtiene la hora hasta del dia de retiro especificado 
 		int intervalo = obtenerDiaRetiro(fecha).getIntervalo();			//obtiene el intervalo (cada cuanto se generan turnos nuevos)
 
-		if (getListaCarrito().isEmpty()) { 							//pregunta si la lista esta vacia
-
+		if (obtenerCarritosPorFecha(fecha) == null) { 							
 			while (horadesde.getHour() < horahasta.getHour()) {		//recorre desde la hora que abre el comercio hasta una hora antes que cierre (ultimo turno)
 				listaTurnos.add(new Turno(fecha, horadesde, false));//crea y agrega un nuevo turno disponible a la lista
 				horadesde = horadesde.plusMinutes(intervalo);			// aumenta la hora para el turno siguiente
+			
 			}
 		}
 
 		else {																	
-			boolean esIgual = false;											//flag para verificar si el turno esta ocupado o libre
-																				//mientras el flag permanezca en false quiere decir que no hay turnos ocupados
-																				//en ese horario entonces se crea un nuevo turno
 			
-			List<Turno> listaT = generarTurnosOcupados(fecha);					//se guarda la lista de los turnos ocupados
-			
-			while(horadesde.getHour() < horahasta.getHour())					//se recorren los horarios de los turnos segun el intervalo
-			{
-				for(int indice = 0; indice < listaT.size() ; indice++)			//se recorre hasta que se encuentra un turno con el mismo horario, significa que el turno ya existe
+				List<Carrito> carritos = obtenerCarritosPorFecha(fecha);					//se guarda la lista de los turnos ocupados				
+				int indice = 0;
+				RetiroLocal aux;
+				
+				while(horadesde.getHour() < horahasta.getHour())					//se recorren los horarios de los turnos segun el intervalo
 				{
-					if(horadesde.equals(listaT.get(indice).getHora()))			//compara los horarios del turno existente con el horario que se desea agregar para un turno nuevo
-					{
-						esIgual = true;											//bandera se pone en true para no crear un turno nuevo
-						indice = listaT.size();									//el indice cambia de valor para salir del bucle for y terminar de recorrer la lista innecesariamente
+					while(indice < carritos.size())												//se recorre hasta que se encuentra un turno con el mismo horario, significa que el turno ya existe
+					{		
+						aux = (RetiroLocal) carritos.get(indice).getEntrega();
+						if( ! horadesde.equals(aux.getHoraEntrega()))			//compara los horarios del turno existente con el horario que se desea agregar para un turno nuevo
+						{
+							listaTurnos.add(new Turno(fecha, horadesde, false));											//bandera se pone en true para no crear un turno nuevo
+						}
+						
+						indice++;
 					}
-				}
-				
-				if( ! esIgual)													//compara la bandera
-					listaTurnos.add(new Turno(fecha, horadesde, false));		//crea un turno nuevo y lo inserta en la lista
-				
-				esIgual = false;												//la bandera vuelve a false para una nueva iteracion
-				horadesde = horadesde.plusMinutes(intervalo);					//la hora desde incrementa segun el intervalo 
+					
+					indice = 0;
+					horadesde = horadesde.plusMinutes(intervalo);					//la hora desde incrementa segun el intervalo 			
+				}	
 			}
-
-		}
 
 		return listaTurnos;														//devuelve la lista de turnos libres
 	}
