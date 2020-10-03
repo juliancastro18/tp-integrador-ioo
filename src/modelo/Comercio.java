@@ -257,7 +257,6 @@ public class Comercio extends Actor {
 			{
 				if(carrito.getEntrega() instanceof RetiroLocal)
 				{
-					//System.out.println(carrito.toString());
 					if (carrito.getEntrega().getFecha().equals(fecha))
 						listaCarritos.add(carrito);
 				}
@@ -319,6 +318,11 @@ public class Comercio extends Actor {
 	}
 
 	//OBTIENE LISTA DE TURNOS OCUPADOS
+	
+	/*
+	 *  REUTILIZAR METODO OBTENER CARRITOS POR FECHA
+	 * 
+	 */
 	public List<Turno> generarTurnosOcupados(LocalDate fecha) {
 		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
 		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	
@@ -380,27 +384,27 @@ public class Comercio extends Actor {
 				List<Carrito> carritos = obtenerCarritosPorFecha(fecha);					//se guarda la lista de los turnos ocupados				
 				int indice = 0;
 				RetiroLocal aux;
-				boolean bandera = false;
+				boolean horarioOcupado = false;													
 				
 				while(horadesde.getHour() < horahasta.getHour())					//se recorren los horarios de los turnos segun el intervalo
 				{
-					while(indice < carritos.size() & !bandera)												//se recorre hasta que se encuentra un turno con el mismo horario, significa que el turno ya existe
+					while(indice < carritos.size() & !horarioOcupado)												//se recorre hasta que se encuentra un turno con el mismo horario, significa que el turno ya existe
 					{		
 						aux = (RetiroLocal) carritos.get(indice).getEntrega();
 					
 						if(horadesde.equals(aux.getHoraEntrega()))			//compara los horarios del turno existente con el horario que se desea agregar para un turno nuevo
 						{
-							bandera = true;											//bandera se pone en true para no crear un turno nuevo
+							horarioOcupado = true;											//bandera se pone en true para no crear un turno nuevo
 						}
 						
 						indice = indice + 1;
 					}
 					
-					if(! bandera)
+					if(! horarioOcupado)
 						listaTurnos.add(new Turno(fecha, horadesde, false));
 					
 					indice = 0;
-					bandera = false;
+					horarioOcupado = false;
 					horadesde = horadesde.plusMinutes(intervalo);					//la hora desde incrementa segun el intervalo
 					
 				}	
