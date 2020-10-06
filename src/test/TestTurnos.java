@@ -8,6 +8,7 @@ import modelo.Comercio;
 import modelo.Contacto;
 import modelo.Ubicacion;
 
+
 public class TestTurnos {
 
 	public static void main(String[] args) {
@@ -108,7 +109,9 @@ public class TestTurnos {
 			 */
 		
 			
-			System.out.println(almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)));
+			System.out.println("Turnos libres: "+almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)));
+			System.out.println("Turnos ocupados: "+almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 9, 1)));
+			System.out.println("Agenda: "+almacenGranate.generarAgenda(LocalDate.of(2020, 9, 1)));
 			
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+e.getMessage());

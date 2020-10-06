@@ -3,10 +3,9 @@ package modelo;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class Comercio extends Actor {
+public class Comercio extends Actor{
 
 	// ----------------------------- ATRIBUTOS -----------------------------
 	
@@ -311,9 +310,7 @@ public class Comercio extends Actor {
 				agenda.add(turnosOcupados.get(i));
 			}
 		}
-		
-		Collections.sort(agenda,Collections.reverseOrder()); //ordena la lista
-		
+			
 		return agenda;
 	}
 
@@ -630,6 +627,7 @@ public class Comercio extends Actor {
 		}
 		return carritoAbierto;
 	}
-	
+
+
 	// ----------------------------- FIN -----------------------------
 }
