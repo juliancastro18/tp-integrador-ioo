@@ -68,7 +68,10 @@ public class testPrimerEntrega {
 
 			////////////////////////////////////////////////MOSTRAMOS POR CONSOLA LA LISTA ENTERA DE CARRITOS////////////////////////////////////////////////
 			System.out.println("                                   LISTA DE CARRITOS                                ");
-			System.out.println(almacenGranate.getListaCarrito());
+			//System.out.println(almacenGranate.getListaCarrito());
+			System.out.println(almacenGranate.getListaCarrito().get(0));
+			System.out.println(almacenGranate.getListaCarrito().get(1));
+			System.out.println(almacenGranate.getListaCarrito().get(2));
 			System.out.println("---------------------------------------------------------------------------------------");
 			////////////////////////////////////////////////MOSTRAMOS CARRITO CLIENTE 1 POR TOTAL A PAGAR////////////////////////////////////////////////
 			System.out.println("                                 CARRITO TOTAL A PAGAR                                   ");

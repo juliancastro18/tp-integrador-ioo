@@ -108,7 +108,7 @@ public class Carrito{
 	
 	public String toString() {
 		String yesNo[] = {"Sí", "No"};
-		String str = "\n Carrito: #" + idCarrito + " | Fecha: " + fecha + " | Hora: " + hora +"\n"+ "\nCliente: #" + cliente.getId() + " " + cliente.getNombreCompleto()
+		String str = "Carrito: #" + idCarrito + " | Fecha: " + fecha + " | Hora: " + hora +"\n"+ "\nCliente: #" + cliente.getId() + " " + cliente.getNombreCompleto()
 		+ " DNI: " + cliente.getDni() + "\nEstá cerrado: " + (cerrado? "Sí" : "No") + "\n\nDetalle: \n";
 		
 		for(ItemCarrito item : lstItemCarrito) {
