@@ -249,7 +249,7 @@ public class Comercio extends Actor {
 
 	
 	//OBTIENE LISTA DE CARRITOS POR FECHA
-	public List<Carrito> obtenerCarritosPorFecha(LocalDate fecha) {
+	public List<Carrito> obtenerCarritosRetiroLocal(LocalDate fecha) {
 		List<Carrito> listaCarritos = new ArrayList<Carrito>();
 		
 		for (Carrito carrito : getListaCarrito()) {
@@ -296,7 +296,7 @@ public class Comercio extends Actor {
 	
 	
 	//GENERA AGENDA	
-	public List<Turno> generarAgenda(LocalDate fecha) {
+	public List<Turno> generarAgenda(LocalDate fecha) throws Exception{
 		List<Turno> agenda = new ArrayList<Turno>();
 		List<Turno> turnosLibres = new ArrayList<Turno>();
 		List<Turno> turnosOcupados = new ArrayList<Turno>();
@@ -323,42 +323,33 @@ public class Comercio extends Actor {
 	 *  REUTILIZAR METODO OBTENER CARRITOS POR FECHA
 	 * 
 	 */
-	public List<Turno> generarTurnosOcupados(LocalDate fecha) {
+	public List<Turno> generarTurnosOcupados(LocalDate fecha) throws Exception {
 		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
-		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	
-		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();
-		int intervalo = obtenerDiaRetiro(fecha).getIntervalo();
-		RetiroLocal carritoAux;												
-		boolean esIgual = false;
-
-		if (!getListaCarrito().isEmpty()) {							
-			while (horadesde.getHour() < horahasta.getHour()) {					
-				for (Carrito carrito : obtenerCarritosPorFecha(fecha)) {				
-					if (carrito.getEntrega() instanceof RetiroLocal) {			
-						carritoAux = (RetiroLocal) carrito.getEntrega();		
-						if ((horadesde.equals(carritoAux.getHoraEntrega()))) {	
-							esIgual = true;																							
-						}
-					}
-				}
-				if ((esIgual)) {												
-					listaTurnosOcupados.add(new Turno(fecha, horadesde, true));
-				}
-				esIgual = false;												
-				horadesde = horadesde.plusMinutes(intervalo);						
+		RetiroLocal retiroAux;												
+		
+		if ( ! (obtenerCarritosRetiroLocal(fecha) == null)) {							
+			
+			for(Carrito carrito : obtenerCarritosRetiroLocal(fecha))
+			{
+				retiroAux = (RetiroLocal) carrito.getEntrega();
+				listaTurnosOcupados.add(new Turno(fecha, retiroAux.getHoraEntrega(), true));
 			}
-		}else {
-			listaTurnosOcupados = null;
+			
 		}
+		
+		else {
+			throw new Exception("No hay turnos ocupados para la fecha seleccionada...\n");
+		}
+		
 		return listaTurnosOcupados;	
 	}
 
-	//GENERA TURNOS LIBRES
-	/*este metodo devuelve una lista de turnos en base a la fecha especificada por
-	  parametro (clase DiaRetiro) y los horarios correspondientes a las Entregas
-	  (clase Entregas) de carritos ya confirmados. Si no hay ningun carrito
-	  confirmado el metodo genera turnos nuevos con todos los horarios del dia
-	  especificado y devuelve la lista. En caso de que ya haya carritos confirmados
+	//GENERAR TURNOS LIBRES
+	/*este metodo devuelve una lista de turnos libres en base a la fecha especificada por
+	  parametro y los horarios correspondientes a las Entregas
+	  de carritos ya confirmados. Si no hay ningun carrito
+	  confirmado que sea para retirar en el local el metodo genera turnos nuevos con todos 
+	  los horarios del dia especificado y devuelve la lista. En caso de que ya haya carritos confirmados
 	  dentro de la lista (con la misma fecha que la solicitada), se recorren para
 	  ver que turnos estan ocupados y cuales no. Por cada verificacion se aumtenta
 	  la hora segun el intervalo especificado en DiaRetiro para preguntar si el
@@ -371,7 +362,7 @@ public class Comercio extends Actor {
 		LocalTime horahasta = obtenerDiaRetiro(fecha).getHoraHasta();	//obtiene la hora hasta del dia de retiro especificado 
 		int intervalo = obtenerDiaRetiro(fecha).getIntervalo();			//obtiene el intervalo (cada cuanto se generan turnos nuevos)
 		
-		if (obtenerCarritosPorFecha(fecha) == null) { 							
+		if (obtenerCarritosRetiroLocal(fecha) == null) { 							
 			while (horadesde.getHour() < horahasta.getHour()) {		//recorre desde la hora que abre el comercio hasta una hora antes que cierre (ultimo turno)
 				listaTurnos.add(new Turno(fecha, horadesde, false));//crea y agrega un nuevo turno disponible a la lista
 				horadesde = horadesde.plusMinutes(intervalo);			// aumenta la hora para el turno siguiente
@@ -381,7 +372,7 @@ public class Comercio extends Actor {
 
 		else {																	
 			
-				List<Carrito> carritos = obtenerCarritosPorFecha(fecha);					//se guarda la lista de los turnos ocupados				
+				List<Carrito> carritos = obtenerCarritosRetiroLocal(fecha);					//se guarda la lista de los turnos ocupados				
 				int indice = 0;
 				RetiroLocal aux;
 				boolean horarioOcupado = false;													
@@ -391,13 +382,12 @@ public class Comercio extends Actor {
 					while(indice < carritos.size() & !horarioOcupado)												//se recorre hasta que se encuentra un turno con el mismo horario, significa que el turno ya existe
 					{		
 						aux = (RetiroLocal) carritos.get(indice).getEntrega();
-					
 						if(horadesde.equals(aux.getHoraEntrega()))			//compara los horarios del turno existente con el horario que se desea agregar para un turno nuevo
 						{
 							horarioOcupado = true;											//bandera se pone en true para no crear un turno nuevo
 						}
 						
-						indice = indice + 1;
+						indice++;
 					}
 					
 					if(! horarioOcupado)
@@ -406,7 +396,6 @@ public class Comercio extends Actor {
 					indice = 0;
 					horarioOcupado = false;
 					horadesde = horadesde.plusMinutes(intervalo);					//la hora desde incrementa segun el intervalo
-					
 				}	
 			}
 

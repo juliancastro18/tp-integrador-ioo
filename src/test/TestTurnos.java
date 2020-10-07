@@ -2,10 +2,12 @@ package test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import modelo.Cliente;
 import modelo.Comercio;
 import modelo.Contacto;
+import modelo.Turno;
 import modelo.Ubicacion;
 
 public class TestTurnos {
@@ -31,7 +33,8 @@ public class TestTurnos {
 			Cliente cliente3 = new Cliente(contacto3,"Castro","Julian",10101010,'m');
 			Cliente cliente4 = new Cliente(contacto4,"lopez","Gianluca",01010101,'m');
 			Comercio almacenGranate = new Comercio(0, contacto0, "Almacen Granate", 30548083156l, 100, 5.5, 5, 50, 10);
-			almacenGranate.agregarDiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 30);
+			almacenGranate.agregarDiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 60);
+			almacenGranate.agregarDiaRetiro(2, LocalTime.of(10, 0), LocalTime.of(18, 0), 30);
 			////////////////////////////////////////////////AGREGAMOS ARTICULOS////////////////////////////////////////////////
 			almacenGranate.agregarArticulo("Televisor LG 50 PULGADAS", "8412584512541", 35000);
 			almacenGranate.agregarArticulo("Heladera LG", "8412584512541", 40000);
@@ -54,64 +57,28 @@ public class TestTurnos {
 			almacenGranate.getListaCarrito().get(2).agregarItem(almacenGranate.getListaArticulos().get(1),2);
 			almacenGranate.getListaCarrito().get(2).agregarItem(almacenGranate.getListaArticulos().get(2),3);
 			
-			///////////////////////////////////////////////MODICAMOS CANTIDADES DE ITEMS////////////////////////////////////////////////
-			//almacenGranate.getListaCarrito().get(2).eliminarItem(almacenGranate.getListaArticulos().get(0), 1);
-			//almacenGranate.getListaCarrito().get(2).eliminarItem(almacenGranate.getListaArticulos().get(1), 1);
-
-			
-			////////////////////////////////////////////////CERRAMOS CARRITOS////////////////////////////////////////////////
-			almacenGranate.confirmarCarritoEnvio(almacenGranate.getListaCarrito().get(0), true, null, null, null);
-			almacenGranate.confirmarCarritoEnvio(almacenGranate.getListaCarrito().get(1), true, null, null, null);
-			
 			almacenGranate.agregarCarrito(cliente4);
 			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(0),1);
 			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(1),2);
 			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(2),3);
 			
+			
+			
+			////////////////////////////////////////////////CERRAMOS CARRITOS////////////////////////////////////////////////
+			almacenGranate.confirmarCarritoEnvio(almacenGranate.getListaCarrito().get(0), true, null, null, null);
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(1), true, LocalDate.of(2020, 9, 1));
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(3), true, LocalDate.of(2020, 9, 1));
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(2), true, LocalDate.of(2020, 9, 1));
-			////////////////////////////////////////////////AGREGO CARRITO A UN MISMO CLIENTE////////////////////////////////////////////////
-			//almacenGranate.agregarCarrito(cliente3);
-			//almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(0),1);
-
-			////////////////////////////////////////////////MOSTRAMOS POR CONSOLA LA LISTA ENTERA DE CARRITOS////////////////////////////////////////////////
-			/*
-			 * System.out.
-			 * println("                                   LISTA DE CARRITOS                                "
-			 * ); System.out.println(almacenGranate.getListaCarrito()); System.out.println(
-			 * "---------------------------------------------------------------------------------------"
-			 * ); ////////////////////////////////////////////////MOSTRAMOS CARRITO CLIENTE
-			 * 1 POR TOTAL A PAGAR////////////////////////////////////////////////
-			 * System.out.
-			 * println("                                 CARRITO TOTAL A PAGAR                                   "
-			 * ); System.out.println(almacenGranate.getListaCarrito().get(0) + " " +
-			 * almacenGranate.getListaCarrito().get(0).totalAPagarCarrito() + "\n\n");
-			 * System.out.println(almacenGranate.getListaCarrito().get(2) + " " +
-			 * almacenGranate.getListaCarrito().get(0).totalAPagarCarrito() + "\n\n");
-			 * System.out.println(
-			 * "----------------------------------------------------------------------------------------"
-			 * );
-			 */
-
-
-			////////////////////////////////////////////////BORRAMOS CARRITO ABIERTO CLIENTE 2////////////////////////////////////////////////
-			//almacenGranate.eliminarCarrito(1);
 			
-			////////////////////////////////////////////////VOLVEMOS A MOSTRAR - MUESTRA DOS CARRITOS--> CLIENTE 1/3////////////////////////////////////////////////
-			
-			/*
-			 * System.out.
-			 * println("                                   MUESTRA LOS CARRITOS QUE QUEDARON                             "
-			 * ); System.out.println(almacenGranate.getListaCarrito()); System.out.println(
-			 * "---------------------------------------------------------------------------------------"
-			 * );
-			 */
 		
 			
-			System.out.println(almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)));
+			for (Turno turno : almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1))) {
+				System.out.println(turno.toString());
+			}
+			 
 			
 		}catch(Exception e) {
-			System.out.println("Excepcion: "+e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 	}
