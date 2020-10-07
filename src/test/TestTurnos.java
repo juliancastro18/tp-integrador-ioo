@@ -2,7 +2,6 @@ package test;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
 import modelo.Cliente;
 import modelo.Comercio;
@@ -77,11 +76,16 @@ public class TestTurnos {
 			for (Turno turno : almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1))) {
 				System.out.println(turno.toString());
 			}
+			
+			for(Turno turno : almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 9, 1))) {
+				System.out.println(turno.toString());
+			}
 			 
 
-			System.out.println("Turnos libres: "+almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)));
-			System.out.println("Turnos ocupados: "+almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 9, 1)));
-			System.out.println("Agenda: "+almacenGranate.generarAgenda(LocalDate.of(2020, 9, 1)));
+			//System.out.println("Turnos libres: "+almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)));
+			//System.out.println("Turnos ocupados: "+almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 9, 1)));
+			System.out.println("-------------------------------------------------------------------------------------------------------");
+			System.out.println("Agenda------------>"+almacenGranate.generarAgenda(LocalDate.of(2020, 9, 1)));
 
 			
 		}catch(Exception e) {

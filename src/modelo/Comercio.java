@@ -310,6 +310,20 @@ public class Comercio extends Actor{
 				agenda.add(turnosOcupados.get(i));
 			}
 		}
+		
+		Turno auxDePosEnJ;
+
+		
+		for(int i=0;i<agenda.size();i++) {
+			for(int j=0;j<agenda.size()-1;j++) {
+				if(agenda.get(j+1).getHora().isBefore(agenda.get(j).getHora())){
+					auxDePosEnJ = new Turno(agenda.get(j).getDia(),agenda.get(j).getHora(),agenda.get(j).isOcupado());
+					agenda.set(j,agenda.get(j+1));
+					agenda.set(j+1, auxDePosEnJ);
+				}
+			}
+		}
+
 			
 		return agenda;
 	}
@@ -470,7 +484,7 @@ public class Comercio extends Actor{
 		// Si no se encontro y no se llego al fin de la lista ....
 		while (found == false && finLista == false) {
 			Articulo p = listaArticulos.get(vueltas);
-			if (p.getIdArticulo() == idArticulo) {
+			if (p.equals(idArticulo)) {
 				art = p;
 				found = true;
 			}

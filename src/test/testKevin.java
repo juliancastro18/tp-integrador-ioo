@@ -43,15 +43,15 @@ public class testKevin {
 			System.out.println(comercio.getListaArticulos());
 			
 
-			System.out.println(comercio.traerArticulo(1));
-			carrito1.agregarItem(art1, 4);
+			System.out.println("Articulo----------->"+comercio.traerArticulo(0));
+			/*carrito1.agregarItem(art1, 4);
 			carrito1.agregarItem(art2, 1);
 			carrito1.eliminarItem(art1, 2);
 			System.out.println(carrito1);
 			System.out.println("GET ITEM CARRITO--->"+carrito1.getItemCarrito(art2));
 			System.out.println("Calcular total carrito--->"+carrito1.calcularTotalCarrito());
 			System.out.println("CALCULAR DESCUENTO EFECTIVO---->"+carrito1.calcularDescuentoEfectivo(10));
-			System.out.println("CALCULAR DESCUENTO TOTAL---->"+carrito1.totalAPagarCarrito());
+			System.out.println("CALCULAR DESCUENTO TOTAL---->"+carrito1.totalAPagarCarrito());*/
 			
 			
 		}catch(Exception e) {

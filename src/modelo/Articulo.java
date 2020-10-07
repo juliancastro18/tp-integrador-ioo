@@ -74,6 +74,10 @@ public class Articulo {
 		return this.nombre == nombre;
 	}
 	
+	public boolean equals(int id){
+		return this.idArticulo == id;
+	}
+	
 	@Override
 	public String toString() {
 		return "Producto---> id=" + idArticulo + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio="
