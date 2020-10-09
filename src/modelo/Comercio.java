@@ -524,12 +524,10 @@ public class Comercio extends Actor{
 	//AGREGAR CARRITO
 	public void agregarCarrito(Cliente cliente) throws Exception {
 		
-		if (getCarritoAbierto(cliente) != null) { // si el cliente ya tiene carrito abierto, lanzo excepción
-			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
-		}
-		
 		if(cliente.getId() == -1) { //si el cliente no tiene id, le asigno una
 			cliente.setId(getNuevoIdCliente());
+		}else if (getCarritoAbierto(cliente) != null) { // si el cliente ya tiene carrito abierto, lanzo excepción
+			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
 		
 		//creo un nuevo carrito generandole una ID y pasando cliente
