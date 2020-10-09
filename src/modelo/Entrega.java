@@ -13,15 +13,7 @@ public abstract class Entrega {
 		setFecha(fecha);
 		setEfectivo(efectivo);
 	}
-	
-	//----------------constructor para pruebas--------------------
-	public Entrega(LocalDate fecha)
-	{
-		setFecha(fecha);
-	}
-	
-	
-	
+		
 	public int getId() {
 		return id;
 	}

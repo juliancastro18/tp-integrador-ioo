@@ -54,7 +54,7 @@ public class Envio extends Entrega{
 		String str = "";
 		str += super.toString();
 		str += "Tipo de entrega: Envío\n";
-		str += "Rango de entrega: " + horaHasta + " / " + horaDesde + "\n" + "Costo de envío: " + costo;
+		str += "Rango de entrega: " + horaDesde + " / " + horaHasta + "\n" + "Costo de envío: " + costo;
 		return str;
 	}
 	
