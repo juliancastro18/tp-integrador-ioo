@@ -30,16 +30,10 @@ public class Carrito{
 	}
 	
 	
-	//------------------------constructor para pruebas----------------------
-	public Carrito(Entrega entrega)
-	{
-		setEntrega(entrega);
-	}	
 	public Carrito() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 	
 	public int getIdCarrito() {
@@ -121,7 +115,7 @@ public class Carrito{
 		
 		if(cerrado) {
 			str += "\nDescuento: $" + this.descuento + "\nTotal a pagar: $" + this.totalAPagarCarrito();
-			str += "\n\n" + this.entrega.toString();
+			str += "\n\n" + this.entrega.toString()+"\n";
 		}else {
 			str += "\n<Entrega sin definir>\n";
 		}

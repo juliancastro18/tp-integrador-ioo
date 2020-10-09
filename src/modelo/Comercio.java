@@ -38,30 +38,6 @@ public class Comercio extends Actor{
 	}
 
 
-	// constructor para realizar test
-	public Comercio(int id, Contacto contacto, long cuit, List<Carrito> listaDeCarritos, List<DiaRetiro> listaDeRetiros) throws Exception {
-		super(id, contacto);
-		setCUIT(cuit);
-		setListaCarrito(listaDeCarritos);
-		setListaDiaRetiro(listaDeRetiros);
-	}
-
-	public Comercio(int id, Contacto contacto, long cuit) throws Exception {
-		super(id, contacto);
-		setCUIT(cuit); 
-		setListaDiaRetiro(new ArrayList<DiaRetiro>());
-		setListaCarrito(new ArrayList<Carrito>());
-	}
-
-	// Constructor para test de carrito, y articulos
-	public Comercio(int id, Contacto contacto, String nombreComercio, List<Articulo> listaArticulos,
-			List<Carrito> listaDeCarritos) throws Exception {
-		super(id, contacto);
-		setListaArticulos(listaArticulos);
-		setListaCarrito(listaDeCarritos);
-		setNombreComercio(nombreComercio);
-	}
-
 	// ----------------------------- GETTERS Y SETTERS -----------------------------
 
 	public String getNombreComercio() {
