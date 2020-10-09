@@ -524,24 +524,25 @@ public class Comercio extends Actor{
 	//AGREGAR CARRITO
 	public void agregarCarrito(Cliente cliente) throws Exception {
 		
-		if (getCarritoAbierto(cliente) != null) {
+		if (getCarritoAbierto(cliente) != null) { // si el cliente ya tiene carrito abierto, lanzo excepción
 			throw new Exception("El cliente " + cliente.getNombreCompleto() + " ya tiene un carrito abierto");
 		}
 		
-		if(cliente.getId() == -1) {
+		if(cliente.getId() == -1) { //si el cliente no tiene id, le asigno una
 			cliente.setId(getNuevoIdCliente());
 		}
 		
+		//creo un nuevo carrito generandole una ID y pasando cliente
 		Carrito nuevoCarrito = new Carrito(this.getNuevoIdCarrito(), cliente);
-		listaCarrito.add(nuevoCarrito);
+		listaCarrito.add(nuevoCarrito); //agrego el nuevo carrito a la lista del comercio
 	}
 	
 	
 	//ELIMINAR POR ID
 	public void eliminarCarrito(int idCarrito) throws Exception {
 		
-		Carrito carritoEliminar = getCarritoFromLista(idCarrito);
-		if(!carritoEliminar.isCerrado()) {
+		Carrito carritoEliminar = getCarritoFromLista(idCarrito); //obtengo el carrito de la lista conociendo su ID
+		if(!carritoEliminar.isCerrado()) { //si el carrito no fue cerrado, lo elimino, sino lanzo excepción
 			listaCarrito.remove(carritoEliminar);
 		}else {
 			throw new Exception("No se puede eliminar un carrito que ya fue cerrado");
@@ -550,8 +551,8 @@ public class Comercio extends Actor{
 	
 	//ELIMINAR POR CLIENTE
 	public void eliminarCarritoAbierto(Cliente cliente) throws Exception {
-		Carrito carritoEliminar = getCarritoAbierto(cliente);
-		if(carritoEliminar!=null) {
+		Carrito carritoEliminar = getCarritoAbierto(cliente); //obtengo el carrito abierto del cliente
+		if(carritoEliminar!=null) { //si existe lo elimino, sino lanzo excepción
 			listaCarrito.remove(carritoEliminar);
 		}else {
 			throw new Exception("El cliente " + cliente.getNombreCompleto() + " no tiene carrito abierto");
@@ -581,7 +582,11 @@ public class Comercio extends Actor{
 			throw new Exception("El carrito está vacío o ya fue cerrado");
 		}
 		
-		LocalTime horaEntrega = generarTurnosLibres(fechaEntrega).get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
+		List<Turno> turnosLibres = generarTurnosLibres(fechaEntrega);
+		if(turnosLibres.isEmpty()) {
+			throw new Exception("No hay turnos libres en la fecha elegida");
+		}
+		LocalTime horaEntrega = turnosLibres.get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
 		Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
 		
 		carrito.setCerrado(true);

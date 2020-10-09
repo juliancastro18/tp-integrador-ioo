@@ -105,11 +105,15 @@ public class Carrito{
 		this.entrega = entrega;
 	}
 	
+	public boolean equals(Carrito carro) {
+		return this.idCarrito ==carro.getIdCarrito();
+	}
+	
 	
 	public String toString() {
-		String yesNo[] = {"Sí", "No"};
-		String str = "Carrito: #" + idCarrito + " | Fecha: " + fecha + " | Hora: " + hora +"\n"+ "\nCliente: #" + cliente.getId() + " " + cliente.getNombreCompleto()
-		+ " DNI: " + cliente.getDni() + "\nEstá cerrado: " + (cerrado? "Sí" : "No") + "\n\nDetalle: \n";
+		String str = "Carrito: #" + idCarrito + " | Fecha: " + fecha + " | Hora: " + hora +"\n"+ "\nCliente: #" +
+		cliente.getId() + " " + cliente.getNombreCompleto() + " DNI: " + cliente.getDni() + 
+		"\nEstá cerrado: " + (cerrado? "Sí" : "No") + "\n\nDetalle: \n";
 		
 		for(ItemCarrito item : lstItemCarrito) {
 			str += item.getDetalle();
@@ -129,18 +133,15 @@ public class Carrito{
 		return str;
 	}
 
-	public boolean equals(Carrito carro) {
-			return this.idCarrito ==carro.getIdCarrito();
-	}
-	
+	// ----------------------------- ADMINISTRAR ITEMCARRITOS -----------------------------
 	
 	public void agregarItem(Articulo art, int cantidad) throws Exception {
 		
 		if(cerrado) throw new Exception("No se puede agregar items a un carrito cerrado");
 		
-		ItemCarrito auxIC = getItemCarrito(art);
+		ItemCarrito auxIC = getItemCarrito(art); //obtengo item correspondiente al articulo
 		
-		if(auxIC != null) { //si existe el item, agrego la cantidad
+		if(auxIC != null) { //si existe el item, agrego la cantidad pasada por parametro
 			auxIC.setCantidad(auxIC.getCantidad() + cantidad);
 		}else { //si no existe, creo un ItemCarrito nuevo
 			lstItemCarrito.add(new ItemCarrito(art, cantidad));
@@ -159,11 +160,11 @@ public class Carrito{
 			
 		int cantActual = auxIC.getCantidad();
 		
-		if( (cantActual<cantidad) || (cantidad<=0)) {
+		if( (cantActual<cantidad) || (cantidad<=0)) { //si se quiere eliminar mas unidades de las que hay
 			throw new Exception ("Cantidad a eliminar invalida");
-		}else if( cantActual == cantidad) {
+		}else if( cantActual == cantidad) { //si la cantidad a eliminar coincide con la del carrito, elimino el item
 			lstItemCarrito.remove(auxIC);
-		}else if( cantActual > cantidad) {
+		}else if( cantActual > cantidad) { //sino, le resto la cantidad ingresada por parametro
 			auxIC.setCantidad(auxIC.getCantidad() - cantidad);
 		}
 	}
@@ -182,6 +183,9 @@ public class Carrito{
 		
 		return auxIC;
 	}
+	
+	
+	//---------------------------------------------------------------------------
 	
 	
 	public double calcularTotalCarrito() {

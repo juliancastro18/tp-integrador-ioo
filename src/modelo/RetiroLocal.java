@@ -11,13 +11,6 @@ public class RetiroLocal extends Entrega {
 		this.horaEntrega = horaEntrega;
 	}
 	
-	//---------------------constructor para pruebas---------------------
-	public RetiroLocal(LocalDate fecha, LocalTime horaentrega)
-	{
-		super(fecha);
-		setHoraEntrega(horaentrega);
-	}
-	
 	
 	public LocalTime getHoraEntrega() {
 		return horaEntrega;

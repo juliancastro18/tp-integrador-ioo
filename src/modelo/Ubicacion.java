@@ -35,13 +35,13 @@ public class Ubicacion {
 	
 	public double distanciaCoord(double lat, double lng) {
 		double radioTierra = 6371; // en kilómetros
-		double dLat = Math. toRadians ( lat - this.latitud );
-		double dLng = Math. toRadians ( lng - this.longitud );
-		double sindLat = Math. sin ( dLat / 2);
-		double sindLng = Math. sin ( dLng / 2);
-		double va1 = Math. pow ( sindLat , 2)+Math. pow ( sindLng , 2)*Math. cos (Math. toRadians ( this.latitud ))*
-		Math. cos (Math. toRadians ( lat ));
-		double va2 = 2 * Math. atan2 (Math. sqrt ( va1 ), Math. sqrt (1 - va1 ));
+		double dLat = Math.toRadians (lat - this.latitud);
+		double dLng = Math. toRadians (lng - this.longitud);
+		double sindLat = Math.sin (dLat / 2);
+		double sindLng = Math.sin (dLng / 2);
+		double va1 = Math.pow (sindLat,2)+Math.pow(sindLng,2)*Math.cos(Math.toRadians (this.latitud))*
+		Math.cos(Math.toRadians(lat));
+		double va2 = 2 *Math.atan2 (Math.sqrt(va1), Math.sqrt(1-va1));
 		return radioTierra * va2 ;
 	}
 	
