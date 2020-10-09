@@ -194,6 +194,7 @@ public class Carrito{
 	
 	public double calcularDescuentoDia(int diaDescuento, double porcentajeDescuento) {
 		double descuento = 0;
+		
 		if(this.cerrado==true) {
 			if(diaDescuento==LocalDate.now().getDayOfMonth()) {
 				for(ItemCarrito item : this.lstItemCarrito) {
@@ -201,11 +202,18 @@ public class Carrito{
 				}
 			}
 		}
+		
 		return descuento;
 	}
 	
 	public double calcularDescuentoEfectivo(double porcentajeDescuentoEfectivo) {
-		return ( calcularTotalCarrito() * porcentajeDescuentoEfectivo /100 );
+		double descuento = 0;
+		
+		if(this.entrega.isEfectivo()) {
+			descuento = (calcularTotalCarrito() * porcentajeDescuentoEfectivo /100);
+		}
+		
+		return descuento;
 	}
 	
 	public double calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento, double porcentajeDescuentoEfectivo) {
