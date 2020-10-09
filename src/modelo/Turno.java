@@ -30,6 +30,7 @@ public class Turno {
 	public boolean isOcupado() {
 		return ocupado;
 	}
+	
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}

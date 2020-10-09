@@ -1,20 +1,24 @@
 package test;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import modelo.Cliente;
 import modelo.Comercio;
 import modelo.Contacto;
+import modelo.Turno;
 import modelo.Ubicacion;
 
-public class testPrimerEntrega {
+
+public class TestTurnos {
 
 	public static void main(String[] args) {
+		
 		try {
 			//UBICACION Y CONTACTO DEL ALMACEN
 			Ubicacion ubicacion0 = new Ubicacion(100, 100);
 			Contacto contacto0 = new Contacto("almacengrana@gmail.com", "1110001000", ubicacion0);
-			
+
 			
 			
 			////////////////////////////////////////////////UBICACION Y CONTACTO DE LOS CLIENTES////////////////////////////////////////////////
@@ -28,12 +32,12 @@ public class testPrimerEntrega {
 			Cliente cliente2 = new Cliente(contacto2,"Canepa","Kevin",38826035,'m');
 			Cliente cliente3 = new Cliente(contacto3,"Castro","Julian",10101010,'m');
 			Cliente cliente4 = new Cliente(contacto4,"lopez","Gianluca",01010101,'m');
-			
 			Comercio almacenGranate = new Comercio(0, contacto0, "Almacen Granate", 30548083156l, 100, 5.5, 5, 50, 10);
-			
+			almacenGranate.agregarDiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 60);
+			almacenGranate.agregarDiaRetiro(2, LocalTime.of(10, 0), LocalTime.of(18, 0), 30);
 			////////////////////////////////////////////////AGREGAMOS ARTICULOS////////////////////////////////////////////////
 			almacenGranate.agregarArticulo("Televisor LG 50 PULGADAS", "8412584512541", 35000);
-			almacenGranate.agregarArticulo("Heladera LG", "7791234567898", 40000);
+			almacenGranate.agregarArticulo("Heladera LG", "8412584512541", 40000);
 			almacenGranate.agregarArticulo("Aire acondicionado LG", "8412345678905", 65000);
 			
 			
@@ -53,43 +57,39 @@ public class testPrimerEntrega {
 			almacenGranate.getListaCarrito().get(2).agregarItem(almacenGranate.getListaArticulos().get(1),2);
 			almacenGranate.getListaCarrito().get(2).agregarItem(almacenGranate.getListaArticulos().get(2),3);
 			
-			///////////////////////////////////////////////MODICAMOS CANTIDADES DE ITEMS////////////////////////////////////////////////
-			almacenGranate.getListaCarrito().get(2).eliminarItem(almacenGranate.getListaArticulos().get(0), 1);
-			almacenGranate.getListaCarrito().get(2).eliminarItem(almacenGranate.getListaArticulos().get(1), 1);
-
+			almacenGranate.agregarCarrito(cliente4);
+			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(0),1);
+			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(1),2);
+			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(2),3);
+			
+			
 			
 			////////////////////////////////////////////////CERRAMOS CARRITOS////////////////////////////////////////////////
 			almacenGranate.confirmarCarritoEnvio(almacenGranate.getListaCarrito().get(0), true, null, null, null);
-			almacenGranate.confirmarCarritoEnvio(almacenGranate.getListaCarrito().get(2), true, null, null, null);
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(1), true, LocalDate.of(2020, 9, 1));
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(3), true, LocalDate.of(2020, 9, 1));
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(2), true, LocalDate.of(2020, 9, 1));
 			
-			////////////////////////////////////////////////AGREGO CARRITO A UN MISMO CLIENTE////////////////////////////////////////////////
-			almacenGranate.agregarCarrito(cliente3);
-			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(0),1);
-
-			////////////////////////////////////////////////MOSTRAMOS POR CONSOLA LA LISTA ENTERA DE CARRITOS////////////////////////////////////////////////
-			System.out.println("                                   LISTA DE CARRITOS                                ");
-			//System.out.println(almacenGranate.getListaCarrito());
-			System.out.println(almacenGranate.getListaCarrito().get(0));
-			System.out.println(almacenGranate.getListaCarrito().get(1));
-			System.out.println(almacenGranate.getListaCarrito().get(2));
-			System.out.println("---------------------------------------------------------------------------------------");
-			////////////////////////////////////////////////MOSTRAMOS CARRITO CLIENTE 1 POR TOTAL A PAGAR////////////////////////////////////////////////
-			System.out.println("                                 CARRITO TOTAL A PAGAR                                   ");
-			System.out.println(almacenGranate.getListaCarrito().get(0) + " " + almacenGranate.getListaCarrito().get(0).totalAPagarCarrito() + "\n\n");
-			System.out.println(almacenGranate.getListaCarrito().get(2) + " " + almacenGranate.getListaCarrito().get(0).totalAPagarCarrito() + "\n\n");
-			System.out.println("----------------------------------------------------------------------------------------");
-
-
-			////////////////////////////////////////////////BORRAMOS CARRITO ABIERTO CLIENTE 2////////////////////////////////////////////////
-			almacenGranate.eliminarCarrito(1);
+		
 			
-			////////////////////////////////////////////////VOLVEMOS A MOSTRAR - MUESTRA DOS CARRITOS--> CLIENTE 1/3////////////////////////////////////////////////
+
+			for (Turno turno : almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1))) {
+				System.out.println(turno.toString());
+			}
 			
-			System.out.println("                                   MUESTRA LOS CARRITOS QUE QUEDARON                             ");
-			System.out.println(almacenGranate.getListaCarrito());
-			System.out.println("---------------------------------------------------------------------------------------");
+			for(Turno turno : almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 9, 1))) {
+				System.out.println(turno.toString());
+			}
+			 
+
+			//System.out.println("Turnos libres: "+almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)));
+			//System.out.println("Turnos ocupados: "+almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 9, 1)));
+			System.out.println("-------------------------------------------------------------------------------------------------------");
+			System.out.println("Agenda------------>"+almacenGranate.generarAgenda(LocalDate.of(2020, 9, 1)));
+
+			
 		}catch(Exception e) {
-			System.out.println("Excepcion: "+e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 	}

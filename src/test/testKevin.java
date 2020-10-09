@@ -14,7 +14,7 @@ public class testKevin {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		Ubicacion ubicacion1 = new Ubicacion(150.0,210.00);
+	Ubicacion ubicacion1 = new Ubicacion(150.0,210.00);
 		
 		Contacto contacto1 = new Contacto("kevin@kevin.com","1136592243",ubicacion1);
 		
@@ -37,16 +37,21 @@ public class testKevin {
 			
 			comercio.agregarArticulo("Tv lg 50 pulgadas","8412584512541", 45.000);
 			comercio.agregarArticulo("Heladera LG", "7791234567898", 85.000);
-			System.out.println(comercio);
-			System.out.println(comercio.traerArticulo(1));
-			carrito1.agregarItem(art1, 4);
+			comercio.agregarArticulo("Aire acondicionado LG", "8412345678905", 65000);
+		
+			/////////////////////////CHEQUEADO////////////////////////////////////
+			System.out.println(comercio.getListaArticulos());
+			
+
+			System.out.println("Articulo----------->"+comercio.traerArticulo(3));
+			/*carrito1.agregarItem(art1, 4);
 			carrito1.agregarItem(art2, 1);
 			carrito1.eliminarItem(art1, 2);
 			System.out.println(carrito1);
 			System.out.println("GET ITEM CARRITO--->"+carrito1.getItemCarrito(art2));
 			System.out.println("Calcular total carrito--->"+carrito1.calcularTotalCarrito());
 			System.out.println("CALCULAR DESCUENTO EFECTIVO---->"+carrito1.calcularDescuentoEfectivo(10));
-			System.out.println("CALCULAR DESCUENTO TOTAL---->"+carrito1.totalAPagarCarrito());
+			System.out.println("CALCULAR DESCUENTO TOTAL---->"+carrito1.totalAPagarCarrito());*/
 			
 			
 		}catch(Exception e) {
