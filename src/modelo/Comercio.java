@@ -551,17 +551,20 @@ public class Comercio extends Actor{
 	
 	//CONFIRMAR RETIRO
 	public void confirmarCarritoRetiroLocal(Carrito carrito, boolean esEfectivo, LocalDate fechaEntrega) throws Exception {
+
 		if(carrito.isCerrado() || carrito.getLstItemCarrito().isEmpty() == true) {
 			throw new Exception("El carrito está vacío o ya fue cerrado");
 		}
+
 		
 		List<Turno> turnosLibres = generarTurnosLibres(fechaEntrega);
 		if(turnosLibres.isEmpty()) {
 			throw new Exception("No hay turnos libres en la fecha elegida");
 		}
 		LocalTime horaEntrega = turnosLibres.get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
+		//LocalTime horaEntrega = generarTurnosLibres(fechaEntrega).get(0).getHora(); //selecciono el primer turno libre, y obtengo su horario
+
 		Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
-		
 		carrito.setCerrado(true);
 		carrito.setEntrega(entrega);
 		double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);

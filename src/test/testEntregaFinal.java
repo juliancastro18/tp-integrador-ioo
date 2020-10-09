@@ -3,7 +3,6 @@ package test;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import modelo.Articulo;
 import modelo.Cliente;
 import modelo.Comercio;
 import modelo.Contacto;
@@ -15,11 +14,6 @@ public class testEntregaFinal {
 
 	public static void main(String[] args) {
 		
-		try {
-			Articulo articuloPrueba = new Articulo(0,"Arroz Luchetti","7791234567892",45.00);
-		}catch(Exception e) {
-			System.out.println("Excepcion:"+ e.getMessage());
-		}
 		try {
 			Ubicacion ubicacion0 = new Ubicacion(-34.812231, -58.401095);
 			Contacto contacto0 = new Contacto("almacengrana@gmail.com", "1110001000", ubicacion0);
@@ -81,9 +75,9 @@ public class testEntregaFinal {
 			
 			
 			////////////////////////////////////////////////CONFIRMAMOS CARRITOS///////////////////////////////////////////////
-			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(0), true, LocalDate.of(2020, 9, 5));
-			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(1), false, LocalDate.of(2020, 9, 4));
-			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(2), true, LocalDate.of(2020, 9, 3));
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(0), true, LocalDate.of(2020, 9, 1));
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(1), false, LocalDate.of(2020, 9, 1));
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(2), true, LocalDate.of(2020, 9, 1));
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(3), true, LocalDate.of(2020, 9, 2));
 			
 			////////////////////////////////////////////////AGREGO OTRO CARRITO A UN MISMO CLIENTE Y LO CONFIRMO////////////////////////////////////////////////
@@ -115,8 +109,6 @@ public class testEntregaFinal {
 		}catch(Exception e) {
 			System.out.println("Excepcion:"+ e.getMessage());
 		}
-		
-		
 		
 	}
 

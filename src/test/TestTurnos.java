@@ -18,7 +18,6 @@ public class TestTurnos {
 			//UBICACION Y CONTACTO DEL ALMACEN
 			Ubicacion ubicacion0 = new Ubicacion(100, 100);
 			Contacto contacto0 = new Contacto("almacengrana@gmail.com", "1110001000", ubicacion0);
-
 			
 			
 			////////////////////////////////////////////////UBICACION Y CONTACTO DE LOS CLIENTES////////////////////////////////////////////////
@@ -80,6 +79,8 @@ public class TestTurnos {
 			for(Turno turno : almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 9, 1))) {
 				System.out.println(turno.toString());
 			}
+			
+			System.out.println(almacenGranate.getListaCarrito());
 			 
 
 			//System.out.println("Turnos libres: "+almacenGranate.generarTurnosLibres(LocalDate.of(2020, 9, 1)));

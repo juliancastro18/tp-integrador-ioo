@@ -80,8 +80,8 @@ public class Articulo {
 	
 	@Override
 	public String toString() {
-		return "Producto---> id=" + idArticulo + ", nombre=" + nombre + ", codBarras=" + codBarras + ", precio="
-				+ precio;
+		return "Producto---> id: " + getIdArticulo() + ", Articulo: " + getNombre() + ", codBarras: " + getCodBarras() + ", precio: "
+				+ getPrecio()+"\n";
 	}
 
 	

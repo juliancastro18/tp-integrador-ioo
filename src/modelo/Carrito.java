@@ -119,9 +119,9 @@ public class Carrito{
 		
 		if(cerrado) {
 			str += "\nDescuento: $" + this.descuento + "\nTotal a pagar: $" + this.totalAPagarCarrito();
-			str += "\n\n" + this.entrega.toString()+"\n";
+			str += "\n\n" + this.entrega.toString()+"\n------------------------------------------------\n";
 		}else {
-			str += "\n<Entrega sin definir>\n";
+			str += "\n<Entrega sin definir>\n------------------------------------------------\n";
 		}
 		
 		return str;
