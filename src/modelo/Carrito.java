@@ -30,16 +30,10 @@ public class Carrito{
 	}
 	
 	
-	//------------------------constructor para pruebas----------------------
-	public Carrito(Entrega entrega)
-	{
-		setEntrega(entrega);
-	}	
 	public Carrito() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 	
 	public int getIdCarrito() {
@@ -125,7 +119,7 @@ public class Carrito{
 		
 		if(cerrado) {
 			str += "\nDescuento: $" + this.descuento + "\nTotal a pagar: $" + this.totalAPagarCarrito();
-			str += "\n\n" + this.entrega.toString();
+			str += "\n\n" + this.entrega.toString()+"\n";
 		}else {
 			str += "\n<Entrega sin definir>\n";
 		}
@@ -198,6 +192,7 @@ public class Carrito{
 	
 	public double calcularDescuentoDia(int diaDescuento, double porcentajeDescuento) {
 		double descuento = 0;
+		
 		if(this.cerrado==true) {
 			if(diaDescuento==LocalDate.now().getDayOfMonth()) {
 				for(ItemCarrito item : this.lstItemCarrito) {
@@ -205,11 +200,18 @@ public class Carrito{
 				}
 			}
 		}
+		
 		return descuento;
 	}
 	
 	public double calcularDescuentoEfectivo(double porcentajeDescuentoEfectivo) {
-		return ( calcularTotalCarrito() * porcentajeDescuentoEfectivo /100 );
+		double descuento = 0;
+		
+		if(this.entrega.isEfectivo()) {
+			descuento = (calcularTotalCarrito() * porcentajeDescuentoEfectivo /100);
+		}
+		
+		return descuento;
 	}
 	
 	public double calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento, double porcentajeDescuentoEfectivo) {

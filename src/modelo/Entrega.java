@@ -13,7 +13,6 @@ public abstract class Entrega {
 		setFecha(fecha);
 		setEfectivo(efectivo);
 	}
-	
 
 	public int getId() {
 		return id;

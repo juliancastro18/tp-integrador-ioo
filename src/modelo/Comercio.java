@@ -38,30 +38,6 @@ public class Comercio extends Actor{
 	}
 
 
-	// constructor para realizar test
-	public Comercio(int id, Contacto contacto, long cuit, List<Carrito> listaDeCarritos, List<DiaRetiro> listaDeRetiros) throws Exception {
-		super(id, contacto);
-		setCUIT(cuit);
-		setListaCarrito(listaDeCarritos);
-		setListaDiaRetiro(listaDeRetiros);
-	}
-
-	public Comercio(int id, Contacto contacto, long cuit) throws Exception {
-		super(id, contacto);
-		setCUIT(cuit); 
-		setListaDiaRetiro(new ArrayList<DiaRetiro>());
-		setListaCarrito(new ArrayList<Carrito>());
-	}
-
-	// Constructor para test de carrito, y articulos
-	public Comercio(int id, Contacto contacto, String nombreComercio, List<Articulo> listaArticulos,
-			List<Carrito> listaDeCarritos) throws Exception {
-		super(id, contacto);
-		setListaArticulos(listaArticulos);
-		setListaCarrito(listaDeCarritos);
-		setNombreComercio(nombreComercio);
-	}
-
 	// ----------------------------- GETTERS Y SETTERS -----------------------------
 
 	public String getNombreComercio() {
@@ -567,9 +543,9 @@ public class Comercio extends Actor{
 		Entrega entrega = new Envio(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaDesde, horaHasta, origen, destino, getCostoFijo(), getCostoPorKm());
 		
 		carrito.setCerrado(true);
+		carrito.setEntrega(entrega);
 		double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
 		carrito.setDescuento(descuento);
-		carrito.setEntrega(entrega);
 			
 	}
 	
@@ -587,9 +563,9 @@ public class Comercio extends Actor{
 		Entrega entrega = new RetiroLocal(carrito.getIdCarrito(), fechaEntrega, esEfectivo, horaEntrega);
 		
 		carrito.setCerrado(true);
+		carrito.setEntrega(entrega);
 		double descuento = carrito.calcularDescuentoCarrito(diaDescuento, porcentajeDescuentoDia, porcentajeDescuentoEfectivo);
 		carrito.setDescuento(descuento);
-		carrito.setEntrega(entrega);
 			
 	}
 	

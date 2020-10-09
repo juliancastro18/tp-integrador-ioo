@@ -88,7 +88,6 @@ public class testPrimerEntrega {
 			System.out.println("                                   MUESTRA LOS CARRITOS QUE QUEDARON                             ");
 			System.out.println(almacenGranate.getListaCarrito());
 			System.out.println("---------------------------------------------------------------------------------------");
-		
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+e.getMessage());
 		}
