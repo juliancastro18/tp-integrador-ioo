@@ -36,7 +36,7 @@ public class testPrimerEntrega {
 		almacenGranate.confirmarCarritoEnvio(almacenGranate.getListaCarrito().get(0), true, null, null, null);
 		
 		//MOSTRAMOS POR CONSOLA
-		System.out.println( almacenGranate.getListaCarrito().get(0) + " " + almacenGranate.getListaCarrito().get(0).totalAPagarCarrito() + "\n\n");
+		System.out.println( almacenGranate.getListaCarrito().get(0) + "\n\n");
 		
 		//INTENTAMOS ELIMINAR CARRITO CERRADO
 		almacenGranate.eliminarCarrito(0);
