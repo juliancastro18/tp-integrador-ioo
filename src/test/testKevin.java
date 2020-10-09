@@ -14,7 +14,7 @@ public class testKevin {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		Ubicacion ubicacion1 = new Ubicacion(150.0,210.00);
+	Ubicacion ubicacion1 = new Ubicacion(150.0,210.00);
 		
 		Contacto contacto1 = new Contacto("kevin@kevin.com","1136592243",ubicacion1);
 		
@@ -43,7 +43,7 @@ public class testKevin {
 			System.out.println(comercio.getListaArticulos());
 			
 
-			System.out.println("Articulo----------->"+comercio.traerArticulo(0));
+			System.out.println("Articulo----------->"+comercio.traerArticulo(3));
 			/*carrito1.agregarItem(art1, 4);
 			carrito1.agregarItem(art2, 1);
 			carrito1.eliminarItem(art1, 2);

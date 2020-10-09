@@ -302,21 +302,21 @@ public class Comercio extends Actor{
 		turnosLibres = generarTurnosLibres(fecha);
 		turnosOcupados = generarTurnosOcupados(fecha);
 
-		for (int i = 0; i < turnosLibres.size(); i++) { //recorre turnos libres por fecha
+		for (int i = 0; i < turnosLibres.size(); i++) { //llama al metodo, crea los turnos libres por fecha y los agrega a la lista AGENDA
 			agenda.add(turnosLibres.get(i));
 		}
 		if(!turnosOcupados.isEmpty()) {
-			for(int i = 0;i<turnosOcupados.size();i++) {
+			for(int i = 0;i<turnosOcupados.size();i++) {//llama al metodo, crea los turnos ocupados por fecha y los agrega a la agenda
 				agenda.add(turnosOcupados.get(i));
 			}
 		}
 		
 		Turno auxDePosEnJ;
 
-		
+		// ordenamos la agenda por hora con metodo burbuja
 		for(int i=0;i<agenda.size();i++) {
 			for(int j=0;j<agenda.size()-1;j++) {
-				if(agenda.get(j+1).getHora().isBefore(agenda.get(j).getHora())){
+				if(agenda.get(j+1).getHora().isBefore(agenda.get(j).getHora())){//comprobamos si la hora en J es mayor o no que la hora en J+1
 					auxDePosEnJ = new Turno(agenda.get(j).getDia(),agenda.get(j).getHora(),agenda.get(j).isOcupado());
 					agenda.set(j,agenda.get(j+1));
 					agenda.set(j+1, auxDePosEnJ);
@@ -338,18 +338,18 @@ public class Comercio extends Actor{
 		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
 		RetiroLocal retiroAux;												
 		
-		if ( ! (obtenerCarritosRetiroLocal(fecha) == null)) {							
+		if ( ! (obtenerCarritosRetiroLocal(fecha) == null)) {			//comprobamos que haya carritos, si los hay...	
 			
 			for(Carrito carrito : obtenerCarritosRetiroLocal(fecha))
 			{
-				retiroAux = (RetiroLocal) carrito.getEntrega();
-				listaTurnosOcupados.add(new Turno(fecha, retiroAux.getHoraEntrega(), true));
+				retiroAux = (RetiroLocal) carrito.getEntrega();				// guardamos la entrega
+				listaTurnosOcupados.add(new Turno(fecha, retiroAux.getHoraEntrega(), true));	// creamos el turno
 			}
 			
 		}
 		
 		else {
-			throw new Exception("No hay turnos ocupados para la fecha seleccionada...\n");
+			throw new Exception("No hay turnos ocupados para la fecha seleccionada...\n");	// Si no hay carritos....
 		}
 		
 		return listaTurnosOcupados;	
@@ -440,15 +440,15 @@ public class Comercio extends Actor{
 		int vueltas = 0;
 
 		
-		if(listaArticulos.size()>0) {
-			while (articuloExiste == false && finLista == false) {
+		if(listaArticulos.size()>0) {	
+			while (articuloExiste == false && finLista == false) {	//mientras no se haya recorrido toda la lista.. y no se haya encontrado el articulo...
 				Articulo art = listaArticulos.get(vueltas);
-				if (art.equals(articuloNombre)) {
-					articuloExiste = true;
+				if (art.equals(articuloNombre)) {					//comprobamos si el articulo existe..
+					articuloExiste = true;							
 				}
-				vueltas++;
+				vueltas++;											// le sumamos uno antes de terminar el while porque sino en la creacion del primer articulo se rompe
 				
-				if (vueltas == listaArticulos.size()) {
+				if (vueltas == listaArticulos.size()) {				// comprobamos si es el final de la lista en la proxima vuelta
 					finLista = true;
 				}
 				
@@ -459,10 +459,10 @@ public class Comercio extends Actor{
 		if(articuloExiste == true)throw new Exception( "El articulos ya existe");
 		
 		
-		if(articuloExiste == false) {
+		if(articuloExiste == false) {						// si se salio del while y no se encontro el articulo, se crea....
 			id=this.getNuevoIdArticulo();
 			Articulo articulo = new Articulo(id,articuloNombre,codBarras,precio);
-			listaArticulos.add(articulo);
+			listaArticulos.add(articulo);					// agregamos el articulo a la lista
 			addArticulo=true;
 			
 		}
@@ -479,24 +479,23 @@ public class Comercio extends Actor{
 		boolean found = false;
 		boolean finLista = false;
 		int vueltas = 0;
-		Articulo art = null;
-
-		// Si no se encontro y no se llego al fin de la lista ....
-		while (found == false && finLista == false) {
+		Articulo art = null;	
+		
+		while (found == false && finLista == false) {			// Si no se encontro y no se llego al fin de la lista ....
 			Articulo p = listaArticulos.get(vueltas);
-			if (p.equals(idArticulo)) {
+			if (p.equals(idArticulo)) {							// si el articulo se encuentra...
 				art = p;
 				found = true;
 			}
 			vueltas++;
-			// comprobamos si se termino la lista
-			if (vueltas == listaArticulos.size()) {
+			
+			if (vueltas == listaArticulos.size()) {				// comprobamos si se termino la lista
 				finLista = true;
 			}
 			
-			if(finLista && found==false)throw new Exception("El articulo no existe");
-
 		}
+		if(finLista && found==false)throw new Exception("El articulo no existe");
+		
 		return art;
 	}
 	
