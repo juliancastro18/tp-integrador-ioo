@@ -39,33 +39,45 @@ public class testFinalDefinitivo {
 			contacto2 = new Contacto("kevin@gmail.com", "2222222222", ubicacionCliente);
 			contacto3 = new Contacto("Juli@gmail.com","3333333333",ubicacionCliente);
 			contacto4 = new Contacto("Gian@gmail.com","4444444444",ubicacionCliente);
+			
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		////////////////////////////////////////////////////////////////////CREAMOS EL COMERCIO////////////////////////////////////////////////////////////////////
+		
 		try {
 			almacenGranate = new Comercio(0, contactoComercio, "Almacen Granate", 30548083156l, 200,100 , 1, 50, 10);
 			System.out.println(almacenGranate);
+			
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		////////////////////////////////////////////////////////////////////AGREGAMOS DIAS DE RETIRO////////////////////////////////////////////////////////////////////
+		
 		try {
 			almacenGranate.agregarDiaRetiro(1, LocalTime.of(10, 0), LocalTime.of(18, 0), 60);
 			almacenGranate.agregarDiaRetiro(2, LocalTime.of(10, 0), LocalTime.of(18, 0), 30);
+			
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		////////////////////////////////////////////////////////////////////CREAMOS CLIENTES////////////////////////////////////////////////////////////////////
+		
 		try {
 			cliente1 = new Cliente(contacto1, "Blanco", "Juan", 33457215, 'm');
 			cliente2 = new Cliente(contacto2,"Canepa","Kevin",38826035,'m');
 			cliente3 = new Cliente(contacto3,"Castro","Julian",10101010,'m');
 			cliente4 = new Cliente(contacto4,"Cambareri","Gianluca",01010101,'m');
+			
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		//////////////////////////////////////////////////////////////////AGREGAMOS ARTICULOS////////////////////////////////////////////////////////////////////
+		
 		try {
 			almacenGranate.agregarArticulo("Televisor LG 50 PULGADAS", "8412584512541", 35000);
 			almacenGranate.agregarArticulo("Heladera LG", "7791234567898", 40000);
@@ -74,18 +86,22 @@ public class testFinalDefinitivo {
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		//////////////////////////////////////////////////////////////////CREAMOS CARRITOS////////////////////////////////////////////////////////////////////
+		
 		try {
 			almacenGranate.agregarCarrito(cliente1);
 			almacenGranate.agregarCarrito(cliente2);
 			almacenGranate.agregarCarrito(cliente3);
 			almacenGranate.agregarCarrito(cliente4);
 
-
+			
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		//////////////////////////////////////////////////////////////////CARGAMOS CARRITOS////////////////////////////////////////////////////////////////////
+		
 		try {
 			
 			//CLIENTE 1
@@ -102,14 +118,13 @@ public class testFinalDefinitivo {
 			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(0),1);
 			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(1),2);
 			almacenGranate.getListaCarrito().get(3).agregarItem(almacenGranate.getListaArticulos().get(2),3);
-			
-
-
-			
+					
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		//////////////////////////////////////////////////////////////////MODIFICAMOS CARRITO 3////////////////////////////////////////////////////////////////////
+		
 		try {
 			almacenGranate.getListaCarrito().get(3).eliminarItem(almacenGranate.getListaArticulos().get(0), 1);
 			almacenGranate.getListaCarrito().get(3).eliminarItem(almacenGranate.getListaArticulos().get(1), 1);
@@ -119,7 +134,9 @@ public class testFinalDefinitivo {
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		//////////////////////////////////////////////////////////////////CONFIRMAMOS CARRITOS//////////////////////////////////////////////////////////////////
+		
 		try {
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(0), true, LocalDate.of(2020, 10, 1));
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(1), true, LocalDate.of(2020, 10, 1));
@@ -129,10 +146,13 @@ public class testFinalDefinitivo {
 			for(Carrito carritoCompras : almacenGranate.getListaCarrito()) {
 				almacenGranate.mostrarCarrito(carritoCompras.getIdCarrito());
 			}
+			
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
 		//////////////////////////////////////////////////////////////////MOSTRAMOS AGENDA Y TURNOS//////////////////////////////////////////////////////////////////
+		
 		try {
 			System.out.println("------------------------------------------------AGENDA------------------------------------------------");
 			System.out.println(almacenGranate.generarAgenda(LocalDate.of(2020, 10, 1)));
@@ -145,9 +165,10 @@ public class testFinalDefinitivo {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
 		
+		//////////////////////////////////////////////////////////////////REPETIMOS CLIENTE CON NUEVO CARRITO DISTINTO DIA//////////////////////////////////////////
 		
 		try {
-			//////////////////////////////////////////////////////////////////REPETIMOS CLIENTE CON NUEVO CARRITO DISTINTO DIA//////////////////////////////////////////////////////////////////
+			
 			almacenGranate.agregarCarrito(cliente4);
 			almacenGranate.getListaCarrito().get(4).agregarItem(almacenGranate.getListaArticulos().get(0),5);
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(4), true, LocalDate.of(2020, 10, 2));
