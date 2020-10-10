@@ -277,7 +277,7 @@ public class Comercio extends Actor{
 		List<Turno> turnosOcupados = new ArrayList<Turno>();
 		turnosLibres = generarTurnosLibres(fecha);
 		turnosOcupados = generarTurnosOcupados(fecha);
-
+		
 		for (int i = 0; i < turnosLibres.size(); i++) { //llama al metodo, crea los turnos libres por fecha y los agrega a la lista AGENDA
 			agenda.add(turnosLibres.get(i));
 		}

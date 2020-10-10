@@ -134,11 +134,10 @@ public class testFinalDefinitivo {
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
-		
-		//////////////////////////////////////////////////////////////////CONFIRMAMOS CARRITOS//////////////////////////////////////////////////////////////////
-		
+
+		//////////////////////////////////////////////////////////////////CONFIRMAMOS CARRITOS Y CERRAMOS//////////////////////////////////////////////////////////////////
 		try {
-			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(0), true, LocalDate.of(2020, 10, 1));
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(0), false, LocalDate.of(2020, 10, 1));
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(1), true, LocalDate.of(2020, 10, 1));
 			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(2), true, LocalDate.of(2020, 10, 1));
 			almacenGranate.confirmarCarritoEnvio(almacenGranate.getListaCarrito().get(3), true, LocalDate.of(2020, 10, 5), LocalTime.of(10, 0), LocalTime.of(17, 0));
@@ -185,7 +184,76 @@ public class testFinalDefinitivo {
 		}catch(Exception e) {
 			System.out.println("Excepcion: "+ e.getMessage());
 		}
+		
+		//////////////////////////////////////////////////////////////////EXCEPCIONES//////////////////////////////////////////////////////////////////
+		
+		
+		//////////////////////////////////////////////////////////////////FALLO CUIL//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate = new Comercio(0, contactoComercio, "Almacen Granate", 1111120388260352l, 200,100 , 1, 50, 10);
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		//////////////////////////////////////////////////////////////////FALLO DNI//////////////////////////////////////////////////////////////////
+		try {
+			cliente4 = new Cliente(contacto4,"Cambareri","Gianluca",1234567891,'m');
+			
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		//////////////////////////////////////////////////////////////////FALLO EL CODIGO DE BARRAS//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.agregarArticulo("Playstation 4", "8412584522549", 75.000);
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
 
+		//////////////////////////////////////////////////////////////////ARTICULO NO EXISTE//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.traerArticulo(10);
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		//////////////////////////////////////////////////////////////////ARTICULO REPETIDO//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.agregarArticulo("Televisor LG 50 PULGADAS", "8412584512541", 35000);
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		//////////////////////////////////////////////////////////////////SE INTENTA BORRAR ARTICULO QUE NO EXISTE//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.eliminarArticulo(10);
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+	/////////////////////////////////////////////////////////////////SE INTENTA BORRAR ARTICULO QUE EXISTE EN UN CARRITO//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.eliminarArticulo(1);
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		//////////////////////////////////////////////////////////////////SE QUIERE AGREGAR CARRITO CUANDO YA HAY UNO ABIERTO//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.agregarCarrito(cliente4);
+			almacenGranate.agregarCarrito(cliente4);
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		//////////////////////////////////////////////////////////////////BORRAR ARTICULO QUE YA FUE CERRADO//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.eliminarCarrito(0);
+
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		//////////////////////////////////////////////////////////////////NO HAY TURNOS OCUPADOS//////////////////////////////////////////////////////////////////
+		try {
+			almacenGranate.generarTurnosOcupados((LocalDate.of(2020, 10, 30)));
+		}catch(Exception e) {
+			System.out.println("Excepcion: "+ e.getMessage());
+		}
+		
+		
 	}
 
 }
