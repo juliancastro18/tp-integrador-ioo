@@ -167,10 +167,10 @@ public class testFinalDefinitivo {
 		//////////////////////////////////////////////////////////////////REPETIMOS CLIENTE CON NUEVO CARRITO DISTINTO DIA//////////////////////////////////////////
 		
 		try {
-			
+			System.out.println("------------------------------------------------");
 			almacenGranate.agregarCarrito(cliente4);
 			almacenGranate.getListaCarrito().get(4).agregarItem(almacenGranate.getListaArticulos().get(0),5);
-			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(4), true, LocalDate.of(2020, 10, 2));
+			almacenGranate.confirmarCarritoRetiroLocal(almacenGranate.getListaCarrito().get(4), false, LocalDate.of(2020, 10, 2));
 			almacenGranate.mostrarCarrito(almacenGranate.getListaCarrito().get(4).getIdCarrito());
 			
 			System.out.println("------------------------------------------------AGENDA------------------------------------------------");
@@ -179,6 +179,7 @@ public class testFinalDefinitivo {
 			System.out.println(almacenGranate.generarTurnosLibres(LocalDate.of(2020, 10, 2)));
 			System.out.println("------------------------------------------------TURNOS OCUPADOS------------------------------------------------");
 			System.out.println(almacenGranate.generarTurnosOcupados(LocalDate.of(2020, 10, 2)));
+			
 
 			
 		}catch(Exception e) {

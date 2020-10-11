@@ -46,8 +46,6 @@ public class Articulo {
 	public void setCodBarras(String codBarras)throws Exception {
 		if (validarCodBarras(codBarras)) {						
 			this.codBarras = codBarras;
-		} else {
-			this.codBarras = null;
 		}
 	}
 
@@ -96,39 +94,26 @@ public class Articulo {
 		int j = 0;
 		int k = 0;
 		int numero = 0;
-		
 		char[] codBarrasDescompuesto = codBarras.toCharArray();									// Descomponemos el codigo de barras en char
-		if(codBarrasDescompuesto.length!=13)  throw new Exception("El codigo ("+codBarras+") es invalido (Faltan digitos)");
-		for (int i = 0; i < codBarrasDescompuesto.length-1; i++) {	// 
-			
+		if(codBarrasDescompuesto.length!=13)  throw new Exception("El codigo ("+codBarras+") es invalido (Exceso o falta de digitos)");
+		for (int i = 0; i < codBarrasDescompuesto.length-1; i++) {	 
 			if ((i % 2 )== 0 && j<6) {															//Comprobamos si la posicion es par y si es el vector tiene espacios...								
 					numero = Integer.valueOf(String.valueOf(codBarrasDescompuesto[i]));			//Convertimos el dato en entero para poder guardarlo y trabajarlo
 					numPosicionesPares[j] = numero;					
 					sumaPar += numPosicionesPares[j];											//PASO 1 A medida que se agregan los numeros al vector vamos haciendo la respectiva suma
 					j++; 
-					
-
 			} else {																			//Si la posicion no es par, hacemos lo mismo que en el bloque IF pero con los numeros en pos impar
 				numero = Integer.valueOf(String.valueOf(codBarrasDescompuesto[i]));			
 				numPosicionesImpares[k] = numero;
-
 				sumaImpar += numPosicionesImpares[k];											//PASO 2  A medida que se agregan los numeros al vector vamos haciendo la respectiva suma
 				k++;
 			}
-			
 		}
-
 		int multiSumaImpar = sumaImpar * 3;														//PASO 3	Multiplicamos por 3 la suma de los numeros en posicion impar
-
 		int sumaParMasMulti = (sumaPar + multiSumaImpar);										//PASO 4	Al resultado del paso 3 le agregamos LA SUMA de los numeros en posicion impar..							
-		
-		
 		int sumaParMasMultiRedondeado = ((sumaParMasMulti/10)*10+10);							//PASO  5	Al resultado del paso 4 lo redondeamos a la primer decena mayor... si el da 95 rredondeamos 100
-		
 		int digitoDeControl = sumaParMasMultiRedondeado - sumaParMasMulti;						//PASO 6 	Al resultado del paso 5 le restamos el resultado del paso 4 y obtenemos el digito de control
-		
-		
-		
+
 		if (Integer.valueOf(String.valueOf(codBarrasDescompuesto[12])) == digitoDeControl) {	// COMPROBAMOS QUE EL N° OBTENIDO DEL PASO 6 sea igual al ultimo numero del codigo de barras que se intenta ingresar
 			codigoValidado = true;																
 		}else {
