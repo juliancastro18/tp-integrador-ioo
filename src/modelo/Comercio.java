@@ -57,7 +57,7 @@ public class Comercio extends Actor{
 			CUIT = cuit;
 		
 		else
-			throw new Exception("\nError al validar CUIT. Por favor intente nuevamente...\n");
+			throw new Exception("Error al validar CUIT. Por favor intente nuevamente...");
 	}
 
 	public double getCostoFijo() {
@@ -325,7 +325,7 @@ public class Comercio extends Actor{
 		}
 		
 		else {
-			throw new Exception("No hay turnos ocupados para la fecha seleccionada...\n");	// Si no hay carritos....
+			throw new Exception("No hay turnos ocupados para la fecha seleccionada...");	// Si no hay carritos....
 		}
 		
 		return listaTurnosOcupados;	
@@ -342,7 +342,7 @@ public class Comercio extends Actor{
 	  la hora segun el intervalo especificado en DiaRetiro para preguntar si el
 	  siguiente turno esta ocupado.
 	  */
-	public List<Turno> generarTurnosLibres(LocalDate fecha) {
+	public List<Turno> generarTurnosLibres(LocalDate fecha) throws Exception{
 
 		List<Turno> listaTurnos = new ArrayList<Turno>();  				//crea una lista de turnos que sera retornada
 		LocalTime horadesde = obtenerDiaRetiro(fecha).getHoraDesde();	//obtiene la hora desde del dia de retiro especificado 
@@ -385,6 +385,9 @@ public class Comercio extends Actor{
 					horadesde = horadesde.plusMinutes(intervalo);					//la hora desde incrementa segun el intervalo
 				}	
 			}
+		
+		if(listaTurnos.isEmpty())
+			throw new Exception("No hay turnos libres para la fecha indicada...");
 
 		return listaTurnos;														//devuelve la lista de turnos libres
 	}
@@ -399,7 +402,7 @@ public class Comercio extends Actor{
 		}
 		
 		else 
-			throw new Exception("\nEl dia de retiro ya existe\n");
+			throw new Exception("El dia de retiro ya existe\n");
 			
 		return true;
 	}
