@@ -127,7 +127,7 @@ public class Carrito{
 		return str;
 	}
 
-	// ----------------------------- ADMINISTRAR ITEMCARRITOS -----------------------------
+	// ----------------------------- ADMINISTRAR ITEM-CARRITOS -----------------------------
 	
 	public void agregarItem(Articulo art, int cantidad) throws Exception {
 		
@@ -179,24 +179,25 @@ public class Carrito{
 	}
 	
 	
-	//---------------------------------------------------------------------------
+	// ----------------------------- CALCULOS CARRITOS -----------------------------
 	
-	
+	//Calcula el total del carrito sin descuentos aplicados
 	public double calcularTotalCarrito() {
 		double total = 0;
 		for (ItemCarrito item : this.lstItemCarrito) {
-			total += (item.getArticulo().getPrecio() * item.getCantidad());
+			total += item.calcularSubTotalItem(); //Calcula el monto por item y lo suma al total
 		}
 		return total;
 	}
 	
+	//Calcula el descuento del total del carrito en base al dia
 	public double calcularDescuentoDia(int diaDescuento, double porcentajeDescuento) {
 		double descuento = 0;
 		
-		if(this.cerrado==true) {
-			if(diaDescuento==LocalDate.now().getDayOfMonth()) {
+		if(this.cerrado==true) { //Si el carrito esta cerrado
+			if(diaDescuento==LocalDate.now().getDayOfMonth()) { //y coincide el dia de la compra con el dia de promociones
 				for(ItemCarrito item : this.lstItemCarrito) {
-					descuento += ((item.getCantidad()/2) * item.getArticulo().getPrecio() * porcentajeDescuento / 100);
+					descuento += ((item.getCantidad()/2) * item.getArticulo().getPrecio() * porcentajeDescuento / 100); //Aplica la promo(% de descuento a la segunda unidad) y lo va sumando
 				}
 			}
 		}
@@ -204,6 +205,7 @@ public class Carrito{
 		return descuento;
 	}
 	
+	//Calcula el descuento del total del carrito si es efectivo
 	public double calcularDescuentoEfectivo(double porcentajeDescuentoEfectivo) {
 		double descuento = 0;
 		
@@ -214,6 +216,7 @@ public class Carrito{
 		return descuento;
 	}
 	
+	//Devuelve el descuento mayor de los dos posibles
 	public double calcularDescuentoCarrito(int diaDescuento, double porcentajeDescuento, double porcentajeDescuentoEfectivo) {
 		double descuento = 0;
 		if(this.cerrado==true) {
@@ -228,6 +231,7 @@ public class Carrito{
 		return descuento;
 	}
 	
+	//Devuelve el total del carrito con el descuento aplicado
 	public double totalAPagarCarrito() {
 		return ( calcularTotalCarrito() - this.descuento );
 	}

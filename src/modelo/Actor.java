@@ -9,13 +9,13 @@ public abstract class Actor {
 	
 	//-------------------------CONSTRUCTOR-------------------------
 	
-	public Actor(int id, Contacto contacto) {
+	public Actor(int id, Contacto contacto) { //Constructor asignando id, solo se usa para comercio
 		super();
 		this.id = id;
 		this.contacto = contacto;
 	}
 	
-	public Actor(Contacto contacto) {
+	public Actor(Contacto contacto) { //Constructor para asignar id autoincremental, se usa con cliente
 		super();
 		this.id = -1;
 		this.contacto = contacto;
@@ -45,14 +45,6 @@ public abstract class Actor {
 		return "idActor= " + id + contacto;
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((contacto == null) ? 0 : contacto.hashCode());
-		result = prime * result + id;
-		return result;
-	}
 	
 	public boolean equals(Actor a) {
 		boolean equals=false;

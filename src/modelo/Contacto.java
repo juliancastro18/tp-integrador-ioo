@@ -39,7 +39,7 @@ public class Contacto {
 	}
 	
 	public void setCelular(String celular) throws Exception {
-		if(celular.length()<=8) {
+		if(celular.length()<10) {
 			throw new Exception("Celular inválido");
 		}
 		this.celular = celular;
@@ -57,16 +57,6 @@ public class Contacto {
 	@Override
 	public String toString() {
 		return " - Email: " + email + " - Celular: " + celular + ubicacion;
-	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((ubicacion == null) ? 0 : ubicacion.hashCode());
-		return result;
 	}
 	
 	public boolean equals(Contacto a) {
