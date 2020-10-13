@@ -223,7 +223,7 @@ public class Comercio extends Actor{
 	}
 
 	
-	//OBTIENE LISTA DE CARRITOS POR FECHA
+	//OBTIENE LISTA DE CARRITOS CONFIRMADOS CON RETIRO EN EL LOCAL SEGUN FECHAS
 	public List<Carrito> obtenerCarritosRetiroLocal(LocalDate fecha) {
 		List<Carrito> listaCarritos = new ArrayList<Carrito>();
 		
@@ -304,11 +304,6 @@ public class Comercio extends Actor{
 	}
 
 	//OBTIENE LISTA DE TURNOS OCUPADOS
-	
-	/*
-	 *  REUTILIZAR METODO OBTENER CARRITOS POR FECHA
-	 * 
-	 */
 	public List<Turno> generarTurnosOcupados(LocalDate fecha) throws Exception {
 		List<Turno> listaTurnosOcupados = new ArrayList<Turno>();
 		RetiroLocal retiroAux;												
